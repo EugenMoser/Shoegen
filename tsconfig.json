@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+
     "plugins": [
       {
         "name": "next"
@@ -22,7 +23,8 @@
       "@/*": ["./*"],
       "@/modules/*": ["./modules/*"],
       "@/components/*": ["./components/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/utils/*": ["./utils/*"],
+      "@/prisma/*": ["./prisma/*"]
     }
   },
   "include": [

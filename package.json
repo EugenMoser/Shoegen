@@ -2,6 +2,7 @@
   "name": "shoegen",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prisma/client": "~6.19.2",
+    "dotenv": "^17.2.3",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -20,7 +23,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "prisma": "6.19",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

@@ -24,7 +24,8 @@
       "@/modules/*": ["./modules/*"],
       "@/components/*": ["./components/*"],
       "@/utils/*": ["./utils/*"],
-      "@/prisma/*": ["./prisma/*"]
+      "@/prisma/*": ["./prisma/*"],
+      "@/auth/*": ["./modules/auth/auth.ts"]
     }
   },
   "include": [

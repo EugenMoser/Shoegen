@@ -6,7 +6,6 @@ import Credentials from 'next-auth/providers/credentials';
 
 import { prisma } from '@/lib/db/prisma';
 import type { Role } from '@/modules/auth/types';
-import { Admin } from '@/prisma/generated/client';
 
 export const { auth, signIn, signOut } = NextAuth({
   session: {

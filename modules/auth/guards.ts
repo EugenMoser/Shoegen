@@ -1,16 +1,8 @@
 // Guard for requiring specific permissions, later we use middleware for this
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-import { Role } from "@/modules/auth/types";
-
-export function hasPermission(
-  role: Role | undefined,
-  permission: Permissions,
-): boolean {
-  if (!role) return false;
-
-  return true;
-}
+import { hasPermission } from '@/modules/auth/permissions';
+import { Role } from '@/modules/auth/types';
 
 export function requirePermission(
   role: Role | undefined,

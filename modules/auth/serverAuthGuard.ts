@@ -5,7 +5,7 @@
 import { hasPermission } from '@/modules/auth/permissions';
 import type { Permission } from '@/modules/auth/types';
 
-import { auth } from './auth';
+import { auth } from '../../auth';
 
 type GuardOptions = {
   permission?: Permission;

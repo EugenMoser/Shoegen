@@ -2,7 +2,7 @@
 
 import { AuthError } from 'next-auth';
 
-import { signIn } from '@/auth/auth';
+import { signIn } from '@/auth';
 
 type LoginState = {
   error?: string;

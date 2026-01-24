@@ -7,8 +7,12 @@ export async function Navbar() {
   return (
     <nav>
       {session?.user ? (
-        <form action={logout}>
-          <span>{session.user.email}</span>
+        <form
+          action={logout}
+          className="flex gap-6"
+        >
+          <p>Willkommen</p>
+          <span className="font-bold"> {session.user.email}</span>
           <button type="submit">Logout</button>
         </form>
       ) : (

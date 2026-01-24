@@ -2,10 +2,11 @@
 //  serverAuthGuard(); // Login only
 //  serverAuthGuard({ permission: "order:update" }); // Login + permission check
 
+import { redirect } from 'next/navigation';
+
+import { auth } from '@/auth';
 import { hasPermission } from '@/modules/auth/permissions';
 import type { Permission } from '@/modules/auth/types';
-
-import { auth } from '../../auth';
 
 type GuardOptions = {
   permission?: Permission;
@@ -14,17 +15,15 @@ type GuardOptions = {
 export async function serverAuthGuard(options?: GuardOptions) {
   const session = await auth();
 
-  // Check if user is authenticated
   if (!session?.user) {
-    throw new Error("UNAUTHORIZED");
+    redirect("/login");
   }
 
   if (options?.permission) {
-    // Check if user has the required permission / authorization
     const allowed = hasPermission(session.user.role, options.permission);
 
     if (!allowed) {
-      throw new Error("FORBIDDEN");
+      redirect("/unauthorized");
     }
   }
 

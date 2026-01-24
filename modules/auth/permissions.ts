@@ -39,6 +39,12 @@ export function hasPermission(
   permission: Permissions,
 ): boolean {
   if (!role) return false;
+  if (!permission) return false;
 
-  return true;
+  console.log(
+    "----->>>>> permission",
+    rolePermissions[role].includes(permission.toString()),
+  );
+
+  return rolePermissions[role].includes(permission.toString());
 }

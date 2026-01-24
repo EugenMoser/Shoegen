@@ -1,29 +1,13 @@
 "use client";
 
-import {
-  useActionState,
-  useEffect,
-} from 'react';
+import { useActionState } from 'react';
 
 import Form from 'next/form';
-import { useRouter } from 'next/navigation';
 
 import { login } from '../../actions/login';
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [state, action, isPending] = useActionState(login, {});
-
-  // Redirect to dashboard on successful login
-  useEffect(() => {
-    if (
-      !isPending &&
-      state.error === undefined &&
-      Object.keys(state).length > 0
-    ) {
-      router.push("/dashboard");
-    }
-  }, [state, isPending, router]);
+  const [state, action] = useActionState(login, {});
 
   return (
     <Form action={action}>
@@ -39,13 +23,8 @@ export default function LoginPage() {
         placeholder="Password"
         required
       />
-      {state.error && <p>{state.error}</p>}
-      <button
-        type="submit"
-        disabled={isPending}
-      >
-        {isPending ? "Logging in..." : "Login"}
-      </button>
+      {state.error && <p className="text-red-600">{state.error}</p>}
+      <button type="submit">Login</button>
     </Form>
   );
 }

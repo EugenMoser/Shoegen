@@ -6,10 +6,11 @@ import { redirect } from 'next/navigation';
 
 import { auth } from '@/auth';
 import { hasPermission } from '@/modules/auth/permissions';
-import type { Permission } from '@/modules/auth/types';
+
+import { Permission } from './types';
 
 type GuardOptions = {
-  permission?: Permission;
+  permission?: Permission[];
 };
 
 export async function serverAuthGuard(options?: GuardOptions) {
@@ -19,8 +20,10 @@ export async function serverAuthGuard(options?: GuardOptions) {
     redirect("/login");
   }
 
-  if (options?.permission) {
-    const allowed = hasPermission(session.user.role, options.permission);
+  if (options?.permission?.length) {
+    const allowed = options.permission.some((permission) =>
+      hasPermission(session.user.role, permission),
+    );
 
     if (!allowed) {
       redirect("/unauthorized");

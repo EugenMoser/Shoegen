@@ -49,8 +49,3 @@ path.join(process.cwd(), "prisma/generated/libquery_engine-darwin-arm64.dylib.no
  * 
  */
 export type User = Prisma.UserModel
-/**
- * Model Admin
- * 
- */
-export type Admin = Prisma.AdminModel

@@ -1,4 +1,7 @@
-import { Role } from '@/modules/auth/types';
+import {
+  Permission,
+  Role,
+} from '@/modules/auth/types';
 
 export const permissions = {
   product: {
@@ -16,7 +19,7 @@ export const permissions = {
   },
 } as const;
 
-export const rolePermissions: Record<Role, readonly string[]> = {
+export const rolePermissions: Record<Role, readonly Permission[]> = {
   ADMIN: [
     permissions.product.read,
     permissions.product.create,
@@ -36,15 +39,10 @@ export const rolePermissions: Record<Role, readonly string[]> = {
 
 export function hasPermission(
   role: Role | undefined,
-  permission: Permissions,
+  permission: Permission,
 ): boolean {
   if (!role) return false;
   if (!permission) return false;
 
-  console.log(
-    "----->>>>> permission",
-    rolePermissions[role].includes(permission.toString()),
-  );
-
-  return rolePermissions[role].includes(permission.toString());
+  return rolePermissions[role].includes(permission);
 }

@@ -22,8 +22,3 @@ export * from './enums';
  * 
  */
 export type User = Prisma.UserModel
-/**
- * Model Admin
- * 
- */
-export type Admin = Prisma.AdminModel

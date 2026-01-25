@@ -1,7 +1,9 @@
-import { permissions } from '@/modules/auth/permissions';
+import { permissions } from './permissions';
 
 export type Role = "ADMIN" | "EDITOR" | "CUSTOMER";
 
-// eg: permissions['PRODUCTS']['CREATE'] = "product:create"
-export type Permission =
-  (typeof permissions)[keyof typeof permissions][keyof (typeof permissions)[keyof typeof permissions]];
+// eg: permissions['PRODUCT']['CREATE'] = "product:create"
+// mapping union type of all permission strings
+export type Permission = {
+  [K in keyof typeof permissions]: (typeof permissions)[K][keyof (typeof permissions)[K]];
+}[keyof typeof permissions];

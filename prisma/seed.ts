@@ -7,8 +7,8 @@ import { prisma } from '@/lib/db/prisma';
 config();
 
 async function main() {
-  const email = "admin@shoes.local";
-  const password = "admin123";
+  const email = "user1@shoes.local";
+  const password = "user111";
 
   const existing = await prisma.user.findUnique({
     where: { email },
@@ -25,7 +25,7 @@ async function main() {
     data: {
       email,
       password: hashedPassword,
-      role: "ADMIN",
+      role: "EDITOR",
     },
   });
 

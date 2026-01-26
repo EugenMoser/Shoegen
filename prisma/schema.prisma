@@ -11,14 +11,14 @@ datasource db {
 enum Role {
   ADMIN
   EDITOR
-  CUSTOMER
+  VIEWER
 }
 
 model User {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   email    String @unique
   password String
-  role     Role   @default(CUSTOMER)
+  role     Role   @default(VIEWER)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

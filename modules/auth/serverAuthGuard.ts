@@ -16,12 +16,14 @@ type GuardOptions = {
 export async function serverAuthGuard(options?: GuardOptions) {
   const session = await auth();
 
+  // Authentication check
   if (!session?.user) {
     redirect("/login");
   }
 
+  // Authorization check
   if (options?.permission?.length) {
-    const allowed = options.permission.some((permission) =>
+    const allowed = options.permission.every((permission) =>
       hasPermission(session.user.role, permission),
     );
 

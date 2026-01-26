@@ -39,7 +39,7 @@ export const rolePermissions: Record<Role, readonly Permission[]> = {
     permissions.product.create,
     permissions.product.update,
   ],
-  CUSTOMER: [permissions.product.read],
+  VIEWER: [permissions.product.read],
 };
 
 export function hasPermission(

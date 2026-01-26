@@ -1,6 +1,6 @@
 import { permissions } from './permissions';
 
-export type Role = "ADMIN" | "EDITOR" | "CUSTOMER";
+export type Role = "ADMIN" | "EDITOR" | "VIEWER";
 
 // eg: permissions['PRODUCT']['CREATE'] = "product:create"
 // mapping union type of all permission strings

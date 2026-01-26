@@ -6,7 +6,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await serverAuthGuard();
+  await serverAuthGuard({ permission: [permissions.dashboard.access] });
 
   return <>{children}</>;
 }

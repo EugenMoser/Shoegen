@@ -4,6 +4,9 @@ import {
 } from '@/modules/auth/types';
 
 export const permissions = {
+  dashboard: {
+    access: "dashboard:access",
+  },
   product: {
     read: "product:read",
     create: "product:create",
@@ -21,6 +24,7 @@ export const permissions = {
 
 export const rolePermissions: Record<Role, readonly Permission[]> = {
   ADMIN: [
+    permissions.dashboard.access,
     permissions.product.read,
     permissions.product.create,
     permissions.product.update,
@@ -30,6 +34,7 @@ export const rolePermissions: Record<Role, readonly Permission[]> = {
     permissions.user.manage,
   ],
   EDITOR: [
+    permissions.dashboard.access,
     permissions.product.read,
     permissions.product.create,
     permissions.product.update,

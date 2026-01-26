@@ -3,7 +3,10 @@
 import { AuthError } from 'next-auth';
 import { redirect } from 'next/navigation';
 
-import { signIn } from '@/auth';
+import {
+  auth,
+  signIn,
+} from '@/auth';
 
 type LoginState = {
   error?: string;
@@ -23,17 +26,28 @@ export async function login(
     if (res?.error) {
       return { error: "Invalid credentials" };
     }
-
-    redirect("/dashboard");
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { error: "Invalid credentials" };
-        default:
-          return { error: "Something went wrong" };
-      }
+      return { error: "Invalid credentials" };
     }
-    throw error;
+
+    return { error: "Something went wrong" };
+  }
+
+  // 🔑 Session neu laden (wichtig!)
+  const session = await auth();
+
+  if (!session?.user) {
+    return { error: "Authentication failed" };
+  }
+
+  // 🎯 Role-based Redirect
+  switch (session.user.role) {
+    case "ADMIN":
+    case "EDITOR":
+      redirect("/dashboard");
+    case "CUSTOMER":
+    default:
+      redirect("/");
   }
 }

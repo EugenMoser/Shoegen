@@ -23,3 +23,50 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Product {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+
+  // Technical classification (important for AI!)
+  category ProductCategory
+  usage    ProductUsage[]
+  terrain  Terrain[]
+  season   Season[]
+
+  price Int
+  brand String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ProductCategory {
+  SNEAKER
+  RUNNING
+  HIKING
+  SANDAL
+  BOOT
+}
+
+enum ProductUsage {
+  CASUAL
+  RUNNING
+  HIKING
+  TREKKING
+  WORK
+}
+
+enum Terrain {
+  CITY
+  TRAIL
+  MOUNTAIN
+  INDOOR
+}
+
+enum Season {
+  SUMMER
+  WINTER
+  ALL_SEASON
+}

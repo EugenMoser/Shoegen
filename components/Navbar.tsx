@@ -12,7 +12,6 @@ export async function Navbar() {
           className="flex gap-6"
         >
           <p>Willkommen</p>
-          <span className="font-bold"> {session.user.email}</span>
           <button type="submit">Logout</button>
         </form>
       ) : (

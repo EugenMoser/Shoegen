@@ -24,25 +24,30 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Product {
+model Shoe {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
+  price       Int
+  brand       String
+  currency    String @default("EUR")
+
+  // Size & Meta
+  sizes    Int[]
+  isActive Boolean @default(true)
 
   // Technical classification (important for AI!)
-  category ProductCategory
-  usage    ProductUsage[]
-  terrain  Terrain[]
-  season   Season[]
-
-  price Int
-  brand String
+  category   ShoeCategory
+  usage      ShoeUsage[]
+  terrain    Terrain[]
+  season     Season[]
+  waterproof Boolean
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-enum ProductCategory {
+enum ShoeCategory {
   SNEAKER
   RUNNING
   HIKING
@@ -50,7 +55,9 @@ enum ProductCategory {
   BOOT
 }
 
-enum ProductUsage {
+enum ShoeUsage {
+  DAILY
+  SPORTS
   CASUAL
   RUNNING
   HIKING
@@ -63,6 +70,7 @@ enum Terrain {
   TRAIL
   MOUNTAIN
   INDOOR
+  OUTDOOR
 }
 
 enum Season {

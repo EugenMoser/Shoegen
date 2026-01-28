@@ -49,3 +49,8 @@ path.join(process.cwd(), "prisma/generated/libquery_engine-darwin-arm64.dylib.no
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Shoe
+ * 
+ */
+export type Shoe = Prisma.ShoeModel

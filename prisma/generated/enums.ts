@@ -12,7 +12,53 @@
 export const Role = {
   ADMIN: 'ADMIN',
   EDITOR: 'EDITOR',
-  CUSTOMER: 'CUSTOMER'
+  VIEWER: 'VIEWER'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const ShoeCategory = {
+  SNEAKER: 'SNEAKER',
+  RUNNING: 'RUNNING',
+  HIKING: 'HIKING',
+  SANDAL: 'SANDAL',
+  BOOT: 'BOOT'
+} as const
+
+export type ShoeCategory = (typeof ShoeCategory)[keyof typeof ShoeCategory]
+
+
+export const ShoeUsage = {
+  DAILY: 'DAILY',
+  SPORTS: 'SPORTS',
+  CASUAL: 'CASUAL',
+  RUNNING: 'RUNNING',
+  HIKING: 'HIKING',
+  TREKKING: 'TREKKING',
+  WORK: 'WORK'
+} as const
+
+export type ShoeUsage = (typeof ShoeUsage)[keyof typeof ShoeUsage]
+
+
+export const Terrain = {
+  CITY: 'CITY',
+  TRAIL: 'TRAIL',
+  MOUNTAIN: 'MOUNTAIN',
+  INDOOR: 'INDOOR',
+  OUTDOOR: 'OUTDOOR'
+} as const
+
+export type Terrain = (typeof Terrain)[keyof typeof Terrain]
+
+
+export const Season = {
+  SPRING: 'SPRING',
+  SUMMER: 'SUMMER',
+  AUTUMN: 'AUTUMN',
+  WINTER: 'WINTER',
+  ALL_SEASON: 'ALL_SEASON'
+} as const
+
+export type Season = (typeof Season)[keyof typeof Season]

@@ -390,7 +390,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Shoe: 'Shoe'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "shoe"
     txIsolationLevel: never
   }
   model: {
@@ -484,6 +485,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Shoe: {
+      payload: Prisma.$ShoePayload<ExtArgs>
+      fields: Prisma.ShoeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShoeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShoeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        findFirst: {
+          args: Prisma.ShoeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShoeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        findMany: {
+          args: Prisma.ShoeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>[]
+        }
+        create: {
+          args: Prisma.ShoeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        createMany: {
+          args: Prisma.ShoeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ShoeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        update: {
+          args: Prisma.ShoeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        deleteMany: {
+          args: Prisma.ShoeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShoeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ShoeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoePayload>
+        }
+        aggregate: {
+          args: Prisma.ShoeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShoe>
+        }
+        groupBy: {
+          args: Prisma.ShoeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoeGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.ShoeFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.ShoeAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.ShoeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -511,6 +586,27 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const ShoeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  brand: 'brand',
+  currency: 'currency',
+  sizes: 'sizes',
+  isActive: 'isActive',
+  category: 'category',
+  usage: 'usage',
+  terrain: 'terrain',
+  season: 'season',
+  waterproof: 'waterproof',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShoeScalarFieldEnum = (typeof ShoeScalarFieldEnum)[keyof typeof ShoeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -588,6 +684,83 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeCategory'
+ */
+export type EnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeCategory[]'
+ */
+export type ListEnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeUsage[]'
+ */
+export type ListEnumShoeUsageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeUsage[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeUsage'
+ */
+export type EnumShoeUsageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeUsage'>
+    
+
+
+/**
+ * Reference to a field of type 'Terrain[]'
+ */
+export type ListEnumTerrainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Terrain[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Terrain'
+ */
+export type EnumTerrainFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Terrain'>
+    
+
+
+/**
+ * Reference to a field of type 'Season[]'
+ */
+export type ListEnumSeasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Season[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Season'
+ */
+export type EnumSeasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Season'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -677,6 +850,7 @@ export interface PrismaClientOptions {
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  shoe?: Prisma.ShoeOmit
 }
 
 /* Types for Logging */

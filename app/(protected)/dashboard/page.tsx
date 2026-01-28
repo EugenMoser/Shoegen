@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { auth } from '@/auth';
 import {
   hasPermission,
@@ -7,7 +9,6 @@ import {
 export default async function Dashboard() {
   const session = await auth();
   const role = session!.user.role;
-
   return (
     <div>
       <h1 className="text-2xl font-semibold">Dashboard</h1>
@@ -21,7 +22,9 @@ export default async function Dashboard() {
         <li className="flex flex-col border p-4 rounded-lg items-start">
           <h2 className="mb-4 font-medium">Produkte</h2>
           {hasPermission(role, permissions.product.create) && (
-            <button className="text-sm underline">Produkt anlegen</button>
+            <button className="text-sm underline">
+              <Link href="/dashboard/shoe/new">Produkt anlegen</Link>
+            </button>
           )}
           {hasPermission(role, permissions.product.update) && (
             <button className="text-sm underline">

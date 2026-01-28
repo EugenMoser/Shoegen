@@ -9,7 +9,7 @@ export async function Navbar() {
       {session?.user ? (
         <form
           action={logout}
-          className="flex gap-6"
+          className="flex gap-6 mb-4"
         >
           <p>Willkommen</p>
           <button type="submit">Logout</button>

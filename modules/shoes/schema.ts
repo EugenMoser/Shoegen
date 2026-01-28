@@ -7,7 +7,7 @@ import {
   SHOE_CATEGORIES,
   SHOE_USAGES,
   TERRAINS,
-} from './domain/enums';
+} from './types';
 
 export const createShoeSchema = z.object({
   name: z.string().min(2),

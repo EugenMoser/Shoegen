@@ -1,15 +1,20 @@
 "use server";
 
-import { prisma } from '@/lib/db/prisma';
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
-import { ShoeCategory } from '@/modules/products/types';
+import { prisma } from "@/lib/db/prisma";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import { Result } from "@/types/result";
 
-import { createShoeSchema } from '../schema';
+import { createShoeSchema } from "../schema";
 
-export async function createShoe(formData: FormData) {
+export async function createShoe(
+  prevState: Result | null,
+  formData: FormData,
+): Promise<Result> {
   await serverAuthGuard({
     permission: ["product:create"],
   });
+
+  const rawSizes = formData.get("sizes");
 
   const parsed = createShoeSchema.safeParse({
     name: formData.get("name"),
@@ -23,14 +28,34 @@ export async function createShoe(formData: FormData) {
     terrain: formData.getAll("terrain"),
 
     waterproof: formData.get("waterproof") === "on",
-    sizes: formData.getAll("sizes").map((s) => Number(s)),
+
+    sizes:
+      typeof rawSizes === "string"
+        ? rawSizes
+            .split(",")
+            .map((s) => Number(s.trim()))
+            .filter((n) => !Number.isNaN(n))
+        : [],
   });
 
   if (!parsed.success) {
-    throw new Error("INVALID_INPUT");
+    return {
+      success: false,
+      error: "Ungültige Eingaben",
+    };
   }
-
-  await prisma.shoe.create({
-    data: parsed.data,
-  });
+  try {
+    await prisma.shoe.create({
+      data: parsed.data,
+    });
+    return {
+      success: true,
+      message: "Shoe erfolgreich erstellt",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Shoe konnte nicht gespeichert werden: ${(error as Error).message}`,
+    };
+  }
 }

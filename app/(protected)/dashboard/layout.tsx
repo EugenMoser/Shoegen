@@ -1,5 +1,7 @@
-import { permissions } from '@/modules/auth/permissions';
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
+import { Toaster } from "sonner";
+
+import { permissions } from "@/modules/auth/permissions";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 
 export default async function DashboardLayout({
   children,
@@ -8,5 +10,10 @@ export default async function DashboardLayout({
 }) {
   await serverAuthGuard({ permission: [permissions.dashboard.access] });
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <Toaster position="top-right" />
+    </>
+  );
 }

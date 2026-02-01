@@ -1,8 +1,9 @@
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
-import ShoeForm from '@/modules/shoes/components/ShoeForm';
+import { permissions } from "@/modules/auth/permissions";
+import requirePermission from "@/modules/auth/requirePermission";
+import ShoeForm from "@/modules/shoes/components/ShoeForm";
 
 export default async function NewShoePage() {
-  await serverAuthGuard({ permission: ["product:create"] });
+  await requirePermission([permissions.product.create]);
 
   return <ShoeForm />;
 }

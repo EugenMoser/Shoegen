@@ -1,7 +1,8 @@
 "use server";
 
 import { prisma } from "@/lib/db/prisma";
-import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import { permissions } from "@/modules/auth/permissions";
+import requirePermission from "@/modules/auth/requirePermission";
 import { Result } from "@/types/result";
 
 import { createShoeSchema } from "../schema";
@@ -10,9 +11,7 @@ export async function createShoe(
   prevState: Result | null,
   formData: FormData,
 ): Promise<Result> {
-  await serverAuthGuard({
-    permission: ["product:create"],
-  });
+  await requirePermission([permissions.product.create]);
 
   const rawSizes = formData.get("sizes");
 

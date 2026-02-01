@@ -6,7 +6,7 @@ export async function authenticateAdmin(
   email: string,
   password: string,
 ): Promise<{ id: string; email: string } | false> {
-  const admin = await prisma.admin.findUnique({ where: { email } });
+  const admin = await prisma.user.findUnique({ where: { email } });
   if (!admin) return false;
 
   const isPasswordValid: boolean = await verifyPassword(

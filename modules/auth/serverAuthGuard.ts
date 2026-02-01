@@ -10,11 +10,8 @@ import { hasPermission } from "@/modules/auth/permissions";
 import { Permission } from "./types";
 
 // Permissions only in array for easier checks, single permission can be passed as single element array
-type GuardOptions = {
-  permission?: Permission[];
-};
 
-export async function serverAuthGuard(options?: GuardOptions) {
+export async function serverAuthGuard(permission?: Permission[]) {
   const session = await auth();
 
   // Authentication check
@@ -23,8 +20,8 @@ export async function serverAuthGuard(options?: GuardOptions) {
   }
 
   // Authorization check
-  if (options?.permission?.length) {
-    const allowed = options.permission.every((permission) =>
+  if (permission?.length) {
+    const allowed = permission.every((permission) =>
       hasPermission(session.user.role, permission),
     );
 

@@ -1,5 +1,5 @@
-import { logout } from '@/actions/logout';
-import { auth } from '@/auth';
+import { auth } from "@/auth";
+import { logout } from "@/modules/auth/actions/logout";
 
 export async function Navbar() {
   const session = await auth();

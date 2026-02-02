@@ -1,6 +1,7 @@
 "use client";
 import { useActionState, useEffect } from "react";
 
+import Form from "next/form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -28,7 +29,7 @@ export default function ShoeForm() {
   }, [state, router]);
 
   return (
-    <form
+    <Form
       action={formAction}
       className="space-y-6 max-w-xl flex flex-col"
     >
@@ -146,6 +147,6 @@ export default function ShoeForm() {
       <button type="submit">
         {isPending ? "Wird gespeichert..." : "Speichern"}
       </button>
-    </form>
+    </Form>
   );
 }

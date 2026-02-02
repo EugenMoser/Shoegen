@@ -1,5 +1,7 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 import { prisma } from "@/lib/db/prisma";
 import { permissions } from "@/modules/auth/permissions";
 import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
@@ -47,6 +49,7 @@ export async function createShoe(
     await prisma.shoe.create({
       data: parsed.data,
     });
+
     return {
       success: true,
       message: "Shoe erfolgreich erstellt",

@@ -4,10 +4,12 @@ import { useActionState } from "react";
 
 import Form from "next/form";
 
-import { login } from "../../modules/auth/actions/login";
+import { login } from "../actions/login";
 
-export default function LoginPage() {
-  const [state, action, isPending] = useActionState(login, null);
+interface LoginFormProps {}
+
+export default function LoginForm({}: LoginFormProps): React.JSX.Element {
+  const [state, action] = useActionState(login, {});
 
   return (
     <Form action={action}>
@@ -23,16 +25,8 @@ export default function LoginPage() {
         placeholder="Password"
         required
       />
-      <button
-        disabled={isPending}
-        type="submit"
-      >
-        Login
-      </button>
-
-      {state?.success === false && (
-        <p className="text-red-600">{state.error}</p>
-      )}
+      {state.error && <p className="text-red-600">{state.error}</p>}
+      <button type="submit">Login</button>
     </Form>
   );
 }

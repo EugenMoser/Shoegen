@@ -1,21 +1,15 @@
 "use server";
 
-import { AuthError } from 'next-auth';
-import { redirect } from 'next/navigation';
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
-import {
-  auth,
-  signIn,
-} from '@/auth';
-
-type LoginState = {
-  error?: string;
-};
+import { auth, signIn } from "@/auth";
+import { Result } from "@/types/result";
 
 export async function login(
-  _prevState: LoginState,
+  _prevState: Result | null,
   formData: FormData,
-): Promise<LoginState> {
+): Promise<Result> {
   try {
     const res = await signIn("credentials", {
       email: formData.get("email"),
@@ -24,21 +18,21 @@ export async function login(
     });
 
     if (res?.error) {
-      return { error: "Invalid credentials" };
+      return { success: false, error: "Invalid credentials" };
     }
   } catch (error) {
     if (error instanceof AuthError) {
-      return { error: "Invalid credentials" };
+      return { success: false, error: "Invalid credentials" };
     }
 
-    return { error: "Something went wrong" };
+    return { success: false, error: "Something went wrong" };
   }
 
   // 🔑 Session neu laden (wichtig!)
   const session = await auth();
 
   if (!session?.user) {
-    return { error: "Authentication failed" };
+    return { success: false, error: "Authentication failed" };
   }
 
   // 🎯 Role-based Redirect

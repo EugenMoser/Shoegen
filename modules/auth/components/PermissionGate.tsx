@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 import { Permission } from "@/modules/auth/types";
 
-import useHasPermission from "./useHasPermissions";
+import useHasPermission from "../hooks/useHasPermissions";
 
 type PermissionGateProps = {
   permission: Permission[];

@@ -1,5 +1,5 @@
 import { permissions } from "@/modules/auth/permissions";
-import requirePermission from "@/modules/auth/requirePermission";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 
 type ShoePageProps = {
   params: {
@@ -8,7 +8,7 @@ type ShoePageProps = {
 };
 
 export default async function ShoePage({ params }: ShoePageProps) {
-  await requirePermission([permissions.dashboard.access]);
+  await serverAuthGuard([permissions.dashboard.access]);
   const { id } = params;
 
   return <div>Shoe Page ${id}</div>;

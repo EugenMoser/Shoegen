@@ -2,14 +2,14 @@ import { Toaster } from "sonner";
 
 import DashboardSidebar from "@/components/DashboardSidebar";
 import { permissions } from "@/modules/auth/permissions";
-import requirePermission from "@/modules/auth/requirePermission";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  await requirePermission([permissions.dashboard.access]);
+  await serverAuthGuard([permissions.dashboard.access]);
 
   return (
     <>

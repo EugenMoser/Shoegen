@@ -1,8 +1,8 @@
 import { permissions } from "@/modules/auth/permissions";
-import requirePermission from "@/modules/auth/requirePermission";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 
 export default async function UpdateShoePage() {
-  await requirePermission([permissions.product.update]);
+  await serverAuthGuard([permissions.product.update]);
 
   return <div>Update Shoe</div>;
 }

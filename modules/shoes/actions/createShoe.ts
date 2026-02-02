@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/db/prisma";
 import { permissions } from "@/modules/auth/permissions";
-import requirePermission from "@/modules/auth/requirePermission";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 import { Result } from "@/types/result";
 
 import { createShoeSchema } from "../schema";
@@ -11,7 +11,7 @@ export async function createShoe(
   prevState: Result | null,
   formData: FormData,
 ): Promise<Result> {
-  await requirePermission([permissions.product.create]);
+  await serverAuthGuard([permissions.product.create]);
 
   const rawSizes = formData.get("sizes");
 

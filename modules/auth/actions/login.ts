@@ -3,7 +3,7 @@
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { auth, signIn } from "@/auth";
+import { signIn } from "@/auth";
 import { Result } from "@/types/result";
 
 export async function login(
@@ -28,20 +28,5 @@ export async function login(
     return { success: false, error: "Something went wrong" };
   }
 
-  // 🔑 Session neu laden (wichtig!)
-  const session = await auth();
-
-  if (!session?.user) {
-    return { success: false, error: "Authentication failed" };
-  }
-
-  // 🎯 Role-based Redirect
-  switch (session.user.role) {
-    case "ADMIN":
-    case "EDITOR":
-      redirect("/dashboard");
-    case "CUSTOMER":
-    default:
-      redirect("/");
-  }
+  redirect("/dashboard");
 }

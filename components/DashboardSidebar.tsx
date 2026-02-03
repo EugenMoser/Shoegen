@@ -1,25 +1,35 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { dashboardNavigation } from "@/modules/navigation/dashboardNavigation";
-import { filterNavigationByRole } from "@/modules/navigation/filterNavigationByRole";
+import { DashboardNavItemProps } from "@/modules/navigation/dashboardNavigationConfig";
 
-export default function DashboardSidebar() {
-  const { data } = useSession();
-  const role = data?.user?.role;
+type DashboardSidebarProps = {
+  items: DashboardNavItemProps[];
+};
 
-  const navItems = filterNavigationByRole(role, dashboardNavigation);
+export default function DashboardSidebar({
+  items,
+}: DashboardSidebarProps) {
+  const pathname = usePathname();
 
   return (
-    <nav>
+    <nav className="flex flex-col">
       <ul>
-        {navItems.map((item) => (
-          <li key={item.href}>
-            <Link href={item.href}>{item.label}</Link>
-          </li>
-        ))}
+        {items.map((item) => {
+          const isActive = pathname.startsWith(item.href);
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={isActive ? "text-bold underline" : ""}
+              >
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

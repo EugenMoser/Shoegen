@@ -6,7 +6,7 @@ import { signIn } from "@/auth";
 import { Result } from "@/types/result";
 
 export async function login(
-  _prevState: Result | null,
+  _prevState: Result | undefined,
   formData: FormData,
 ): Promise<Result | undefined> {
   try {

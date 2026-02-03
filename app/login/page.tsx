@@ -4,10 +4,15 @@ import { useActionState } from "react";
 
 import Form from "next/form";
 
+import { Result } from "@/types/result";
+
 import { login } from "../../modules/auth/actions/login";
 
 export default function LoginPage() {
-  const [state, action, isPending] = useActionState(login, null);
+  const [state, action, isPending] = useActionState(
+    login,
+    undefined as Result | undefined,
+  );
 
   return (
     <Form action={action}>

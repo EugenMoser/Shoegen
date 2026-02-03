@@ -18,7 +18,7 @@ export default function DashboardSidebar({
     <nav className="flex flex-col">
       <ul>
         {items.map((item) => {
-          const isActive = pathname.startsWith(item.href);
+          const isActive = pathname.endsWith(item.href);
           return (
             <li key={item.href}>
               <Link

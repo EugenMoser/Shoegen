@@ -14,9 +14,7 @@ export default async function DashboardLayout({
   await serverAuthGuard([permissions.dashboard.access]);
 
   const session = await auth();
-  console.log("----->>>>> session", session);
   const role = session?.user?.role;
-  console.log("----->>>>> role", role);
   const navItems = filterNavigationByRole(role);
 
   return (

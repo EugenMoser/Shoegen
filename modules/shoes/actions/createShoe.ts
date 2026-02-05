@@ -13,7 +13,7 @@ export async function createShoe(
   prevState: Result | null,
   formData: FormData,
 ): Promise<Result> {
-  await serverAuthGuard([permissions.product.create]);
+  await serverAuthGuard([permissions.product.create], true);
 
   const rawSizes = formData.get("sizes");
 
@@ -55,9 +55,10 @@ export async function createShoe(
       message: "Shoe erfolgreich erstellt",
     };
   } catch (error) {
+    console.error("Action Error:", error);
     return {
       success: false,
-      error: `Shoe konnte nicht gespeichert werden: ${(error as Error).message}`,
+      error: `Shoe konnte nicht gespeichert werden: ${error instanceof Error ? error.message : "Ein unerwarteter Fehler ist aufgetreten."}`,
     };
   }
 }

@@ -7,7 +7,10 @@ import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db/prisma";
 import type { Role } from "@/modules/auth/types";
 
+import { authConfig } from "./auth.config";
+
 export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   session: {
     strategy: "jwt",
   },

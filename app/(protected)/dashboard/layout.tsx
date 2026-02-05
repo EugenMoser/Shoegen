@@ -18,10 +18,10 @@ export default async function DashboardLayout({
   const navItems = filterNavigationByRole(role);
 
   return (
-    <>
+    <div className="flex flex-row gap-4">
       <DashboardSidebar items={navItems} />
       {children}
       <Toaster position="top-right" />
-    </>
+    </div>
   );
 }

@@ -11,11 +11,19 @@ import { Permission } from "./types";
 
 // Permissions only in array for easier checks, single permission can be passed as single element array
 
-export async function serverAuthGuard(permission?: Permission[]) {
+export async function serverAuthGuard(
+  permission?: Permission[],
+  isAction: boolean = false,
+) {
   const session = await auth();
 
   // Authentication check
   if (!session?.user) {
+    if (isAction) {
+      // Throwin an error in server actions
+      throw new Error("Nicht authentifiziert. Bitte melden Sie sich an.");
+    }
+    // Redirect to login page if not authenticated (only on page routes, not in actions)
     redirect("/login");
   }
 
@@ -26,6 +34,11 @@ export async function serverAuthGuard(permission?: Permission[]) {
     );
 
     if (!allowed) {
+      if (isAction) {
+        // Throwin an error in server actions
+        throw new Error("Zugriff verweigert. Fehlende Berechtigungen.");
+      }
+      // Redirect to unauthorized page if permission check fails (only on page routes, not in actions)
       redirect("/unauthorized");
     }
   }

@@ -6,7 +6,7 @@ import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 import { Result } from "@/types/result";
 
 export async function deleteShoe(id: string): Promise<Result> {
-  await serverAuthGuard([permissions.product.delete]);
+  await serverAuthGuard([permissions.product.delete], true);
 
   try {
     await prisma.shoe.delete({
@@ -15,9 +15,10 @@ export async function deleteShoe(id: string): Promise<Result> {
 
     return { success: true, message: "Schuh wurde gelöscht" };
   } catch (error) {
+    console.error("Action Error:", error);
     return {
       success: false,
-      error: "Schuh konnte nicht gelöscht werden",
+      error: `Shoe konnte nicht gelöscht werden: ${error instanceof Error ? error.message : "Ein unerwarteter Fehler ist aufgetreten."}`,
     };
   }
 }

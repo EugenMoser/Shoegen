@@ -12,7 +12,7 @@ export async function updateShoe(
   prevState: Result | null,
   formData: FormData,
 ): Promise<Result> {
-  await serverAuthGuard([permissions.product.update]);
+  await serverAuthGuard([permissions.product.update], true);
 
   const parsed = updateShoeSchema.safeParse({
     id: shoeId,
@@ -33,9 +33,10 @@ export async function updateShoe(
 
     return { success: true, message: "Shoe aktualisiert" };
   } catch (error) {
+    console.error("Action Error:", error);
     return {
       success: false,
-      error: (error as Error).message,
+      error: `Shoe konnte nicht aktualisiert werden: ${error instanceof Error ? error.message : "Ein unerwarteter Fehler ist aufgetreten."}`,
     };
   }
 }

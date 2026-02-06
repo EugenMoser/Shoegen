@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import { prisma } from "@/lib/db/prisma";
 import { permissions } from "@/modules/auth/permissions";
 import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";

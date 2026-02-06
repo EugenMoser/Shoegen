@@ -1,15 +1,15 @@
 // NextAuth configuration for authentication
 
-import { compare } from "bcryptjs";
-import NextAuth, { User } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import { compare } from 'bcryptjs';
+import NextAuth, { User } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 
-import { prisma } from "@/lib/db/prisma";
-import type { Role } from "@/modules/auth/types";
+import { prisma } from '@/lib/db/prisma';
+import type { Role } from '@/modules/auth/types';
 
-import { authConfig } from "./auth.config";
+import { authConfig } from './auth.config';
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   session: {
     strategy: "jwt",

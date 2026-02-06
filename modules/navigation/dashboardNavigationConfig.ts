@@ -1,5 +1,5 @@
-import { permissions } from "@/modules/auth/permissions";
-import { Permission } from "@/modules/auth/types";
+import { permissions } from '@/modules/auth/permissions';
+import { Permission } from '@/modules/auth/types';
 
 export type DashboardNavItemProps = {
   label: string;
@@ -21,7 +21,7 @@ export const dashboardNavigationConfig: readonly DashboardNavItemProps[] =
     },
     {
       label: "Create Shoe",
-      href: "/dashboard/shoe/new",
+      href: "/dashboard/shoe/create",
       permission: [permissions.product.create],
     },
     {

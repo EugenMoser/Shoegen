@@ -2,13 +2,18 @@
 import {
   JSX,
   useActionState,
+  useEffect,
 } from 'react';
 
 import Form from 'next/form';
-import { notFound } from 'next/navigation';
+import {
+  notFound,
+  useRouter,
+} from 'next/navigation';
+import { toast } from 'sonner';
 
 import { permissions } from '@/modules/auth/permissions';
-import { Result } from '@/types/result';
+import { ActionResult } from '@/types/action';
 
 import { editShoe } from '../actions/editShoe';
 import {
@@ -26,12 +31,28 @@ import { ShoeButton } from './ShoeButton';
 export function EditShoeForm({ shoe }: { shoe: Shoe }): JSX.Element {
   if (!shoe) return notFound();
 
+  const router = useRouter();
   const editWithId = editShoe.bind(null, shoe.id);
 
   const [state, action, isPending] = useActionState<
-    Result | null,
+    ActionResult | null,
     FormData
   >(editWithId, null);
+
+  useEffect(() => {
+    if (state?.success) {
+      toast.success(state.message || "Schuh aktualisiert");
+      setTimeout(() => router.push("/dashboard/shoe"), 1500);
+    }
+
+    if (state?.success === false) {
+      toast.error(state.error);
+      // Handle auth errors
+      if (state.code === 401) {
+        setTimeout(() => router.push("/login"), 1500);
+      }
+    }
+  }, [state, router]);
 
   return (
     <Form action={action}>

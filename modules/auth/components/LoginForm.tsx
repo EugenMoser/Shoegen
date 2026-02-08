@@ -1,15 +1,20 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState } from 'react';
 
-import Form from "next/form";
+import Form from 'next/form';
 
-import { login } from "../actions/login";
+import { ActionResult } from '@/types/action';
+
+import { login } from '../actions/login';
 
 interface LoginFormProps {}
 
 export default function LoginForm({}: LoginFormProps): React.JSX.Element {
-  const [state, action] = useActionState(login, {});
+  const [state, action] = useActionState<
+    ActionResult | undefined,
+    FormData
+  >(login, undefined);
 
   return (
     <Form action={action}>
@@ -25,7 +30,9 @@ export default function LoginForm({}: LoginFormProps): React.JSX.Element {
         placeholder="Password"
         required
       />
-      {state.error && <p className="text-red-600">{state.error}</p>}
+      {state?.success === false && (
+        <p className="text-red-600">{state.error}</p>
+      )}
       <button type="submit">Login</button>
     </Form>
   );

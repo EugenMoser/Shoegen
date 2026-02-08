@@ -1,26 +1,29 @@
 "use server";
 
-import { AuthError } from "next-auth";
+import { AuthError } from 'next-auth';
 
-import { signIn } from "@/auth";
-import { Result } from "@/types/result";
+import { signIn } from '@/auth';
+import {
+  ActionResult,
+  error,
+} from '@/types/action';
 
 export async function login(
-  _prevState: Result | undefined,
+  _prevState: ActionResult | undefined,
   formData: FormData,
-): Promise<Result | undefined> {
+): Promise<ActionResult | undefined> {
   try {
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
       redirectTo: "/dashboard",
     });
-  } catch (error) {
-    if (error instanceof AuthError) {
-      return { success: false, error: "Invalid credentials" };
+  } catch (err) {
+    if (err instanceof AuthError) {
+      return error("Ungültige Anmeldedaten", 401);
     }
 
     // important: re-throw unexpected errors
-    throw error;
+    throw err;
   }
 }

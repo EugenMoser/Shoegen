@@ -1,17 +1,17 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState } from 'react';
 
-import Form from "next/form";
+import Form from 'next/form';
 
-import { Result } from "@/types/result";
+import { ActionResult } from '@/types/action';
 
-import { login } from "../../modules/auth/actions/login";
+import { login } from '../../modules/auth/actions/login';
 
 export default function LoginPage() {
   const [state, action, isPending] = useActionState(
     login,
-    undefined as Result | undefined,
+    undefined as ActionResult | undefined,
   );
 
   return (

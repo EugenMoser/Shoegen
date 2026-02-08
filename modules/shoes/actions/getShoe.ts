@@ -1,8 +1,13 @@
+"use server";
+
 import { prisma } from '@/lib/db/prisma';
+import { permissions } from '@/modules/auth/permissions';
+import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
 
 import { Shoe } from '../types';
 
 export default async function GetShoe(id: string) {
+  await serverAuthGuard([permissions.product.read], false);
   const shoe = await prisma.shoe.findUnique({
     where: { id: id },
     select: {

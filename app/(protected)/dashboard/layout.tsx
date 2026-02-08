@@ -1,7 +1,5 @@
-import { headers } from 'next/headers';
 import { Toaster } from 'sonner';
 
-import { auth } from '@/auth';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import { permissions } from '@/modules/auth/permissions';
 import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
@@ -18,9 +16,7 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await serverAuthGuard([permissions.dashboard.access]);
-
-  const session = await auth();
+  const session = await serverAuthGuard([permissions.dashboard.access]);
   const role: Role = session?.user?.role;
   const navItems = filterNavigationByRole(role);
 

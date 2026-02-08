@@ -2,12 +2,12 @@
 //  serverAuthGuard(); // Login only
 //  serverAuthGuard({ permission: ["order:update"] }); // Login + permission check
 
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-import { auth } from "@/auth";
-import { hasPermission } from "@/modules/auth/permissions";
+import { auth } from '@/auth';
+import { hasPermission } from '@/modules/auth/permissions';
 
-import { Permission } from "./types";
+import { Permission } from './types';
 
 // Permissions only in array for easier checks, single permission can be passed as single element array
 
@@ -20,7 +20,7 @@ export async function serverAuthGuard(
   // Authentication check
   if (!session?.user) {
     if (isAction) {
-      // Throwin an error in server actions
+      // Throwing an error in server actions
       throw new Error("Nicht authentifiziert. Bitte melden Sie sich an.");
     }
     // Redirect to login page if not authenticated (only on page routes, not in actions)
@@ -35,7 +35,7 @@ export async function serverAuthGuard(
 
     if (!allowed) {
       if (isAction) {
-        // Throwin an error in server actions
+        // Throwing an error in server actions
         throw new Error("Zugriff verweigert. Fehlende Berechtigungen.");
       }
       // Redirect to unauthorized page if permission check fails (only on page routes, not in actions)

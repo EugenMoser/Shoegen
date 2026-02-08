@@ -28,12 +28,10 @@ export type AggregateShoe = {
 
 export type ShoeAvgAggregateOutputType = {
   price: number | null
-  sizes: number | null
 }
 
 export type ShoeSumAggregateOutputType = {
   price: number | null
-  sizes: number[]
 }
 
 export type ShoeMinAggregateOutputType = {
@@ -42,7 +40,7 @@ export type ShoeMinAggregateOutputType = {
   description: string | null
   price: number | null
   brand: string | null
-  currency: string | null
+  currency: $Enums.Currency | null
   isActive: boolean | null
   category: $Enums.ShoeCategory | null
   waterproof: boolean | null
@@ -56,7 +54,7 @@ export type ShoeMaxAggregateOutputType = {
   description: string | null
   price: number | null
   brand: string | null
-  currency: string | null
+  currency: $Enums.Currency | null
   isActive: boolean | null
   category: $Enums.ShoeCategory | null
   waterproof: boolean | null
@@ -86,12 +84,10 @@ export type ShoeCountAggregateOutputType = {
 
 export type ShoeAvgAggregateInputType = {
   price?: true
-  sizes?: true
 }
 
 export type ShoeSumAggregateInputType = {
   price?: true
-  sizes?: true
 }
 
 export type ShoeMinAggregateInputType = {
@@ -233,8 +229,8 @@ export type ShoeGroupByOutputType = {
   description: string
   price: number
   brand: string
-  currency: string
-  sizes: number[]
+  currency: $Enums.Currency
+  sizes: string[]
   isActive: boolean
   category: $Enums.ShoeCategory
   usage: $Enums.ShoeUsage[]
@@ -274,8 +270,8 @@ export type ShoeWhereInput = {
   description?: Prisma.StringFilter<"Shoe"> | string
   price?: Prisma.IntFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
-  currency?: Prisma.StringFilter<"Shoe"> | string
-  sizes?: Prisma.IntNullableListFilter<"Shoe">
+  currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
+  sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryFilter<"Shoe"> | $Enums.ShoeCategory
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -313,8 +309,8 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Shoe"> | string
   price?: Prisma.IntFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
-  currency?: Prisma.StringFilter<"Shoe"> | string
-  sizes?: Prisma.IntNullableListFilter<"Shoe">
+  currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
+  sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryFilter<"Shoe"> | $Enums.ShoeCategory
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -357,8 +353,8 @@ export type ShoeScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
   price?: Prisma.IntWithAggregatesFilter<"Shoe"> | number
   brand?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
-  currency?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
-  sizes?: Prisma.IntNullableListFilter<"Shoe">
+  currency?: Prisma.EnumCurrencyWithAggregatesFilter<"Shoe"> | $Enums.Currency
+  sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolWithAggregatesFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryWithAggregatesFilter<"Shoe"> | $Enums.ShoeCategory
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -375,8 +371,8 @@ export type ShoeCreateInput = {
   description: string
   price: number
   brand: string
-  currency?: string
-  sizes?: Prisma.ShoeCreatesizesInput | number[]
+  currency?: $Enums.Currency
+  sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
   category: $Enums.ShoeCategory
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -393,8 +389,8 @@ export type ShoeUncheckedCreateInput = {
   description: string
   price: number
   brand: string
-  currency?: string
-  sizes?: Prisma.ShoeCreatesizesInput | number[]
+  currency?: $Enums.Currency
+  sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
   category: $Enums.ShoeCategory
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -410,8 +406,8 @@ export type ShoeUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  sizes?: Prisma.ShoeUpdatesizesInput | number[]
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -427,8 +423,8 @@ export type ShoeUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  sizes?: Prisma.ShoeUpdatesizesInput | number[]
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -445,8 +441,8 @@ export type ShoeCreateManyInput = {
   description: string
   price: number
   brand: string
-  currency?: string
-  sizes?: Prisma.ShoeCreatesizesInput | number[]
+  currency?: $Enums.Currency
+  sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
   category: $Enums.ShoeCategory
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -462,8 +458,8 @@ export type ShoeUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  sizes?: Prisma.ShoeUpdatesizesInput | number[]
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -479,8 +475,8 @@ export type ShoeUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
-  currency?: Prisma.StringFieldUpdateOperationsInput | string
-  sizes?: Prisma.ShoeUpdatesizesInput | number[]
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -491,11 +487,11 @@ export type ShoeUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type IntNullableListFilter<$PrismaModel = never> = {
-  equals?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
-  has?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
-  hasEvery?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
-  hasSome?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
   isEmpty?: boolean
 }
 
@@ -543,7 +539,6 @@ export type ShoeCountOrderByAggregateInput = {
 
 export type ShoeAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
-  sizes?: Prisma.SortOrder
 }
 
 export type ShoeMaxOrderByAggregateInput = {
@@ -576,11 +571,10 @@ export type ShoeMinOrderByAggregateInput = {
 
 export type ShoeSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
-  sizes?: Prisma.SortOrder
 }
 
 export type ShoeCreatesizesInput = {
-  set: number[]
+  set: string[]
 }
 
 export type ShoeCreateusageInput = {
@@ -603,9 +597,13 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type EnumCurrencyFieldUpdateOperationsInput = {
+  set?: $Enums.Currency
+}
+
 export type ShoeUpdatesizesInput = {
-  set?: number[]
-  push?: number | number[]
+  set?: string[]
+  push?: string | string[]
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -682,8 +680,8 @@ export type $ShoePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string
     price: number
     brand: string
-    currency: string
-    sizes: number[]
+    currency: $Enums.Currency
+    sizes: string[]
     isActive: boolean
     category: $Enums.ShoeCategory
     usage: $Enums.ShoeUsage[]
@@ -1089,8 +1087,8 @@ export interface ShoeFieldRefs {
   readonly description: Prisma.FieldRef<"Shoe", 'String'>
   readonly price: Prisma.FieldRef<"Shoe", 'Int'>
   readonly brand: Prisma.FieldRef<"Shoe", 'String'>
-  readonly currency: Prisma.FieldRef<"Shoe", 'String'>
-  readonly sizes: Prisma.FieldRef<"Shoe", 'Int[]'>
+  readonly currency: Prisma.FieldRef<"Shoe", 'Currency'>
+  readonly sizes: Prisma.FieldRef<"Shoe", 'String[]'>
   readonly isActive: Prisma.FieldRef<"Shoe", 'Boolean'>
   readonly category: Prisma.FieldRef<"Shoe", 'ShoeCategory'>
   readonly usage: Prisma.FieldRef<"Shoe", 'ShoeUsage[]'>

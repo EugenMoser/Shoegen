@@ -62,3 +62,13 @@ export const Season = {
 } as const
 
 export type Season = (typeof Season)[keyof typeof Season]
+
+
+export const Currency = {
+  USD: 'USD',
+  EUR: 'EUR',
+  GBP: 'GBP',
+  JPY: 'JPY'
+} as const
+
+export type Currency = (typeof Currency)[keyof typeof Currency]

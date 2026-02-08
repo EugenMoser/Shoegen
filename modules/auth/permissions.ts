@@ -10,12 +10,12 @@ export const permissions = {
   product: {
     read: "product:read",
     create: "product:create",
-    update: "product:update",
+    edit: "product:edit",
     delete: "product:delete",
   },
   order: {
     read: "order:read",
-    update: "order:update",
+    edit: "order:edit",
   },
   user: {
     manage: "user:manage",
@@ -27,17 +27,17 @@ export const rolePermissions: Record<Role, readonly Permission[]> = {
     permissions.dashboard.access,
     permissions.product.read,
     permissions.product.create,
-    permissions.product.update,
+    permissions.product.edit,
     permissions.product.delete,
     permissions.order.read,
-    permissions.order.update,
+    permissions.order.edit,
     permissions.user.manage,
   ],
   EDITOR: [
     permissions.dashboard.access,
     permissions.product.read,
     permissions.product.create,
-    permissions.product.update,
+    permissions.product.edit,
   ],
   VIEWER: [permissions.product.read],
 };

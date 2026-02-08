@@ -1,5 +1,5 @@
-import { permissions } from "@/modules/auth/permissions";
-import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import { permissions } from '@/modules/auth/permissions';
+import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
 
 type ShoePageProps = {
   params: {

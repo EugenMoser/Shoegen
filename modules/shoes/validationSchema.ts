@@ -1,24 +1,33 @@
 // runtime schema validation for creating a shoe
 
-import { z } from "zod";
+import { z } from 'zod';
 
-import { SEASONS, SHOE_CATEGORIES, SHOE_USAGES, TERRAINS } from "./types";
+import {
+  CURRENCIES,
+  SEASONS,
+  SHOE_CATEGORIES,
+  SHOE_SIZES,
+  SHOE_USAGES,
+  TERRAINS,
+} from './types';
 
 export const createShoeSchema = z.object({
   name: z.string().min(2),
   description: z.string().min(10),
-  brand: z.string(),
   price: z.number().positive(),
+  brand: z.string(),
+  currency: z.enum(CURRENCIES),
+
+  sizes: z.array(z.enum(SHOE_SIZES)),
+  isActive: z.boolean(),
 
   category: z.enum(SHOE_CATEGORIES),
   usage: z.array(z.enum(SHOE_USAGES)),
-  season: z.array(z.enum(SEASONS)),
   terrain: z.array(z.enum(TERRAINS)),
-
+  season: z.array(z.enum(SEASONS)),
   waterproof: z.boolean(),
-  sizes: z.array(z.number().int()),
 });
 
-export const updateShoeSchema = createShoeSchema.extend({
+export const editShoeSchema = createShoeSchema.extend({
   id: z.string(),
 });

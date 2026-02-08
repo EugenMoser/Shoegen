@@ -1,11 +1,11 @@
 "use server";
 
-import { prisma } from "@/lib/db/prisma";
-import { permissions } from "@/modules/auth/permissions";
-import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
-import { Result } from "@/types/result";
+import { prisma } from '@/lib/db/prisma';
+import { permissions } from '@/modules/auth/permissions';
+import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
+import { Result } from '@/types/result';
 
-import { createShoeSchema } from "../schema";
+import { createShoeSchema } from '../validationSchema';
 
 export async function createShoe(
   prevState: Result | null,

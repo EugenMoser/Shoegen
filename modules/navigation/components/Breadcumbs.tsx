@@ -14,24 +14,24 @@ export function Breadcrumbs({ role }: { role: Role | undefined }) {
   if (!breadcrumbs || breadcrumbs.length === 0) return null;
 
   // Filter out any undefined items
-  const validItems = breadcrumbs.filter(
-    Boolean,
-  ) as DashboardNavItemProps[];
+  const validBreadcrumbs = breadcrumbs.filter(Boolean) as Array<
+    Pick<DashboardNavItemProps, "label" | "href">
+  >;
 
   return (
     <nav className="mb-4 text-sm text-muted-foreground">
       <ol className="flex gap-2">
-        {validItems.map((item, index) => (
+        {validBreadcrumbs.map((breadcrumb, index) => (
           <li
-            key={`item.href-${index}`}
+            key={`breadcrumb.href-${index}`}
             className="flex gap-2"
           >
             {index > 0 && <span>/</span>}
             <Link
-              href={`item.href-${index}`}
+              href={breadcrumb.href}
               className="hover:underline"
             >
-              {item.label}
+              {breadcrumb.label}
             </Link>
           </li>
         ))}

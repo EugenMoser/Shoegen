@@ -19,6 +19,8 @@ export async function editShoe(
   try {
     await serverAuthGuard([permissions.product.edit], true);
 
+    const rawSizes = formData.get("sizes")?.toString();
+
     const parsed = editShoeSchema.safeParse({
       id: shoeId,
       name: formData.get("name"),
@@ -27,11 +29,13 @@ export async function editShoe(
       brand: formData.get("brand"),
       currency: formData.get("currency"),
 
-      sizes: formData
-        .get("sizes")
-        ?.toString()
-        .split(",")
-        .map((s) => s.trim()),
+      sizes:
+        rawSizes && rawSizes.trim() !== ""
+          ? rawSizes
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+          : [],
       isActive: formData.get("isActive") === "on",
 
       category: formData.get("category"),

@@ -25,7 +25,8 @@ export async function createShoe(
       description: formData.get("description"),
       brand: formData.get("brand"),
       price: Number(formData.get("price")),
-
+      currency: formData.get("currency"), // Hinzugefügt
+      isActive: formData.get("isActive") === "on", // Hinzugefügt
       category: formData.get("category"),
       usage: formData.getAll("usage"),
       season: formData.getAll("season"),
@@ -34,11 +35,11 @@ export async function createShoe(
       waterproof: formData.get("waterproof") === "on",
 
       sizes:
-        typeof rawSizes === "string"
+        typeof rawSizes === "string" && rawSizes.trim() !== ""
           ? rawSizes
               .split(",")
-              .map((s) => Number(s.trim()))
-              .filter((n) => !Number.isNaN(n))
+              .map((s) => s.trim())
+              .filter((s) => s !== "") // Entfernt leere Einträge
           : [],
     });
 

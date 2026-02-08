@@ -268,7 +268,7 @@ export type ShoeWhereInput = {
   id?: Prisma.StringFilter<"Shoe"> | string
   name?: Prisma.StringFilter<"Shoe"> | string
   description?: Prisma.StringFilter<"Shoe"> | string
-  price?: Prisma.IntFilter<"Shoe"> | number
+  price?: Prisma.FloatFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
@@ -307,7 +307,7 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ShoeWhereInput | Prisma.ShoeWhereInput[]
   name?: Prisma.StringFilter<"Shoe"> | string
   description?: Prisma.StringFilter<"Shoe"> | string
-  price?: Prisma.IntFilter<"Shoe"> | number
+  price?: Prisma.FloatFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
@@ -351,7 +351,7 @@ export type ShoeScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
   name?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
   description?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
-  price?: Prisma.IntWithAggregatesFilter<"Shoe"> | number
+  price?: Prisma.FloatWithAggregatesFilter<"Shoe"> | number
   brand?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyWithAggregatesFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
@@ -404,7 +404,7 @@ export type ShoeUncheckedCreateInput = {
 export type ShoeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
@@ -421,7 +421,7 @@ export type ShoeUpdateInput = {
 export type ShoeUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
@@ -456,7 +456,7 @@ export type ShoeCreateManyInput = {
 export type ShoeUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
@@ -473,7 +473,7 @@ export type ShoeUpdateManyMutationInput = {
 export type ShoeUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
@@ -589,7 +589,7 @@ export type ShoeCreateseasonInput = {
   set: $Enums.Season[]
 }
 
-export type IntFieldUpdateOperationsInput = {
+export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
@@ -1085,7 +1085,7 @@ export interface ShoeFieldRefs {
   readonly id: Prisma.FieldRef<"Shoe", 'String'>
   readonly name: Prisma.FieldRef<"Shoe", 'String'>
   readonly description: Prisma.FieldRef<"Shoe", 'String'>
-  readonly price: Prisma.FieldRef<"Shoe", 'Int'>
+  readonly price: Prisma.FieldRef<"Shoe", 'Float'>
   readonly brand: Prisma.FieldRef<"Shoe", 'String'>
   readonly currency: Prisma.FieldRef<"Shoe", 'Currency'>
   readonly sizes: Prisma.FieldRef<"Shoe", 'String[]'>

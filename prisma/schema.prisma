@@ -22,7 +22,7 @@ model Shoe {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  price       Int
+  price       Float
   brand       String
   currency    Currency @default(EUR)
 

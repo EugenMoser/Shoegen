@@ -42,7 +42,6 @@ export type ShoeMinAggregateOutputType = {
   brand: string | null
   currency: $Enums.Currency | null
   isActive: boolean | null
-  category: $Enums.ShoeCategory | null
   waterproof: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -56,7 +55,6 @@ export type ShoeMaxAggregateOutputType = {
   brand: string | null
   currency: $Enums.Currency | null
   isActive: boolean | null
-  category: $Enums.ShoeCategory | null
   waterproof: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -98,7 +96,6 @@ export type ShoeMinAggregateInputType = {
   brand?: true
   currency?: true
   isActive?: true
-  category?: true
   waterproof?: true
   createdAt?: true
   updatedAt?: true
@@ -112,7 +109,6 @@ export type ShoeMaxAggregateInputType = {
   brand?: true
   currency?: true
   isActive?: true
-  category?: true
   waterproof?: true
   createdAt?: true
   updatedAt?: true
@@ -232,7 +228,7 @@ export type ShoeGroupByOutputType = {
   currency: $Enums.Currency
   sizes: string[]
   isActive: boolean
-  category: $Enums.ShoeCategory
+  category: $Enums.ShoeCategory[]
   usage: $Enums.ShoeUsage[]
   terrain: $Enums.Terrain[]
   season: $Enums.Season[]
@@ -273,7 +269,7 @@ export type ShoeWhereInput = {
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
-  category?: Prisma.EnumShoeCategoryFilter<"Shoe"> | $Enums.ShoeCategory
+  category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
@@ -312,7 +308,7 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
-  category?: Prisma.EnumShoeCategoryFilter<"Shoe"> | $Enums.ShoeCategory
+  category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
@@ -356,7 +352,7 @@ export type ShoeScalarWhereWithAggregatesInput = {
   currency?: Prisma.EnumCurrencyWithAggregatesFilter<"Shoe"> | $Enums.Currency
   sizes?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolWithAggregatesFilter<"Shoe"> | boolean
-  category?: Prisma.EnumShoeCategoryWithAggregatesFilter<"Shoe"> | $Enums.ShoeCategory
+  category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
@@ -374,7 +370,7 @@ export type ShoeCreateInput = {
   currency?: $Enums.Currency
   sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
-  category: $Enums.ShoeCategory
+  category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
@@ -392,7 +388,7 @@ export type ShoeUncheckedCreateInput = {
   currency?: $Enums.Currency
   sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
-  category: $Enums.ShoeCategory
+  category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
@@ -409,7 +405,7 @@ export type ShoeUpdateInput = {
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
@@ -426,7 +422,7 @@ export type ShoeUncheckedUpdateInput = {
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
@@ -444,7 +440,7 @@ export type ShoeCreateManyInput = {
   currency?: $Enums.Currency
   sizes?: Prisma.ShoeCreatesizesInput | string[]
   isActive?: boolean
-  category: $Enums.ShoeCategory
+  category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
@@ -461,7 +457,7 @@ export type ShoeUpdateManyMutationInput = {
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
@@ -478,7 +474,7 @@ export type ShoeUncheckedUpdateManyInput = {
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
   sizes?: Prisma.ShoeUpdatesizesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  category?: Prisma.EnumShoeCategoryFieldUpdateOperationsInput | $Enums.ShoeCategory
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
@@ -492,6 +488,14 @@ export type StringNullableListFilter<$PrismaModel = never> = {
   has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
   hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumShoeCategoryNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel> | null
+  has?: $Enums.ShoeCategory | Prisma.EnumShoeCategoryFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
   isEmpty?: boolean
 }
 
@@ -549,7 +553,6 @@ export type ShoeMaxOrderByAggregateInput = {
   brand?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  category?: Prisma.SortOrder
   waterproof?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -563,7 +566,6 @@ export type ShoeMinOrderByAggregateInput = {
   brand?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  category?: Prisma.SortOrder
   waterproof?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -575,6 +577,10 @@ export type ShoeSumOrderByAggregateInput = {
 
 export type ShoeCreatesizesInput = {
   set: string[]
+}
+
+export type ShoeCreatecategoryInput = {
+  set: $Enums.ShoeCategory[]
 }
 
 export type ShoeCreateusageInput = {
@@ -610,8 +616,9 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type EnumShoeCategoryFieldUpdateOperationsInput = {
-  set?: $Enums.ShoeCategory
+export type ShoeUpdatecategoryInput = {
+  set?: $Enums.ShoeCategory[]
+  push?: $Enums.ShoeCategory | $Enums.ShoeCategory[]
 }
 
 export type ShoeUpdateusageInput = {
@@ -683,7 +690,7 @@ export type $ShoePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     currency: $Enums.Currency
     sizes: string[]
     isActive: boolean
-    category: $Enums.ShoeCategory
+    category: $Enums.ShoeCategory[]
     usage: $Enums.ShoeUsage[]
     terrain: $Enums.Terrain[]
     season: $Enums.Season[]
@@ -1090,7 +1097,7 @@ export interface ShoeFieldRefs {
   readonly currency: Prisma.FieldRef<"Shoe", 'Currency'>
   readonly sizes: Prisma.FieldRef<"Shoe", 'String[]'>
   readonly isActive: Prisma.FieldRef<"Shoe", 'Boolean'>
-  readonly category: Prisma.FieldRef<"Shoe", 'ShoeCategory'>
+  readonly category: Prisma.FieldRef<"Shoe", 'ShoeCategory[]'>
   readonly usage: Prisma.FieldRef<"Shoe", 'ShoeUsage[]'>
   readonly terrain: Prisma.FieldRef<"Shoe", 'Terrain[]'>
   readonly season: Prisma.FieldRef<"Shoe", 'Season[]'>

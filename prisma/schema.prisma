@@ -31,7 +31,7 @@ model Shoe {
   isActive Boolean  @default(true)
 
   // Technical classification (important for AI!)
-  category   ShoeCategory
+  category   ShoeCategory[]
   usage      ShoeUsage[]
   terrain    Terrain[]
   season     Season[]

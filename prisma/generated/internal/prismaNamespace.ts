@@ -709,16 +709,16 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'ShoeCategory'
+ * Reference to a field of type 'ShoeCategory[]'
  */
-export type EnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory'>
+export type ListEnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory[]'>
     
 
 
 /**
- * Reference to a field of type 'ShoeCategory[]'
+ * Reference to a field of type 'ShoeCategory'
  */
-export type ListEnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory[]'>
+export type EnumShoeCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeCategory'>
     
 
 

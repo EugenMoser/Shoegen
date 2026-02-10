@@ -1,7 +1,7 @@
-import { JSX } from 'react/jsx-dev-runtime';
+import { JSX } from "react";
 
-import { getShoes } from '@/modules/shoes/actions/getShoe';
-import { ShoeCard } from '@/modules/shoes/components/ShoeCard';
+import { getShoes } from "@/modules/shoes/actions/getShoe";
+import { ShoeCard } from "@/modules/shoes/components/ShoeCard";
 
 interface ShoePageProps {}
 

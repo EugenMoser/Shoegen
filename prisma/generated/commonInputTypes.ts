@@ -112,13 +112,6 @@ export type BoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
-export type EnumShoeCategoryFilter<$PrismaModel = never> = {
-  equals?: $Enums.ShoeCategory | Prisma.EnumShoeCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel> | $Enums.ShoeCategory
-}
-
 export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
@@ -151,16 +144,6 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
-}
-
-export type EnumShoeCategoryWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ShoeCategory | Prisma.EnumShoeCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumShoeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ShoeCategory
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -270,13 +253,6 @@ export type NestedBoolFilter<$PrismaModel = never> = {
   not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
 }
 
-export type NestedEnumShoeCategoryFilter<$PrismaModel = never> = {
-  equals?: $Enums.ShoeCategory | Prisma.EnumShoeCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel> | $Enums.ShoeCategory
-}
-
 export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
@@ -309,16 +285,6 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
-}
-
-export type NestedEnumShoeCategoryWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ShoeCategory | Prisma.EnumShoeCategoryFieldRefInput<$PrismaModel>
-  in?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ShoeCategory[] | Prisma.ListEnumShoeCategoryFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumShoeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ShoeCategory
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumShoeCategoryFilter<$PrismaModel>
 }
 
 

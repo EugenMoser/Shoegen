@@ -1,10 +1,10 @@
 "use client";
-import { JSX, useActionState, useEffect } from "react";
+import { JSX, use, useActionState, useEffect } from "react";
 
 import Form from "next/form";
 import { notFound, useRouter } from "next/navigation";
-import { toast } from "sonner";
 
+import { useActionResultHandler } from "@/hooks/useActionResultHandler";
 import { permissions } from "@/modules/auth/permissions";
 import { ActionResult } from "@/types/action";
 
@@ -37,20 +37,10 @@ export function EditShoeForm({ shoe }: { shoe: Shoe }): JSX.Element {
     FormData
   >(editWithId, initialState);
 
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state.message || "Schuh aktualisiert");
-      setTimeout(() => router.push("/dashboard/shoe"), 1500);
-    }
-
-    if (state?.success === false) {
-      toast.error(state.error);
-      // Handle auth errors
-      if (state.code === 401) {
-        setTimeout(() => router.push("/login"), 1500);
-      }
-    }
-  }, [state, router]);
+  useActionResultHandler(state, {
+    successRedirect: "/dashboard/shoe",
+    errorRedirect: "/login",
+  });
 
   return (
     <Form action={action}>

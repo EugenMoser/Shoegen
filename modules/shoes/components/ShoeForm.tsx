@@ -1,36 +1,29 @@
 "use client";
-import {
-  useActionState,
-  useEffect,
-} from 'react';
+import { useActionState, useEffect } from "react";
 
-import { ActionResult } from 'next/dist/shared/lib/app-router-types';
-import Form from 'next/form';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
+import Form from "next/form";
 
-import { createShoe } from '@/modules/shoes/actions/createShoe';
+import { useActionResultHandler } from "@/hooks/useActionResultHandler";
+import { createShoe } from "@/modules/shoes/actions/createShoe";
 import {
   SEASONS,
   SHOE_CATEGORIES,
   SHOE_USAGES,
   TERRAINS,
-} from '@/modules/shoes/types';
+} from "@/modules/shoes/types";
+import { ActionResult } from "@/types/action";
 
+const initialState: ActionResult = {
+  success: false,
+  error: "",
+};
 export default function ShoeForm() {
-  const router = useRouter();
-  const [state, formAction, isPending] = useActionState(createShoe, null);
+  const [state, formAction, isPending] = useActionState(
+    createShoe,
+    initialState,
+  );
 
-  useEffect(() => {
-    if (state?.success) {
-      toast.success(state.message);
-      setTimeout(() => router.push("/dashboard/shoes"), 1500);
-    }
-
-    if (state?.success === false) {
-      toast.error(state.error);
-    }
-  }, [state, router]);
+  useActionResultHandler(state);
 
   return (
     <Form

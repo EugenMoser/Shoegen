@@ -4,6 +4,8 @@ import { useActionState } from "react";
 
 import Form from "next/form";
 
+import { Button } from "@/components/ui/button";
+import { useActionResultHandler } from "@/hooks/useActionResultHandler";
 import { ActionResult } from "@/types/action";
 
 import { login } from "../actions/login";
@@ -14,10 +16,14 @@ const initialState: ActionResult = {
 };
 
 export default function LoginForm(): React.JSX.Element {
-  const [state, action] = useActionState<ActionResult, FormData>(
-    login,
-    initialState,
-  );
+  const [state, action, isPending] = useActionState<
+    ActionResult,
+    FormData
+  >(login, initialState);
+
+  useActionResultHandler(state, {
+    successRedirect: "/",
+  });
 
   return (
     <Form action={action}>
@@ -33,10 +39,13 @@ export default function LoginForm(): React.JSX.Element {
         placeholder="Password"
         required
       />
-      {state?.success === false && (
-        <p className="text-red-600">{state.error}</p>
-      )}
-      <button type="submit">Login</button>
+
+      <Button
+        disabled={isPending}
+        type="submit"
+      >
+        Login
+      </Button>
     </Form>
   );
 }

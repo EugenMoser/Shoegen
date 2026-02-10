@@ -1,8 +1,11 @@
 "use client";
 
 import { useTransition } from "react";
+
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+
+import { useActionResultHandler } from "@/hooks/useActionResultHandler";
+import { ActionResult } from "@/types/action";
 
 import { deleteShoe } from "../actions/deleteShoe";
 
@@ -12,18 +15,11 @@ export function DeleteShoeButton({ id }: { id: string }) {
 
   const handleDelete = () => {
     startTransition(async () => {
-      const result = await deleteShoe(id);
-      
-      if (result.success) {
-        toast.success(result.message || "Schuh gelöscht");
-        router.push("/dashboard/shoe");
-      } else {
-        toast.error(result.error);
-        // Handle auth errors
-        if (result.code === 401) {
-          router.push("/login");
-        }
-      }
+      const result: ActionResult = await deleteShoe(id);
+      useActionResultHandler(result, {
+        successRedirect: "/dashboard/shoe",
+        errorRedirect: "/dashboard",
+      });
     });
   };
 

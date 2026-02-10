@@ -1,21 +1,14 @@
 "use client";
-import {
-  JSX,
-  useActionState,
-  useEffect,
-} from 'react';
+import { JSX, useActionState, useEffect } from "react";
 
-import Form from 'next/form';
-import {
-  notFound,
-  useRouter,
-} from 'next/navigation';
-import { toast } from 'sonner';
+import Form from "next/form";
+import { notFound, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-import { permissions } from '@/modules/auth/permissions';
-import { ActionResult } from '@/types/action';
+import { permissions } from "@/modules/auth/permissions";
+import { ActionResult } from "@/types/action";
 
-import { editShoe } from '../actions/editShoe';
+import { editShoe } from "../actions/editShoe";
 import {
   CURRENCIES,
   SEASONS,
@@ -24,9 +17,9 @@ import {
   SHOE_SIZES,
   SHOE_USAGES,
   TERRAINS,
-} from '../types';
-import { ShoeAttributeSelect } from './ShoeAttributeSelect';
-import { ShoeButton } from './ShoeButton';
+} from "../types";
+import { ShoeAttributeSelect } from "./ShoeAttributeSelect";
+import { ShoeButton } from "./ShoeButton";
 
 export function EditShoeForm({ shoe }: { shoe: Shoe }): JSX.Element {
   if (!shoe) return notFound();
@@ -108,28 +101,28 @@ export function EditShoeForm({ shoe }: { shoe: Shoe }): JSX.Element {
         name="category"
         label="Kategorie"
         options={SHOE_CATEGORIES}
-        defaultValue={shoe.category}
+        defaultValue={shoe.category[0]}
       />
 
       <ShoeAttributeSelect
         name="usage"
         label="Usage"
         options={SHOE_USAGES}
-        defaultValue={shoe.usage}
+        defaultValue={shoe.usage[0]}
       />
 
       <ShoeAttributeSelect
         name="terrain"
         label="Terrain"
         options={TERRAINS}
-        defaultValue={shoe.terrain}
+        defaultValue={shoe.terrain[0]}
       />
 
       <ShoeAttributeSelect
         name="season"
         label="Season"
         options={SEASONS}
-        defaultValue={shoe.season}
+        defaultValue={shoe.season[0]}
       />
 
       <label htmlFor="waterproof">Waterproof:</label>

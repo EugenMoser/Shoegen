@@ -1,5 +1,7 @@
 import type { NextAuthConfig } from "next-auth";
 
+import { hasPermission, permissions } from "./modules/auth/permissions";
+
 // This file is used by the middleware, which runs on the Edge runtime.
 // The Edge runtime does not support certain Node.js modules like 'bcrypt' or 'prisma'.
 // By keeping this configuration separate and free of Node.js logic/imports,
@@ -13,17 +15,18 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user; // Check if user is authenticated
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
-      const isOnLogin = nextUrl.pathname.startsWith("/login");
+      const role = auth?.user?.role;
 
+      // If the user is trying to access the dashboard, check authentication and permissions
       if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect to login
-      } else if (isOnLogin && isLoggedIn) {
-        // If already logged in and trying to access login page, redirect to dashboard
-        return Response.redirect(new URL("/dashboard", nextUrl));
-      }
+        if (!isLoggedIn) return false;
 
-      return true;
+        if (!hasPermission(role, permissions.dashboard.access)) {
+          // If the user is authenticated but does not have permission, redirect to unauthorized page
+          return Response.redirect(new URL("/unauthorized", nextUrl));
+        }
+        return true;
+      }
     },
   },
   providers: [], // Providers are defined in auth.ts, this is just for the global config

@@ -1,25 +1,28 @@
-import { get } from 'http';
-import { notFound } from 'next/navigation';
+import { JSX } from "react";
 
-import { prisma } from '@/lib/db/prisma';
-import { permissions } from '@/modules/auth/permissions';
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
-import GetShoe from '@/modules/shoes/actions/getShoe';
-import { EditShoeForm } from '@/modules/shoes/components/EditShoeForm';
-import { Shoe } from '@/modules/shoes/types';
+import { notFound } from "next/navigation";
+
+import { ProtectedLayout } from "@/modules/auth/components/ProtectedLayout";
+import { permissions } from "@/modules/auth/permissions";
+import { getShoeById } from "@/modules/shoes/actions/getShoe";
+import { EditShoeForm } from "@/modules/shoes/components/EditShoeForm";
+import { Shoe } from "@/modules/shoes/types";
+
+type EditShoePageProps = {
+  params: {
+    id: string;
+  };
+};
 
 export default async function EditShoePage({
   params,
-}: {
-  params: { id: string };
-}) {
-  await serverAuthGuard([permissions.product.edit]);
-  const shoe: Shoe | null = await GetShoe(params.id);
+}: EditShoePageProps): Promise<JSX.Element> {
+  const shoe: Shoe | null = await getShoeById(params.id);
   if (!shoe) notFound();
 
   return (
-    <>
+    <ProtectedLayout permission={[permissions.product.edit]}>
       <EditShoeForm shoe={shoe} />
-    </>
+    </ProtectedLayout>
   );
 }

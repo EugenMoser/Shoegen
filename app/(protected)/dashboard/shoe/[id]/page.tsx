@@ -1,8 +1,8 @@
-import { permissions } from '@/modules/auth/permissions';
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
-import { GetShoeById } from '@/modules/shoes/actions/getShoe';
+import { ProtectedLayout } from "@/modules/auth/components/ProtectedLayout";
+import { permissions } from "@/modules/auth/permissions";
+import { getShoeById } from "@/modules/shoes/actions/getShoe";
 
-import notFound from '../../not-found';
+import notFound from "../../not-found";
 
 type ShoePageProps = {
   params: Promise<{
@@ -11,18 +11,16 @@ type ShoePageProps = {
 };
 
 export default async function ShoePage({ params }: ShoePageProps) {
-  await serverAuthGuard([permissions.dashboard.access]);
-  // 2. Id from the url
   const { id } = await params;
 
-  const shoe = await GetShoeById(id);
+  const shoe = await getShoeById(id);
 
   if (!shoe) {
     notFound();
   }
   return (
-    <>
+    <ProtectedLayout permission={[permissions.product.read]}>
       <h2>Shoe Page ${id}</h2>
-    </>
+    </ProtectedLayout>
   );
 }

@@ -1,18 +1,20 @@
 "use client";
 
-import { useActionState } from 'react';
+import { useActionState } from "react";
 
-import Form from 'next/form';
+import Form from "next/form";
 
-import { ActionResult } from '@/types/action';
+import { ActionResult } from "@/types/action";
 
-import { login } from '../../modules/auth/actions/login';
+import { login } from "../../modules/auth/actions/login";
+
+const initialState: ActionResult = {
+  success: false,
+  error: "",
+};
 
 export default function LoginPage() {
-  const [state, action, isPending] = useActionState(
-    login,
-    undefined as ActionResult | undefined,
-  );
+  const [state, action, isPending] = useActionState(login, initialState);
 
   return (
     <Form action={action}>

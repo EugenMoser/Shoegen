@@ -1,20 +1,23 @@
 "use client";
 
-import { useActionState } from 'react';
+import { useActionState } from "react";
 
-import Form from 'next/form';
+import Form from "next/form";
 
-import { ActionResult } from '@/types/action';
+import { ActionResult } from "@/types/action";
 
-import { login } from '../actions/login';
+import { login } from "../actions/login";
 
-interface LoginFormProps {}
+const initialState: ActionResult = {
+  success: false,
+  error: "",
+};
 
-export default function LoginForm({}: LoginFormProps): React.JSX.Element {
-  const [state, action] = useActionState<
-    ActionResult | undefined,
-    FormData
-  >(login, undefined);
+export default function LoginForm(): React.JSX.Element {
+  const [state, action] = useActionState<ActionResult, FormData>(
+    login,
+    initialState,
+  );
 
   return (
     <Form action={action}>

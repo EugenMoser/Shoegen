@@ -1,4 +1,11 @@
 // Standardized error codes for server actions
+
+// 400= Bad Request
+// 401= Unauthorized
+// 403= Forbidden
+// 404= Not Found
+// 409= Conflict
+// 500= Internal Server Error
 export type ActionErrorCode = 401 | 403 | 404 | 409 | 500;
 
 // Enhanced Result type with error codes
@@ -20,8 +27,8 @@ export function error(
 }
 
 // Type guard to check if result is successful
-export function isSuccess<T>(
-  result: ActionResult<T>,
-): result is { success: true; data?: T; message?: string } {
-  return result.success === true;
-}
+// export function isSuccess<T>(
+//   result: ActionResult<T>,
+// ): result is { success: true; data?: T; message?: string } {
+//   return result.success === true;
+// }

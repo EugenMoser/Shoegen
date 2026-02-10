@@ -1,18 +1,14 @@
 "use server";
 
-import { prisma } from '@/lib/db/prisma';
-import { permissions } from '@/modules/auth/permissions';
-import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
-import {
-  ActionResult,
-  error,
-  success,
-} from '@/types/action';
+import { prisma } from "@/lib/db/prisma";
+import { permissions } from "@/modules/auth/permissions";
+import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import { ActionResult, error, success } from "@/types/action";
 
-import { createShoeSchema } from '../validationSchema';
+import { createShoeSchema } from "../validationSchema";
 
 export async function createShoe(
-  prevState: ActionResult | null,
+  prevState: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
   try {

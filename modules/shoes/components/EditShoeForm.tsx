@@ -27,10 +27,15 @@ export function EditShoeForm({ shoe }: { shoe: Shoe }): JSX.Element {
   const router = useRouter();
   const editWithId = editShoe.bind(null, shoe.id);
 
+  const initialState: ActionResult = {
+    success: false,
+    error: "",
+  };
+
   const [state, action, isPending] = useActionState<
-    ActionResult | null,
+    ActionResult,
     FormData
-  >(editWithId, null);
+  >(editWithId, initialState);
 
   useEffect(() => {
     if (state?.success) {

@@ -17,8 +17,17 @@ export async function serverAuthGuard(
 ) {
   const session = await auth();
   isAction = isAction ?? false;
+
+  console.log("serverAuthGuard called:", {
+    hasSession: !!session,
+    user: session?.user,
+    permission,
+    isAction,
+  });
+
   // Authentication check
   if (!session?.user) {
+    console.log("No session, redirecting to login");
     if (isAction) {
       // Throwing an error in server actions
       throw new Error("Nicht authentifiziert. Bitte melden Sie sich an.");

@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 
 import { auth } from "@/auth";
 import SessionProvider from "@/components/SessionProvider";
@@ -38,6 +39,7 @@ export default async function RootLayout({
 
           {children}
         </SessionProvider>
+        <Toaster />
       </body>
     </html>
   );

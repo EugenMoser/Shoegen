@@ -10,18 +10,26 @@ export async function login(
   formData: FormData,
 ): Promise<ActionResult> {
   try {
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirectTo: "/",
+      redirect: false,
     });
+
+    console.log("signIn result:", result);
+
+    if (result?.error) {
+      return error("Ungültige Anmeldedaten", 401);
+    }
+
     return success("Erfolgreich eingeloggt");
   } catch (err) {
+    console.error("Login error:", err);
+
     if (err instanceof AuthError) {
       return error("Ungültige Anmeldedaten", 401);
     }
 
-    // important: re-throw unexpected errors
     return error("Unbekannter Fehler", 500);
   }
 }

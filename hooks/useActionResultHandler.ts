@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import {
+  useEffect,
+  useRef,
+} from 'react';
 
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-import { ActionResult } from "@/types/action";
+import { ActionResult } from '@/types/action';
 
 type UseActionResultHandlerOptions = {
   successRedirect?: string;
   errorRedirect?: string;
-  successDelay?: number;
-  errorDelay?: number;
 };
 
 export function useActionResultHandler(
@@ -19,39 +20,27 @@ export function useActionResultHandler(
   options?: UseActionResultHandlerOptions,
 ) {
   const router = useRouter();
-  const {
-    successRedirect,
-    errorRedirect,
-    successDelay = 1500,
-    errorDelay = 1500,
-  } = options || {};
+  const { successRedirect, errorRedirect } = options || {};
+  const hasHandledRef = useRef(false);
 
   useEffect(() => {
-    if (!state) return;
+    // Skip initial/empty state
+    if (!state || (state.success === false && !state.error)) {
+      return;
+    }
 
     if (state.success) {
-      toast.success(state.message || "Erfolgreich");
-      if (successRedirect) {
-        setTimeout(() => router.push(successRedirect), successDelay);
+      if (state.message) {
+        toast.success(state.message);
       }
-    }
+      console.log("----->>>>> test");
+      window.location.href = "/dashboard";
+    } else if (state.success === false && state.error) {
+      toast.error(state.error);
 
-    if (state.success === false) {
-      toast.error(state.error || "Ein Fehler ist aufgetreten");
       if (errorRedirect) {
-        setTimeout(() => router.push(errorRedirect), errorDelay);
-      }
-      // Handle specific error codes if needed
-      if (state.code === 401 && !errorRedirect) {
-        setTimeout(() => router.push("/login"), errorDelay);
+        router.push(errorRedirect);
       }
     }
-  }, [
-    state,
-    router,
-    successRedirect,
-    errorRedirect,
-    successDelay,
-    errorDelay,
-  ]);
+  }, [state, router, successRedirect, errorRedirect]);
 }

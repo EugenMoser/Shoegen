@@ -21,9 +21,7 @@ export default function LoginForm(): React.JSX.Element {
     FormData
   >(login, initialState);
 
-  useActionResultHandler(state, {
-    successRedirect: "/",
-  });
+  useActionResultHandler(state);
 
   return (
     <Form action={action}>

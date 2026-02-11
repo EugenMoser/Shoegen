@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
-import { logout } from "@/modules/auth/actions/logout";
+import { auth } from '@/auth';
+import { logout } from '@/modules/auth/actions/logout';
 
 export async function Navbar() {
   const session = await auth();
@@ -12,10 +12,20 @@ export async function Navbar() {
           className="flex gap-6 mb-4"
         >
           <p>Willkommen</p>
-          <button type="submit">Logout</button>
+          <button
+            type="submit"
+            className="cursor-pointer"
+          >
+            Logout
+          </button>
         </form>
       ) : (
-        <a href="/login">Login</a>
+        <a
+          href="/login"
+          className="cursor-pointer"
+        >
+          Login
+        </a>
       )}
     </nav>
   );

@@ -9,27 +9,28 @@ import {
 export function filterNavigationByRole(role: Role | undefined) {
   const items: readonly DashboardNavItemProps[] =
     dashboardNavigationConfig;
-
-  const filteredItems = items
-    .filter((item) => {
-      if (!item.permission?.length) return true;
-
-      return item.permission.every((permission) =>
-        hasPermission(role, permission),
-      );
-    })
-    .map((item) => cleanItem(item));
-
-  return filteredItems;
+  return processItems(items, role);
 }
 
-function cleanItem(item: DashboardNavItemProps): DashboardNavItemProps {
-  const { breadcrumb, children, ...rest } = item;
-  const cleaned: DashboardNavItemProps = { ...rest };
+function processItems(
+  items: readonly DashboardNavItemProps[],
+  role: Role | undefined,
+): DashboardNavItemProps[] {
+  // First filter items based on permission, then map to process children
+  const filteredItems = items.filter((item) => {
+    if (!item.permission?.length) return true;
+    return item.permission.every((permission) =>
+      hasPermission(role, permission),
+    );
+  });
 
-  if (children) {
-    cleaned.children = children.map(cleanItem);
-  }
-
-  return cleaned;
+  // Now process children of the filtered items
+  const processedItems = filteredItems.map((item) => {
+    if (item.children) {
+      const children = processItems(item.children, role);
+      return { ...item, children };
+    }
+    return item;
+  });
+  return processedItems;
 }

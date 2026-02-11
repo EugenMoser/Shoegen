@@ -9,15 +9,16 @@ import ShoeForm from '@/modules/shoes/components/ShoeForm';
 import { Shoe } from '@/modules/shoes/types';
 
 type EditShoePageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default async function EditShoePage({
   params,
 }: EditShoePageProps): Promise<JSX.Element> {
-  const shoe: Shoe | null = await getShoeById(params.id);
+  const { id } = await params;
+  const shoe: Shoe | null = await getShoeById(id);
   if (!shoe) notFound();
 
   return (

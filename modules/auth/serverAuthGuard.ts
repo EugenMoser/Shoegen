@@ -2,12 +2,12 @@
 //  serverAuthGuard(); // Login only
 //  serverAuthGuard({ permission: ["order:update"] }); // Login + permission check
 
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-import { auth } from "@/auth";
-import { hasPermission } from "@/modules/auth/permissions";
+import { auth } from '@/auth';
+import { hasPermission } from '@/modules/auth/permissions';
 
-import { Permission } from "./types";
+import { Permission } from './types';
 
 // Permissions only in array for easier checks, single permission can be passed as single element array
 
@@ -17,13 +17,6 @@ export async function serverAuthGuard(
 ) {
   const session = await auth();
   isAction = isAction ?? false;
-
-  console.log("serverAuthGuard called:", {
-    hasSession: !!session,
-    user: session?.user,
-    permission,
-    isAction,
-  });
 
   // Authentication check
   if (!session?.user) {

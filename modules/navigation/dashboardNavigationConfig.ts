@@ -20,6 +20,8 @@ export type DashboardNavItemProps = {
   breadcrumb?: BreadcrumbResolver;
 };
 
+export type ClientNavItem = Pick<DashboardNavItemProps, "label" | "href">;
+
 export const dashboardNavigationConfig: readonly DashboardNavItemProps[] =
   [
     {
@@ -33,6 +35,17 @@ export const dashboardNavigationConfig: readonly DashboardNavItemProps[] =
       href: "/dashboard/shoe",
       permission: [permissions.product.read],
       children: [
+        {
+          label: "Shoe Details",
+          href: "/dashboard/shoe/[id]",
+          permission: [permissions.product.read],
+          breadcrumb: ({ id, data }) => ({
+            label: data?.label ?? `Shoe ${id}`,
+            href: `/dashboard/shoe/${id}`,
+            permission: [permissions.product.read],
+          }),
+        },
+
         {
           label: "Edit Shoes",
           href: "/dashboard/shoe/[id]/edit",

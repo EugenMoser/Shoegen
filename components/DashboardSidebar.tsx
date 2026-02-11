@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { DashboardNavItemProps } from "@/modules/navigation/dashboardNavigationConfig";
+import { ClientNavItem } from '@/modules/navigation/dashboardNavigationConfig';
 
 type DashboardSidebarProps = {
-  items: DashboardNavItemProps[];
+  items: ClientNavItem[];
 };
 
 export default function DashboardSidebar({

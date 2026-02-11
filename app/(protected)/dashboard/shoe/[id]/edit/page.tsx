@@ -1,12 +1,12 @@
-import { JSX } from "react";
+import { JSX } from 'react';
 
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 
-import { ProtectedLayout } from "@/modules/auth/components/ProtectedLayout";
-import { permissions } from "@/modules/auth/permissions";
-import { getShoeById } from "@/modules/shoes/actions/getShoe";
-import { EditShoeForm } from "@/modules/shoes/components/EditShoeForm";
-import { Shoe } from "@/modules/shoes/types";
+import { ProtectedLayout } from '@/modules/auth/components/ProtectedLayout';
+import { permissions } from '@/modules/auth/permissions';
+import { getShoeById } from '@/modules/shoes/actions/getShoe';
+import ShoeForm from '@/modules/shoes/components/ShoeForm';
+import { Shoe } from '@/modules/shoes/types';
 
 type EditShoePageProps = {
   params: {
@@ -22,7 +22,7 @@ export default async function EditShoePage({
 
   return (
     <ProtectedLayout permission={[permissions.product.edit]}>
-      <EditShoeForm shoe={shoe} />
+      <ShoeForm shoe={shoe} />
     </ProtectedLayout>
   );
 }

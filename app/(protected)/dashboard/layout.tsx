@@ -18,7 +18,10 @@ export default async function DashboardLayout({
 }) {
   const session = await serverAuthGuard([permissions.dashboard.access]);
   const role: Role = session?.user?.role;
-  const navItems = filterNavigationByRole(role);
+  const navItems = filterNavigationByRole(role).map((item) => ({
+    label: item.label,
+    href: item.href,
+  }));
 
   return (
     <div className="flex flex-row gap-4">

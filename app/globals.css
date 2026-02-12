@@ -118,9 +118,14 @@
 
 @layer base {
   * {
+    font-size: 1rem;
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl font-bold;
   }
 }

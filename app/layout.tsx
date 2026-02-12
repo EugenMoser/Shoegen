@@ -1,12 +1,15 @@
-import "./globals.css";
+import './globals.css';
 
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
+import type { Metadata } from 'next';
+import {
+  Geist,
+  Geist_Mono,
+} from 'next/font/google';
+import { Toaster } from 'sonner';
 
-import { auth } from "@/auth";
-import SessionProvider from "@/components/SessionProvider";
-import { Navbar } from "@/modules/navigation/components/Navbar";
+import { auth } from '@/auth';
+import SessionProvider from '@/components/SessionProvider';
+import { Navbar } from '@/modules/navigation/components/Navbar';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +35,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased m-4`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased mx-8 lg:mx-16`}
       >
-        <SessionProvider session={session}>
-          <Navbar />
-
-          {children}
-        </SessionProvider>
+        <SessionProvider session={session}>{children}</SessionProvider>
         <Toaster />
       </body>
     </html>

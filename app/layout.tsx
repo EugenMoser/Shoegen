@@ -33,9 +33,12 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="h-full"
+    >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased mx-8 lg:mx-16`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased mx-8 lg:mx-16 h-screen `}
       >
         <SessionProvider session={session}>{children}</SessionProvider>
         <Toaster />

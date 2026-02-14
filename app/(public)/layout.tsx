@@ -4,6 +4,7 @@ import {
   Geist_Mono,
 } from 'next/font/google';
 
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 export const metadata: Metadata = {
@@ -19,7 +20,8 @@ export default async function PublicLayout({
   return (
     <>
       <Header />
-      {children}
+      <main className="min-h-screen">{children}</main>
+      <Footer />
     </>
   );
 }

@@ -6,7 +6,14 @@ import { ShoeCard } from "@/modules/shoes/components/ShoeCard";
 interface ShoePageProps {}
 
 export default async function ShoePage({}: ShoePageProps): Promise<JSX.Element> {
-  const shoes = await getShoes();
+  const shoesResult = await getShoes();
+
+  if (!shoesResult.success) {
+    return <div>Error: {shoesResult.error}</div>;
+  }
+
+  const shoes = shoesResult.data || [];
+
   return (
     <>
       <h1>Shoe Page</h1>

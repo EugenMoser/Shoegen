@@ -3,10 +3,11 @@
 import { prisma } from "@/lib/db/prisma";
 import { permissions } from "@/modules/auth/permissions";
 import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import { ActionResult, error, success } from "@/types/action";
 
 import { Shoe, ShoeSize } from "../types";
 
-export async function getShoes(): Promise<Shoe[]> {
+export async function getShoes(): Promise<ActionResult<Shoe[]>> {
   await serverAuthGuard([permissions.product.read], false);
   try {
     const shoesRaw = await prisma.shoe.findMany({
@@ -32,10 +33,6 @@ export async function getShoes(): Promise<Shoe[]> {
       },
     });
 
-    if (!shoesRaw) {
-      throw new Error("Shoes not found");
-    }
-
     const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
       id: shoeRaw.id,
       name: shoeRaw.name,
@@ -55,10 +52,16 @@ export async function getShoes(): Promise<Shoe[]> {
       waterproof: shoeRaw.waterproof,
     }));
 
-    return shoes as Shoe[];
-  } catch (error) {
-    console.error("Error fetching shoes:", error);
-    throw error;
+    return success("Shoes fetched successfully", shoes as Shoe[]);
+  } catch (err) {
+    console.error("Error fetching shoes:", err);
+    if (err instanceof Error) {
+      return error(
+        `Schuh konnte nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
   }
 }
 

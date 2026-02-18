@@ -25,10 +25,3 @@ export function error(
 ): ActionResult {
   return { success: false, error: message, code };
 }
-
-// Type guard to check if result is successful
-// export function isSuccess<T>(
-//   result: ActionResult<T>,
-// ): result is { success: true; data?: T; message?: string } {
-//   return result.success === true;
-// }

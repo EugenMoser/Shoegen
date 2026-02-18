@@ -24,6 +24,8 @@ export default async function ShoePage({}: ShoePageProps): Promise<JSX.Element> 
           </li>
         ))}
       </ul>
+
+      {shoes.length === 0 && <p>Keine Schuhe verfügbar.</p>}
     </>
   );
 }

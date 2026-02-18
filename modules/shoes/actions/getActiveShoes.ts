@@ -1,10 +1,11 @@
 "use server";
 
 import { prisma } from "@/lib/db/prisma";
+import { ActionResult, error, success } from "@/types/action";
 
 import { Shoe, ShoeSize } from "../types";
 
-export async function getActiveShoes(): Promise<Shoe[]> {
+export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
   try {
     const shoesRaw = await prisma.shoe.findMany({
       where: { isActive: true },
@@ -56,10 +57,15 @@ export async function getActiveShoes(): Promise<Shoe[]> {
       };
       return shoe as Shoe;
     });
-
-    return shoes as Shoe[];
-  } catch (error) {
-    console.error("Error fetching active shoes:", error);
-    throw error;
+    return success("Shoes fetched successfully", shoes as Shoe[]);
+  } catch (err) {
+    console.error("Error fetching active shoes:", err);
+    if (err instanceof Error) {
+      return error(
+        `Aktive Schuhe konnten nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
   }
 }

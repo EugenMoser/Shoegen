@@ -391,7 +391,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Shoe: 'Shoe'
+  Shoe: 'Shoe',
+  ShoeSize: 'ShoeSize'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "shoe"
+    modelProps: "user" | "shoe" | "shoeSize"
     txIsolationLevel: never
   }
   model: {
@@ -559,6 +560,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShoeSize: {
+      payload: Prisma.$ShoeSizePayload<ExtArgs>
+      fields: Prisma.ShoeSizeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShoeSizeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShoeSizeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        findFirst: {
+          args: Prisma.ShoeSizeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShoeSizeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        findMany: {
+          args: Prisma.ShoeSizeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>[]
+        }
+        create: {
+          args: Prisma.ShoeSizeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        createMany: {
+          args: Prisma.ShoeSizeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.ShoeSizeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        update: {
+          args: Prisma.ShoeSizeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        deleteMany: {
+          args: Prisma.ShoeSizeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShoeSizeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.ShoeSizeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShoeSizePayload>
+        }
+        aggregate: {
+          args: Prisma.ShoeSizeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShoeSize>
+        }
+        groupBy: {
+          args: Prisma.ShoeSizeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoeSizeGroupByOutputType>[]
+        }
+        findRaw: {
+          args: Prisma.ShoeSizeFindRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        aggregateRaw: {
+          args: Prisma.ShoeSizeAggregateRawArgs<ExtArgs>
+          result: Prisma.JsonObject
+        }
+        count: {
+          args: Prisma.ShoeSizeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShoeSizeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -595,7 +670,7 @@ export const ShoeScalarFieldEnum = {
   price: 'price',
   brand: 'brand',
   currency: 'currency',
-  sizes: 'sizes',
+  images: 'images',
   isActive: 'isActive',
   category: 'category',
   usage: 'usage',
@@ -607,6 +682,18 @@ export const ShoeScalarFieldEnum = {
 } as const
 
 export type ShoeScalarFieldEnum = (typeof ShoeScalarFieldEnum)[keyof typeof ShoeScalarFieldEnum]
+
+
+export const ShoeSizeScalarFieldEnum = {
+  id: 'id',
+  shoeId: 'shoeId',
+  size: 'size',
+  stock: 'stock',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShoeSizeScalarFieldEnum = (typeof ShoeSizeScalarFieldEnum)[keyof typeof ShoeSizeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -865,6 +952,7 @@ export interface PrismaClientOptions {
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   shoe?: Prisma.ShoeOmit
+  shoeSize?: Prisma.ShoeSizeOmit
 }
 
 /* Types for Logging */

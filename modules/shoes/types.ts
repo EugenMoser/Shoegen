@@ -55,15 +55,16 @@ export type Shoe = {
   description: string;
   price: number;
   brand: string;
-  currency: string;
+  currency: Currency;
+  images: string[];
 
-  sizes: string[];
+  sizes: { size: ShoeSize }[];
   isActive: boolean;
 
-  category: string[];
-  usage: string[];
-  terrain: string[];
-  season: string[];
+  category: ShoeCategory[];
+  usage: ShoeUsage[];
+  terrain: Terrain[];
+  season: Season[];
   waterproof: boolean;
 };
 

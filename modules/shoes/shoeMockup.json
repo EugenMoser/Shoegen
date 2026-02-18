@@ -5,6 +5,9 @@
     "price": 120,
     "brand": "Nike",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBY1ehKg236FqTZlN5SMOCrKUah1nexp2XRVoW"
+    ],
     "sizes": ["38", "39", "40", "41"],
     "isActive": true,
     "category": ["RUNNING"],
@@ -19,6 +22,9 @@
     "price": 180,
     "brand": "Salomon",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBeyqMpKlbz7vgAdNRT9Oj0w4Esry6MpxDPChI"
+    ],
     "sizes": ["42", "43", "44"],
     "isActive": true,
     "category": ["HIKING"],
@@ -33,6 +39,9 @@
     "price": 90,
     "brand": "Adidas",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacB4nGcIN5z7IAMwKWR4qJg0mDOtfvNLeYx6HcF"
+    ],
     "sizes": ["36", "37", "38"],
     "isActive": true,
     "category": ["SNEAKER"],
@@ -47,6 +56,9 @@
     "price": 150,
     "brand": "Timberland",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBBwzHNIgc5E37jVJnaxKC1XhA9rSgRFOfYbql"
+    ],
     "sizes": ["41", "42", "43"],
     "isActive": true,
     "category": ["BOOT"],
@@ -61,6 +73,9 @@
     "price": 60,
     "brand": "Teva",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBxLlCv3iRTaCZyAJmex1f58IniUF3gNvXEozH"
+    ],
     "sizes": ["38", "39", "40"],
     "isActive": true,
     "category": ["SANDAL"],
@@ -75,6 +90,9 @@
     "price": 200,
     "brand": "Asics",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacB74m4dZUpYacBnV8WzrbPl5HEDLkgGTstjNoF"
+    ],
     "sizes": ["40", "41", "42"],
     "isActive": true,
     "category": ["RUNNING"],
@@ -89,6 +107,9 @@
     "price": 170,
     "brand": "Lowa",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBmcEwtdbaMnlaxbRiS7BChZATvD9kjKtr6zqU"
+    ],
     "sizes": ["43", "44", "45"],
     "isActive": true,
     "category": ["HIKING"],
@@ -103,6 +124,9 @@
     "price": 130,
     "brand": "CAT",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBO99vG8mHXLzjoVAiUxr0QfSZ8a4IHBOYWMh9"
+    ],
     "sizes": ["44", "45", "46"],
     "isActive": true,
     "category": ["BOOT"],
@@ -117,6 +141,9 @@
     "price": 80,
     "brand": "Reebok",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBtehRYFS69ijAqhvIwFEdB0sHGWrk2PaUSYf8"
+    ],
     "sizes": ["36", "37", "38"],
     "isActive": true,
     "category": ["SNEAKER"],
@@ -131,6 +158,9 @@
     "price": 110,
     "brand": "Puma",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBTlJloeM8twaYxdmXrFpUK6EyOWeL8Q1fnHvJ"
+    ],
     "sizes": ["39", "40", "41"],
     "isActive": true,
     "category": ["RUNNING"],
@@ -145,6 +175,9 @@
     "price": 70,
     "brand": "Merrell",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBjbuYHiEWJAcfFPXIrWQ091TwvUD8B4akSHmZ"
+    ],
     "sizes": ["42", "43", "44"],
     "isActive": true,
     "category": ["SANDAL"],
@@ -159,124 +192,15 @@
     "price": 160,
     "brand": "Sorel",
     "currency": "EUR",
+    "images": [
+      "https://7vina7cvpq.ufs.sh/f/7i9tWsUpYacBca3tQvzQwx1NMH38t7WO9eohksDKXZpbajlJ"
+    ],
     "sizes": ["45", "46", "47"],
     "isActive": true,
     "category": ["BOOT"],
     "usage": ["WORK", "DAILY"],
     "terrain": ["CITY", "OUTDOOR"],
     "season": ["WINTER"],
-    "waterproof": true
-  },
-  {
-    "name": "Light Sneaker",
-    "description": "Leichter Sneaker für den Sommer.",
-    "price": 85,
-    "brand": "Vans",
-    "currency": "EUR",
-    "sizes": ["36", "37", "38"],
-    "isActive": true,
-    "category": ["SNEAKER"],
-    "usage": ["CASUAL", "DAILY"],
-    "terrain": ["CITY", "INDOOR"],
-    "season": ["SUMMER"],
-    "waterproof": false
-  },
-  {
-    "name": "Trail Runner",
-    "description": "Laufschuh für anspruchsvolle Trails.",
-    "price": 140,
-    "brand": "Brooks",
-    "currency": "EUR",
-    "sizes": ["39", "40", "41"],
-    "isActive": true,
-    "category": ["RUNNING"],
-    "usage": ["SPORTS", "RUNNING"],
-    "terrain": ["TRAIL", "OUTDOOR"],
-    "season": ["SPRING", "AUTUMN"],
-    "waterproof": false
-  },
-  {
-    "name": "Spring Sandal",
-    "description": "Offene Sandale für den Frühling.",
-    "price": 55,
-    "brand": "Birkenstock",
-    "currency": "EUR",
-    "sizes": ["38", "39", "40"],
-    "isActive": true,
-    "category": ["SANDAL"],
-    "usage": ["CASUAL", "DAILY"],
-    "terrain": ["CITY", "OUTDOOR"],
-    "season": ["SPRING"],
-    "waterproof": false
-  },
-  {
-    "name": "Heavy Duty Boot",
-    "description": "Extrem robuster Stiefel für harte Einsätze.",
-    "price": 210,
-    "brand": "Dr. Martens",
-    "currency": "EUR",
-    "sizes": ["44", "45", "46"],
-    "isActive": true,
-    "category": ["BOOT"],
-    "usage": ["WORK"],
-    "terrain": ["OUTDOOR"],
-    "season": ["WINTER", "AUTUMN"],
-    "waterproof": true
-  },
-  {
-    "name": "Allround Sneaker",
-    "description": "Universeller Sneaker für jede Gelegenheit.",
-    "price": 95,
-    "brand": "New Balance",
-    "currency": "EUR",
-    "sizes": ["41", "42", "43"],
-    "isActive": true,
-    "category": ["SNEAKER"],
-    "usage": ["CASUAL", "DAILY"],
-    "terrain": ["CITY", "INDOOR"],
-    "season": ["ALL_SEASON"],
-    "waterproof": false
-  },
-  {
-    "name": "Trekking Pro",
-    "description": "Professioneller Trekking-Schuh.",
-    "price": 175,
-    "brand": "Meindl",
-    "currency": "EUR",
-    "sizes": ["43", "44", "45"],
-    "isActive": true,
-    "category": ["HIKING"],
-    "usage": ["TREKKING", "HIKING"],
-    "terrain": ["MOUNTAIN", "TRAIL"],
-    "season": ["ALL_SEASON"],
-    "waterproof": true
-  },
-  {
-    "name": "Summer Sandal",
-    "description": "Luftige Sandale für heiße Tage.",
-    "price": 65,
-    "brand": "Crocs",
-    "currency": "EUR",
-    "sizes": ["36", "37", "38"],
-    "isActive": true,
-    "category": ["SANDAL"],
-    "usage": ["CASUAL", "DAILY"],
-    "terrain": ["CITY", "OUTDOOR"],
-    "season": ["SUMMER"],
-    "waterproof": false
-  },
-  {
-    "name": "City Boot",
-    "description": "Moderner Stiefel für die Stadt.",
-    "price": 145,
-    "brand": "ECCO",
-    "currency": "EUR",
-    "sizes": ["41", "42", "43"],
-    "isActive": true,
-    "category": ["BOOT"],
-    "usage": ["DAILY", "WORK"],
-    "terrain": ["CITY", "OUTDOOR"],
-    "season": ["AUTUMN", "WINTER"],
     "waterproof": true
   }
 ]

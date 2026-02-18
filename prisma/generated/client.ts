@@ -54,3 +54,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Shoe = Prisma.ShoeModel
+/**
+ * Model ShoeSize
+ * 
+ */
+export type ShoeSize = Prisma.ShoeSizeModel

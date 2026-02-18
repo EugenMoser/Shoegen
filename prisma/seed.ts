@@ -1,8 +1,7 @@
-import { hash } from 'bcryptjs';
-import { config } from 'dotenv';
+import { config } from "dotenv";
 
-import { prisma } from '@/lib/db/prisma';
-import shoeMockup from '@/modules/shoes/shoeMockup.json';
+import { prisma } from "@/lib/db/prisma";
+import shoeMockup from "@/modules/shoes/shoeMockup.json";
 
 // Load environment variables
 config();
@@ -37,6 +36,7 @@ async function main() {
   const shoeMock = shoeMockup;
 
   for (const shoeData of shoeMock) {
+    // 1. Schuh anlegen (ohne sizes)
     await prisma.shoe.create({
       data: {
         name: shoeData.name,
@@ -44,7 +44,7 @@ async function main() {
         price: shoeData.price,
         brand: shoeData.brand,
         currency: shoeData.currency as any,
-        sizes: shoeData.sizes,
+        images: shoeData.images ?? [],
         isActive: shoeData.isActive,
         category: shoeData.category as any,
         usage: shoeData.usage as any,
@@ -53,9 +53,22 @@ async function main() {
         waterproof: shoeData.waterproof,
       },
     });
+
+    // 2. ShoeSize-Einträge für jede Größe anlegen
+    // if (Array.isArray(shoeData.sizes)) {
+    //   for (const size of shoeData.sizes) {
+    //     await prisma.shoeSize.create({
+    //       data: {
+    //         shoeId: createdShoe.id,
+    //         size: parseFloat(size),
+    //         stock: 10, // Default-Stock
+    //       },
+    //     });
+    //   }
+    // }
   }
 
-  console.log("Shoe mock data seeded");
+  console.log("Shoe mock data seeded (mit ShoeSize)");
 }
 
 main()

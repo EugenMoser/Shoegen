@@ -10,7 +10,10 @@ export default function ProductCard({
   shoe,
 }: ProductCardProps): React.JSX.Element {
   return (
-    <li className="border border-border bg-card items-center min-w-48 max-w-full gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-[1.02] cursor-pointer">
+    <li
+      key={shoe.id}
+      className="border border-border bg-card items-center min-w-48 max-w-full gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-accent hover:shadow-lg hover:scale-[1.02] cursor-pointer"
+    >
       <h2>{shoe.name}</h2>
       <p>{shoe.description}</p>
       <p>Marke: {shoe.brand}</p>
@@ -23,7 +26,7 @@ export default function ProductCard({
       <p>
         {shoe.price} {shoe.currency}
       </p>
-      <Link href={`/shoes/${shoe.id}`}>Details ansehen</Link>
+      <Link href={`/shop/shoes/${shoe.id}`}>Details ansehen</Link>
     </li>
   );
 }

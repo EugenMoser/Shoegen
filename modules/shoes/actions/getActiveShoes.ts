@@ -1,12 +1,12 @@
 "use server";
 
-import { prisma } from '@/lib/db/prisma';
+import { prisma } from "@/lib/db/prisma";
 
-import { Shoe } from '../types';
+import { Shoe, ShoeSize } from "../types";
 
 export async function getActiveShoes(): Promise<Shoe[]> {
   try {
-    const shoes: Shoe[] | null = await prisma.shoe.findMany({
+    const shoesRaw = await prisma.shoe.findMany({
       where: { isActive: true },
       select: {
         id: true,
@@ -15,8 +15,13 @@ export async function getActiveShoes(): Promise<Shoe[]> {
         price: true,
         brand: true,
         currency: true,
+        images: true,
         category: true,
-        sizes: true,
+        sizes: {
+          select: {
+            size: true,
+          },
+        },
         isActive: true,
         usage: true,
         terrain: true,
@@ -28,9 +33,29 @@ export async function getActiveShoes(): Promise<Shoe[]> {
       },
     });
 
-    if (!shoes) {
-      throw new Error("Active shoes not found");
-    }
+    const shoes: Shoe[] = shoesRaw.map((shoeRaw) => {
+      const shoe: Shoe = {
+        id: shoeRaw.id,
+        name: shoeRaw.name,
+        description: shoeRaw.description,
+        price: shoeRaw.price,
+        brand: shoeRaw.brand,
+        currency: shoeRaw.currency,
+        images: shoeRaw.images,
+        category: shoeRaw.category,
+        sizes: Array.isArray(shoeRaw.sizes)
+          ? shoeRaw.sizes.map((s) => ({
+              size: String(s.size) as ShoeSize,
+            }))
+          : [],
+        isActive: shoeRaw.isActive,
+        usage: shoeRaw.usage,
+        terrain: shoeRaw.terrain,
+        season: shoeRaw.season,
+        waterproof: shoeRaw.waterproof,
+      };
+      return shoe as Shoe;
+    });
 
     return shoes as Shoe[];
   } catch (error) {

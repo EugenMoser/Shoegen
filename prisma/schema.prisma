@@ -25,10 +25,11 @@ model Shoe {
   price       Float
   brand       String
   currency    Currency @default(EUR)
+  images      String[]
 
   // Size & Meta
-  sizes    String[]
-  isActive Boolean  @default(true)
+  sizes    ShoeSize[]
+  isActive Boolean    @default(true)
 
   // Technical classification (important for AI!)
   category   ShoeCategory[]
@@ -39,6 +40,17 @@ model Shoe {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ShoeSize {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  shoeId String @db.ObjectId
+  size   Float
+  stock  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  shoe      Shoe     @relation(fields: [shoeId], references: [id])
 }
 
 enum Role {

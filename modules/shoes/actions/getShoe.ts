@@ -4,12 +4,12 @@ import { prisma } from "@/lib/db/prisma";
 import { permissions } from "@/modules/auth/permissions";
 import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
 
-import { Shoe } from "../types";
+import { Shoe, ShoeSize } from "../types";
 
 export async function getShoes(): Promise<Shoe[]> {
   await serverAuthGuard([permissions.product.read], false);
   try {
-    const shoes: Shoe[] | null = await prisma.shoe.findMany({
+    const shoesRaw = await prisma.shoe.findMany({
       select: {
         id: true,
         name: true,
@@ -17,8 +17,13 @@ export async function getShoes(): Promise<Shoe[]> {
         price: true,
         brand: true,
         currency: true,
+        images: true,
         category: true,
-        sizes: true,
+        sizes: {
+          select: {
+            size: true,
+          },
+        },
         isActive: true,
         usage: true,
         terrain: true,
@@ -27,9 +32,28 @@ export async function getShoes(): Promise<Shoe[]> {
       },
     });
 
-    if (!shoes) {
-      throw new Error("Shoe not found");
+    if (!shoesRaw) {
+      throw new Error("Shoes not found");
     }
+
+    const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
+      id: shoeRaw.id,
+      name: shoeRaw.name,
+      description: shoeRaw.description,
+      price: shoeRaw.price,
+      brand: shoeRaw.brand,
+      currency: shoeRaw.currency,
+      images: shoeRaw.images,
+      category: shoeRaw.category,
+      sizes: Array.isArray(shoeRaw.sizes)
+        ? shoeRaw.sizes.map((s) => ({ size: String(s.size) as ShoeSize }))
+        : [],
+      isActive: shoeRaw.isActive,
+      usage: shoeRaw.usage,
+      terrain: shoeRaw.terrain,
+      season: shoeRaw.season,
+      waterproof: shoeRaw.waterproof,
+    }));
 
     return shoes as Shoe[];
   } catch (error) {
@@ -42,7 +66,7 @@ export async function getShoes(): Promise<Shoe[]> {
 export async function getShoeById(id: string): Promise<Shoe | null> {
   await serverAuthGuard([permissions.product.read], false);
   try {
-    const shoe: Shoe | null = await prisma.shoe.findUnique({
+    const shoeRaw = await prisma.shoe.findUnique({
       where: { id: id },
       select: {
         id: true,
@@ -51,8 +75,13 @@ export async function getShoeById(id: string): Promise<Shoe | null> {
         price: true,
         brand: true,
         currency: true,
+        images: true,
         category: true,
-        sizes: true,
+        sizes: {
+          select: {
+            size: true,
+          },
+        },
         isActive: true,
         usage: true,
         terrain: true,
@@ -61,9 +90,28 @@ export async function getShoeById(id: string): Promise<Shoe | null> {
       },
     });
 
-    if (!shoe) {
+    if (!shoeRaw) {
       throw new Error("Shoe not found");
     }
+
+    const shoe: Shoe = {
+      id: shoeRaw.id,
+      name: shoeRaw.name,
+      description: shoeRaw.description,
+      price: shoeRaw.price,
+      brand: shoeRaw.brand,
+      currency: shoeRaw.currency,
+      images: shoeRaw.images,
+      category: shoeRaw.category,
+      sizes: Array.isArray(shoeRaw.sizes)
+        ? shoeRaw.sizes.map((s) => ({ size: String(s.size) as ShoeSize }))
+        : [],
+      isActive: shoeRaw.isActive,
+      usage: shoeRaw.usage,
+      terrain: shoeRaw.terrain,
+      season: shoeRaw.season,
+      waterproof: shoeRaw.waterproof,
+    };
 
     return shoe;
   } catch (error) {

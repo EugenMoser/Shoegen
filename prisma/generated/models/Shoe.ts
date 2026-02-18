@@ -67,7 +67,7 @@ export type ShoeCountAggregateOutputType = {
   price: number
   brand: number
   currency: number
-  sizes: number
+  images: number
   isActive: number
   category: number
   usage: number
@@ -121,7 +121,7 @@ export type ShoeCountAggregateInputType = {
   price?: true
   brand?: true
   currency?: true
-  sizes?: true
+  images?: true
   isActive?: true
   category?: true
   usage?: true
@@ -226,7 +226,7 @@ export type ShoeGroupByOutputType = {
   price: number
   brand: string
   currency: $Enums.Currency
-  sizes: string[]
+  images: string[]
   isActive: boolean
   category: $Enums.ShoeCategory[]
   usage: $Enums.ShoeUsage[]
@@ -267,7 +267,7 @@ export type ShoeWhereInput = {
   price?: Prisma.FloatFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
-  sizes?: Prisma.StringNullableListFilter<"Shoe">
+  images?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -276,6 +276,7 @@ export type ShoeWhereInput = {
   waterproof?: Prisma.BoolFilter<"Shoe"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
+  sizes?: Prisma.ShoeSizeListRelationFilter
 }
 
 export type ShoeOrderByWithRelationInput = {
@@ -285,7 +286,7 @@ export type ShoeOrderByWithRelationInput = {
   price?: Prisma.SortOrder
   brand?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  sizes?: Prisma.SortOrder
+  images?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   category?: Prisma.SortOrder
   usage?: Prisma.SortOrder
@@ -294,6 +295,7 @@ export type ShoeOrderByWithRelationInput = {
   waterproof?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  sizes?: Prisma.ShoeSizeOrderByRelationAggregateInput
 }
 
 export type ShoeWhereUniqueInput = Prisma.AtLeast<{
@@ -306,7 +308,7 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.FloatFilter<"Shoe"> | number
   brand?: Prisma.StringFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyFilter<"Shoe"> | $Enums.Currency
-  sizes?: Prisma.StringNullableListFilter<"Shoe">
+  images?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -315,6 +317,7 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   waterproof?: Prisma.BoolFilter<"Shoe"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
+  sizes?: Prisma.ShoeSizeListRelationFilter
 }, "id">
 
 export type ShoeOrderByWithAggregationInput = {
@@ -324,7 +327,7 @@ export type ShoeOrderByWithAggregationInput = {
   price?: Prisma.SortOrder
   brand?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  sizes?: Prisma.SortOrder
+  images?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   category?: Prisma.SortOrder
   usage?: Prisma.SortOrder
@@ -350,7 +353,7 @@ export type ShoeScalarWhereWithAggregatesInput = {
   price?: Prisma.FloatWithAggregatesFilter<"Shoe"> | number
   brand?: Prisma.StringWithAggregatesFilter<"Shoe"> | string
   currency?: Prisma.EnumCurrencyWithAggregatesFilter<"Shoe"> | $Enums.Currency
-  sizes?: Prisma.StringNullableListFilter<"Shoe">
+  images?: Prisma.StringNullableListFilter<"Shoe">
   isActive?: Prisma.BoolWithAggregatesFilter<"Shoe"> | boolean
   category?: Prisma.EnumShoeCategoryNullableListFilter<"Shoe">
   usage?: Prisma.EnumShoeUsageNullableListFilter<"Shoe">
@@ -368,7 +371,7 @@ export type ShoeCreateInput = {
   price: number
   brand: string
   currency?: $Enums.Currency
-  sizes?: Prisma.ShoeCreatesizesInput | string[]
+  images?: Prisma.ShoeCreateimagesInput | string[]
   isActive?: boolean
   category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -377,6 +380,7 @@ export type ShoeCreateInput = {
   waterproof: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  sizes?: Prisma.ShoeSizeCreateNestedManyWithoutShoeInput
 }
 
 export type ShoeUncheckedCreateInput = {
@@ -386,7 +390,7 @@ export type ShoeUncheckedCreateInput = {
   price: number
   brand: string
   currency?: $Enums.Currency
-  sizes?: Prisma.ShoeCreatesizesInput | string[]
+  images?: Prisma.ShoeCreateimagesInput | string[]
   isActive?: boolean
   category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -395,6 +399,7 @@ export type ShoeUncheckedCreateInput = {
   waterproof: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  sizes?: Prisma.ShoeSizeUncheckedCreateNestedManyWithoutShoeInput
 }
 
 export type ShoeUpdateInput = {
@@ -403,7 +408,7 @@ export type ShoeUpdateInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  sizes?: Prisma.ShoeUpdatesizesInput | string[]
+  images?: Prisma.ShoeUpdateimagesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -412,6 +417,7 @@ export type ShoeUpdateInput = {
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sizes?: Prisma.ShoeSizeUpdateManyWithoutShoeNestedInput
 }
 
 export type ShoeUncheckedUpdateInput = {
@@ -420,7 +426,7 @@ export type ShoeUncheckedUpdateInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  sizes?: Prisma.ShoeUpdatesizesInput | string[]
+  images?: Prisma.ShoeUpdateimagesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -429,6 +435,7 @@ export type ShoeUncheckedUpdateInput = {
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sizes?: Prisma.ShoeSizeUncheckedUpdateManyWithoutShoeNestedInput
 }
 
 export type ShoeCreateManyInput = {
@@ -438,7 +445,7 @@ export type ShoeCreateManyInput = {
   price: number
   brand: string
   currency?: $Enums.Currency
-  sizes?: Prisma.ShoeCreatesizesInput | string[]
+  images?: Prisma.ShoeCreateimagesInput | string[]
   isActive?: boolean
   category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
@@ -455,7 +462,7 @@ export type ShoeUpdateManyMutationInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  sizes?: Prisma.ShoeUpdatesizesInput | string[]
+  images?: Prisma.ShoeUpdateimagesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -472,7 +479,7 @@ export type ShoeUncheckedUpdateManyInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   brand?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  sizes?: Prisma.ShoeUpdatesizesInput | string[]
+  images?: Prisma.ShoeUpdateimagesInput | string[]
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
   usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
@@ -530,7 +537,7 @@ export type ShoeCountOrderByAggregateInput = {
   price?: Prisma.SortOrder
   brand?: Prisma.SortOrder
   currency?: Prisma.SortOrder
-  sizes?: Prisma.SortOrder
+  images?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   category?: Prisma.SortOrder
   usage?: Prisma.SortOrder
@@ -575,7 +582,12 @@ export type ShoeSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
 }
 
-export type ShoeCreatesizesInput = {
+export type ShoeScalarRelationFilter = {
+  is?: Prisma.ShoeWhereInput
+  isNot?: Prisma.ShoeWhereInput
+}
+
+export type ShoeCreateimagesInput = {
   set: string[]
 }
 
@@ -607,7 +619,7 @@ export type EnumCurrencyFieldUpdateOperationsInput = {
   set?: $Enums.Currency
 }
 
-export type ShoeUpdatesizesInput = {
+export type ShoeUpdateimagesInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -636,6 +648,135 @@ export type ShoeUpdateseasonInput = {
   push?: $Enums.Season | $Enums.Season[]
 }
 
+export type ShoeCreateNestedOneWithoutSizesInput = {
+  create?: Prisma.XOR<Prisma.ShoeCreateWithoutSizesInput, Prisma.ShoeUncheckedCreateWithoutSizesInput>
+  connectOrCreate?: Prisma.ShoeCreateOrConnectWithoutSizesInput
+  connect?: Prisma.ShoeWhereUniqueInput
+}
+
+export type ShoeUpdateOneRequiredWithoutSizesNestedInput = {
+  create?: Prisma.XOR<Prisma.ShoeCreateWithoutSizesInput, Prisma.ShoeUncheckedCreateWithoutSizesInput>
+  connectOrCreate?: Prisma.ShoeCreateOrConnectWithoutSizesInput
+  upsert?: Prisma.ShoeUpsertWithoutSizesInput
+  connect?: Prisma.ShoeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShoeUpdateToOneWithWhereWithoutSizesInput, Prisma.ShoeUpdateWithoutSizesInput>, Prisma.ShoeUncheckedUpdateWithoutSizesInput>
+}
+
+export type ShoeCreateWithoutSizesInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  brand: string
+  currency?: $Enums.Currency
+  images?: Prisma.ShoeCreateimagesInput | string[]
+  isActive?: boolean
+  category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
+  usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
+  terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
+  season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
+  waterproof: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShoeUncheckedCreateWithoutSizesInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  brand: string
+  currency?: $Enums.Currency
+  images?: Prisma.ShoeCreateimagesInput | string[]
+  isActive?: boolean
+  category?: Prisma.ShoeCreatecategoryInput | $Enums.ShoeCategory[]
+  usage?: Prisma.ShoeCreateusageInput | $Enums.ShoeUsage[]
+  terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
+  season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
+  waterproof: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShoeCreateOrConnectWithoutSizesInput = {
+  where: Prisma.ShoeWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShoeCreateWithoutSizesInput, Prisma.ShoeUncheckedCreateWithoutSizesInput>
+}
+
+export type ShoeUpsertWithoutSizesInput = {
+  update: Prisma.XOR<Prisma.ShoeUpdateWithoutSizesInput, Prisma.ShoeUncheckedUpdateWithoutSizesInput>
+  create: Prisma.XOR<Prisma.ShoeCreateWithoutSizesInput, Prisma.ShoeUncheckedCreateWithoutSizesInput>
+  where?: Prisma.ShoeWhereInput
+}
+
+export type ShoeUpdateToOneWithWhereWithoutSizesInput = {
+  where?: Prisma.ShoeWhereInput
+  data: Prisma.XOR<Prisma.ShoeUpdateWithoutSizesInput, Prisma.ShoeUncheckedUpdateWithoutSizesInput>
+}
+
+export type ShoeUpdateWithoutSizesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  brand?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  images?: Prisma.ShoeUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
+  usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
+  terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
+  season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
+  waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShoeUncheckedUpdateWithoutSizesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  brand?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  images?: Prisma.ShoeUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  category?: Prisma.ShoeUpdatecategoryInput | $Enums.ShoeCategory[]
+  usage?: Prisma.ShoeUpdateusageInput | $Enums.ShoeUsage[]
+  terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
+  season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
+  waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type ShoeCountOutputType
+ */
+
+export type ShoeCountOutputType = {
+  sizes: number
+}
+
+export type ShoeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sizes?: boolean | ShoeCountOutputTypeCountSizesArgs
+}
+
+/**
+ * ShoeCountOutputType without action
+ */
+export type ShoeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShoeCountOutputType
+   */
+  select?: Prisma.ShoeCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ShoeCountOutputType without action
+ */
+export type ShoeCountOutputTypeCountSizesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShoeSizeWhereInput
+}
 
 
 export type ShoeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -645,7 +786,7 @@ export type ShoeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   price?: boolean
   brand?: boolean
   currency?: boolean
-  sizes?: boolean
+  images?: boolean
   isActive?: boolean
   category?: boolean
   usage?: boolean
@@ -654,6 +795,8 @@ export type ShoeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   waterproof?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  sizes?: boolean | Prisma.Shoe$sizesArgs<ExtArgs>
+  _count?: boolean | Prisma.ShoeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shoe"]>
 
 
@@ -665,7 +808,7 @@ export type ShoeSelectScalar = {
   price?: boolean
   brand?: boolean
   currency?: boolean
-  sizes?: boolean
+  images?: boolean
   isActive?: boolean
   category?: boolean
   usage?: boolean
@@ -676,11 +819,17 @@ export type ShoeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ShoeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "brand" | "currency" | "sizes" | "isActive" | "category" | "usage" | "terrain" | "season" | "waterproof" | "createdAt" | "updatedAt", ExtArgs["result"]["shoe"]>
+export type ShoeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "brand" | "currency" | "images" | "isActive" | "category" | "usage" | "terrain" | "season" | "waterproof" | "createdAt" | "updatedAt", ExtArgs["result"]["shoe"]>
+export type ShoeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  sizes?: boolean | Prisma.Shoe$sizesArgs<ExtArgs>
+  _count?: boolean | Prisma.ShoeCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $ShoePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Shoe"
-  objects: {}
+  objects: {
+    sizes: Prisma.$ShoeSizePayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -688,7 +837,7 @@ export type $ShoePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     price: number
     brand: string
     currency: $Enums.Currency
-    sizes: string[]
+    images: string[]
     isActive: boolean
     category: $Enums.ShoeCategory[]
     usage: $Enums.ShoeUsage[]
@@ -1060,6 +1209,7 @@ readonly fields: ShoeFieldRefs;
  */
 export interface Prisma__ShoeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  sizes<T extends Prisma.Shoe$sizesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shoe$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShoeSizePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1095,7 +1245,7 @@ export interface ShoeFieldRefs {
   readonly price: Prisma.FieldRef<"Shoe", 'Float'>
   readonly brand: Prisma.FieldRef<"Shoe", 'String'>
   readonly currency: Prisma.FieldRef<"Shoe", 'Currency'>
-  readonly sizes: Prisma.FieldRef<"Shoe", 'String[]'>
+  readonly images: Prisma.FieldRef<"Shoe", 'String[]'>
   readonly isActive: Prisma.FieldRef<"Shoe", 'Boolean'>
   readonly category: Prisma.FieldRef<"Shoe", 'ShoeCategory[]'>
   readonly usage: Prisma.FieldRef<"Shoe", 'ShoeUsage[]'>
@@ -1121,6 +1271,10 @@ export type ShoeFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * Filter, which Shoe to fetch.
    */
   where: Prisma.ShoeWhereUniqueInput
@@ -1139,6 +1293,10 @@ export type ShoeFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * Filter, which Shoe to fetch.
    */
   where: Prisma.ShoeWhereUniqueInput
@@ -1156,6 +1314,10 @@ export type ShoeFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Shoe
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
   /**
    * Filter, which Shoe to fetch.
    */
@@ -1205,6 +1367,10 @@ export type ShoeFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * Filter, which Shoe to fetch.
    */
   where?: Prisma.ShoeWhereInput
@@ -1253,6 +1419,10 @@ export type ShoeFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * Filter, which Shoes to fetch.
    */
   where?: Prisma.ShoeWhereInput
@@ -1296,6 +1466,10 @@ export type ShoeCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * The data needed to create a Shoe.
    */
   data: Prisma.XOR<Prisma.ShoeCreateInput, Prisma.ShoeUncheckedCreateInput>
@@ -1323,6 +1497,10 @@ export type ShoeUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Shoe
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
   /**
    * The data needed to update a Shoe.
    */
@@ -1364,6 +1542,10 @@ export type ShoeUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
+  /**
    * The filter to search for the Shoe to update in case it exists.
    */
   where: Prisma.ShoeWhereUniqueInput
@@ -1389,6 +1571,10 @@ export type ShoeDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the Shoe
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
   /**
    * Filter which Shoe to delete.
    */
@@ -1438,6 +1624,30 @@ export type ShoeAggregateRawArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
+ * Shoe.sizes
+ */
+export type Shoe$sizesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShoeSize
+   */
+  select?: Prisma.ShoeSizeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShoeSize
+   */
+  omit?: Prisma.ShoeSizeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeSizeInclude<ExtArgs> | null
+  where?: Prisma.ShoeSizeWhereInput
+  orderBy?: Prisma.ShoeSizeOrderByWithRelationInput | Prisma.ShoeSizeOrderByWithRelationInput[]
+  cursor?: Prisma.ShoeSizeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShoeSizeScalarFieldEnum | Prisma.ShoeSizeScalarFieldEnum[]
+}
+
+/**
  * Shoe without action
  */
 export type ShoeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1449,4 +1659,8 @@ export type ShoeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Shoe
    */
   omit?: Prisma.ShoeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShoeInclude<ExtArgs> | null
 }

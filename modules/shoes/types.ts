@@ -58,7 +58,7 @@ export type Shoe = {
   currency: Currency;
   images: string[];
 
-  sizes: { size: ShoeSize }[];
+  sizes: { size: ShoeSize; stock: number }[];
   isActive: boolean;
 
   category: ShoeCategory[];

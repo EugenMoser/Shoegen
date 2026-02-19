@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { ActionResult, error, success } from "@/types/action";
 
 import { Shoe, ShoeSize } from "../types";
+import { getShoeSizes } from "./getShoeSize";
 
 export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
   try {
@@ -18,11 +19,6 @@ export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
         currency: true,
         images: true,
         category: true,
-        sizes: {
-          select: {
-            size: true,
-          },
-        },
         isActive: true,
         usage: true,
         terrain: true,
@@ -34,6 +30,14 @@ export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
       },
     });
 
+    const shoeSizeResult = await getShoeSizes();
+
+    if (!shoeSizeResult.success) {
+      throw new Error(
+        `Fehler beim Abrufen der Schuhgrößen: ${shoeSizeResult.error}`,
+      );
+    }
+
     const shoes: Shoe[] = shoesRaw.map((shoeRaw) => {
       const shoe: Shoe = {
         id: shoeRaw.id,
@@ -44,11 +48,7 @@ export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
         currency: shoeRaw.currency,
         images: shoeRaw.images,
         category: shoeRaw.category,
-        sizes: Array.isArray(shoeRaw.sizes)
-          ? shoeRaw.sizes.map((s) => ({
-              size: String(s.size) as ShoeSize,
-            }))
-          : [],
+        sizes: shoeSizeResult.data ?? [],
         isActive: shoeRaw.isActive,
         usage: shoeRaw.usage,
         terrain: shoeRaw.terrain,
@@ -57,6 +57,7 @@ export async function getActiveShoes(): Promise<ActionResult<Shoe[]>> {
       };
       return shoe as Shoe;
     });
+
     return success("Shoes fetched successfully", shoes as Shoe[]);
   } catch (err) {
     console.error("Error fetching active shoes:", err);

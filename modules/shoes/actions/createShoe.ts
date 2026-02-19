@@ -44,7 +44,15 @@ export async function createShoe(
     }
 
     await prisma.shoe.create({
-      data: parsed.data,
+      data: {
+        ...parsed.data,
+        sizes: {
+          create: parsed.data.sizes.map((size) => ({
+            size: Number(size),
+            stock: 0,
+          })),
+        },
+      },
     });
 
     return success("Schuh erfolgreich erstellt");

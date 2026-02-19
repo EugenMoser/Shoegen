@@ -1,6 +1,6 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import { Shoe } from '../types';
+import { Shoe } from "../types";
 
 interface ProductCardProps {
   shoe: Shoe;
@@ -9,6 +9,7 @@ interface ProductCardProps {
 export default function ProductCard({
   shoe,
 }: ProductCardProps): React.JSX.Element {
+  console.log("----->>>>> shoe", shoe);
   return (
     <li
       key={shoe.id}

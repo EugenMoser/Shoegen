@@ -1,16 +1,36 @@
-"use server";
-
 import { prisma } from "@/lib/db/prisma";
-import { permissions } from "@/modules/auth/permissions";
-import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
+import {
+  Currency,
+  Season,
+  ShoeCategory,
+  ShoeUsage,
+  Terrain,
+} from "@/modules/shoes/types";
 import { ActionResult, error, success } from "@/types/action";
 
-import { Shoe, ShoeSize } from "../types";
+import { Shoe } from "../types";
+import { getShoeSizes, getShoeSizesById } from "./getShoeSize";
+
+interface ShoeRaw {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  brand: string;
+  currency: Currency;
+  images: string[];
+  isActive: boolean;
+  category: ShoeCategory[];
+  usage: ShoeUsage[];
+  terrain: Terrain[];
+  season: Season[];
+  waterproof: boolean;
+}
 
 export async function getShoes(): Promise<ActionResult<Shoe[]>> {
-  await serverAuthGuard([permissions.product.read], false);
   try {
-    const shoesRaw = await prisma.shoe.findMany({
+    // Fetch all shoe details (table "shoe")
+    const shoesRaw: ShoeRaw[] = await prisma.shoe.findMany({
       select: {
         id: true,
         name: true,
@@ -20,11 +40,6 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
         currency: true,
         images: true,
         category: true,
-        sizes: {
-          select: {
-            size: true,
-          },
-        },
         isActive: true,
         usage: true,
         terrain: true,
@@ -33,6 +48,13 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
       },
     });
 
+    const shoeSizeResult = await getShoeSizes();
+
+    if (!shoeSizeResult.success) {
+      throw new Error(
+        `Fehler beim Abrufen der Schuhgrößen: ${shoeSizeResult.error}`,
+      );
+    }
     const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
       id: shoeRaw.id,
       name: shoeRaw.name,
@@ -42,9 +64,7 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
       currency: shoeRaw.currency,
       images: shoeRaw.images,
       category: shoeRaw.category,
-      sizes: Array.isArray(shoeRaw.sizes)
-        ? shoeRaw.sizes.map((s) => ({ size: String(s.size) as ShoeSize }))
-        : [],
+      sizes: shoeSizeResult.data ?? [],
       isActive: shoeRaw.isActive,
       usage: shoeRaw.usage,
       terrain: shoeRaw.terrain,
@@ -66,8 +86,10 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
 }
 
 // Get a single shoe by ID, with auth guard
-export async function getShoeById(id: string): Promise<Shoe | null> {
-  await serverAuthGuard([permissions.product.read], false);
+export async function getShoeById(
+  id: string,
+): Promise<ActionResult<Shoe>> {
+  // Fetch shoe details (table "shoe")
   try {
     const shoeRaw = await prisma.shoe.findUnique({
       where: { id: id },
@@ -94,9 +116,17 @@ export async function getShoeById(id: string): Promise<Shoe | null> {
     });
 
     if (!shoeRaw) {
-      throw new Error("Shoe not found");
+      return error("Schuh nicht gefunden", 404);
     }
 
+    // Fetch shoe sizes (table "shoeSize")
+    const shoeSizeResult = await getShoeSizesById(shoeRaw.id);
+    if (!shoeSizeResult.success) {
+      throw new Error(
+        `Fehler beim Abrufen der Schuhgrößen: ${shoeSizeResult.error}`,
+      );
+    }
+    // Aggregate data into Shoe type
     const shoe: Shoe = {
       id: shoeRaw.id,
       name: shoeRaw.name,
@@ -106,9 +136,7 @@ export async function getShoeById(id: string): Promise<Shoe | null> {
       currency: shoeRaw.currency,
       images: shoeRaw.images,
       category: shoeRaw.category,
-      sizes: Array.isArray(shoeRaw.sizes)
-        ? shoeRaw.sizes.map((s) => ({ size: String(s.size) as ShoeSize }))
-        : [],
+      sizes: shoeSizeResult.data ?? [],
       isActive: shoeRaw.isActive,
       usage: shoeRaw.usage,
       terrain: shoeRaw.terrain,
@@ -116,9 +144,15 @@ export async function getShoeById(id: string): Promise<Shoe | null> {
       waterproof: shoeRaw.waterproof,
     };
 
-    return shoe;
-  } catch (error) {
-    console.error("Error fetching shoe by ID:", error);
-    throw error;
+    return success("Shoe fetched successfully", shoe as Shoe);
+  } catch (err) {
+    console.error("Error fetching shoe by ID:", err);
+    if (err instanceof Error) {
+      return error(
+        `Schuh konnte nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
   }
 }

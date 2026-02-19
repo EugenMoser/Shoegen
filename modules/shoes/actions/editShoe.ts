@@ -47,7 +47,16 @@ export async function editShoe(
 
     await prisma.shoe.update({
       where: { id: shoeId },
-      data: parsed.data,
+      data: {
+        ...parsed.data,
+        sizes: {
+          deleteMany: {},
+          create: parsed.data.sizes.map((size) => ({
+            size: Number(size),
+            stock: 0,
+          })),
+        },
+      },
     });
 
     return success("Schuh aktualisiert");

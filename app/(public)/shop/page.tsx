@@ -1,11 +1,8 @@
-import { getActiveShoes } from "@/modules/shoes/actions/getActiveShoes";
+import { getShoes } from "@/modules/shoes/actions/getShoe";
 import ProductCard from "@/modules/shoes/components/ProductCard";
-import { Shoe } from "@/modules/shoes/types";
 
-interface ShopPageProps {}
-
-export default async function ShopPage({}: ShopPageProps): Promise<React.JSX.Element> {
-  const shoesResult = await getActiveShoes();
+export default async function ShopPage(): Promise<React.JSX.Element> {
+  const shoesResult = await getShoes({ isActive: true });
 
   if (!shoesResult.success) {
     return <div>Error: {shoesResult.error}</div>;

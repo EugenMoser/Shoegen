@@ -1,36 +1,21 @@
 import { prisma } from "@/lib/db/prisma";
-import {
-  Currency,
-  Season,
-  ShoeCategory,
-  ShoeUsage,
-  Terrain,
-} from "@/modules/shoes/types";
 import { ActionResult, error, success } from "@/types/action";
 
 import { Shoe } from "../types";
-import { getShoeSizes, getShoeSizesById } from "./getShoeSize";
+import { mapSizeRecord } from "../utils/mapShoeSize";
 
-interface ShoeRaw {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  brand: string;
-  currency: Currency;
-  images: string[];
-  isActive: boolean;
-  category: ShoeCategory[];
-  usage: ShoeUsage[];
-  terrain: Terrain[];
-  season: Season[];
-  waterproof: boolean;
+interface GetShoeParams {
+  isActive?: boolean;
 }
 
-export async function getShoes(): Promise<ActionResult<Shoe[]>> {
+// Get all shoes, with optional filter for active shoes
+export async function getShoes({
+  isActive = false,
+}: GetShoeParams = {}): Promise<ActionResult<Shoe[]>> {
   try {
     // Fetch all shoe details (table "shoe")
-    const shoesRaw: ShoeRaw[] = await prisma.shoe.findMany({
+    const shoesRaw = await prisma.shoe.findMany({
+      where: isActive === false ? undefined : { isActive: isActive },
       select: {
         id: true,
         name: true,
@@ -38,6 +23,13 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
         price: true,
         brand: true,
         currency: true,
+        sizes: {
+          // Fetch sizes with stock information from shoeSize table
+          select: {
+            size: true,
+            stock: true,
+          },
+        },
         images: true,
         category: true,
         isActive: true,
@@ -48,13 +40,6 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
       },
     });
 
-    const shoeSizeResult = await getShoeSizes();
-
-    if (!shoeSizeResult.success) {
-      throw new Error(
-        `Fehler beim Abrufen der Schuhgrößen: ${shoeSizeResult.error}`,
-      );
-    }
     const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
       id: shoeRaw.id,
       name: shoeRaw.name,
@@ -64,7 +49,7 @@ export async function getShoes(): Promise<ActionResult<Shoe[]>> {
       currency: shoeRaw.currency,
       images: shoeRaw.images,
       category: shoeRaw.category,
-      sizes: shoeSizeResult.data ?? [],
+      sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
       isActive: shoeRaw.isActive,
       usage: shoeRaw.usage,
       terrain: shoeRaw.terrain,
@@ -103,8 +88,10 @@ export async function getShoeById(
         images: true,
         category: true,
         sizes: {
+          // Fetch sizes with stock information from shoeSize table
           select: {
             size: true,
+            stock: true,
           },
         },
         isActive: true,
@@ -116,15 +103,7 @@ export async function getShoeById(
     });
 
     if (!shoeRaw) {
-      return error("Schuh nicht gefunden", 404);
-    }
-
-    // Fetch shoe sizes (table "shoeSize")
-    const shoeSizeResult = await getShoeSizesById(shoeRaw.id);
-    if (!shoeSizeResult.success) {
-      throw new Error(
-        `Fehler beim Abrufen der Schuhgrößen: ${shoeSizeResult.error}`,
-      );
+      throw new Error(`Schuh mit ID ${id} nicht gefunden`);
     }
     // Aggregate data into Shoe type
     const shoe: Shoe = {
@@ -136,7 +115,7 @@ export async function getShoeById(
       currency: shoeRaw.currency,
       images: shoeRaw.images,
       category: shoeRaw.category,
-      sizes: shoeSizeResult.data ?? [],
+      sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
       isActive: shoeRaw.isActive,
       usage: shoeRaw.usage,
       terrain: shoeRaw.terrain,

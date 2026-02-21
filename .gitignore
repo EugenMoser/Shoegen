@@ -45,4 +45,6 @@ next-env.d.ts
 /generated/prisma
 
 docs
-.github
+
+
+ROADMAP.md

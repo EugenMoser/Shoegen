@@ -90,9 +90,3 @@ Push to dev branch          Push to main branch
 | `VPS_SSH_KEY` | Private SSH key for VPS access                           |
 
 ---
-
-## ToDo
-
-### Security
-
-- Login Rate Limit erstellen

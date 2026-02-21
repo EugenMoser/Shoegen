@@ -40,7 +40,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            docker pull ghcr.io/${{ github.repository }}:main
+            docker pull ghcr.io/eugenmoser/shoegen:main
             cd /opt/apps/nextjs-prod
             docker compose down
             docker compose up -d

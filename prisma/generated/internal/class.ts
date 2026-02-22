@@ -34,6 +34,10 @@ const config: runtime.GetPrismaClientConfig = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "linux-musl-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -56,8 +60,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  email    String @unique\n  password String\n  role     Role   @default(VIEWER)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Shoe {\n  id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name        String\n  description String\n  price       Float\n  brand       String\n  currency    Currency @default(EUR)\n  images      String[]\n\n  // Size & Meta\n  sizes    ShoeSize[]\n  isActive Boolean    @default(true)\n\n  // Technical classification (important for AI!)\n  category   ShoeCategory[]\n  usage      ShoeUsage[]\n  terrain    Terrain[]\n  season     Season[]\n  waterproof Boolean\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel ShoeSize {\n  id     String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  shoeId String @db.ObjectId\n  size   Float\n  stock  Int\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  shoe      Shoe     @relation(fields: [shoeId], references: [id])\n}\n\nenum Role {\n  ADMIN\n  EDITOR\n  VIEWER\n}\n\nenum ShoeCategory {\n  SNEAKER\n  RUNNING\n  HIKING\n  SANDAL\n  BOOT\n}\n\nenum ShoeUsage {\n  DAILY\n  SPORTS\n  CASUAL\n  RUNNING\n  HIKING\n  TREKKING\n  WORK\n}\n\nenum Terrain {\n  CITY\n  TRAIL\n  MOUNTAIN\n  INDOOR\n  OUTDOOR\n}\n\nenum Season {\n  SPRING\n  SUMMER\n  AUTUMN\n  WINTER\n  ALL_SEASON\n}\n\nenum Currency {\n  USD\n  EUR\n  GBP\n  JPY\n}\n",
-  "inlineSchemaHash": "52028974fe735b9f38507bb61e7dce5942f2446ed69486af7bd834cf63111665",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"./generated\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"] // for vps development and Docker deployment\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  email    String @unique\n  password String\n  role     Role   @default(VIEWER)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Shoe {\n  id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name        String\n  description String\n  price       Float\n  brand       String\n  currency    Currency @default(EUR)\n  images      String[]\n\n  // Size & Meta\n  sizes    ShoeSize[]\n  isActive Boolean    @default(true)\n\n  // Technical classification (important for AI!)\n  category   ShoeCategory[]\n  usage      ShoeUsage[]\n  terrain    Terrain[]\n  season     Season[]\n  waterproof Boolean\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel ShoeSize {\n  id     String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  shoeId String @db.ObjectId\n  size   Float\n  stock  Int\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  shoe      Shoe     @relation(fields: [shoeId], references: [id])\n}\n\nenum Role {\n  ADMIN\n  EDITOR\n  VIEWER\n}\n\nenum ShoeCategory {\n  SNEAKER\n  RUNNING\n  HIKING\n  SANDAL\n  BOOT\n}\n\nenum ShoeUsage {\n  DAILY\n  SPORTS\n  CASUAL\n  RUNNING\n  HIKING\n  TREKKING\n  WORK\n}\n\nenum Terrain {\n  CITY\n  TRAIL\n  MOUNTAIN\n  INDOOR\n  OUTDOOR\n}\n\nenum Season {\n  SPRING\n  SUMMER\n  AUTUMN\n  WINTER\n  ALL_SEASON\n}\n\nenum Currency {\n  USD\n  EUR\n  GBP\n  JPY\n}\n",
+  "inlineSchemaHash": "6f8b5404bd3a092867fbdaf8cea9cc10e27b727ced4bbcbde70708295cbb3af3",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

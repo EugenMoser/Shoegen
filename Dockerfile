@@ -9,6 +9,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN pnpm prisma generate
 RUN pnpm build
 
 FROM node:20-alpine AS runner

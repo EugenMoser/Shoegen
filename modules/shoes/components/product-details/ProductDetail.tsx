@@ -1,11 +1,14 @@
-import { log } from "console";
+import { log } from 'console';
 
-import { Shoe, ShoeSize } from "../../types";
-import { mapSizeRecord } from "../../utils/mapShoeSize";
-import ProductAttributes from "./ProductAttributes";
-import ProductImageGallery from "./ProductImageGallery";
-import ProductInfo from "./ProductInfo";
-import SizeSelector from "./SizeSelector";
+import {
+  Shoe,
+  ShoeSize,
+} from '../../types';
+import { mapSizeRecord } from '../../utils/mapShoeSize';
+import ProductAttributes from './ProductAttributes';
+import ProductImageGallery from './ProductImageGallery';
+import ProductInfo from './ProductInfo';
+import SizeSelector from './SizeSelector';
 
 interface ProductDetailProps {
   shoe: Shoe;
@@ -20,6 +23,8 @@ export default function ProductDetail({
     [];
 
   log("----->>>>> shoe.sizes", shoe.sizes);
+  log("----->>>>> sizeOptions", sizeOptions);
+
   return (
     <>
       <ProductImageGallery

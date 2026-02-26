@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { Shoe } from "../types";
+import { Shoe } from '../types';
 
 interface ProductCardProps {
   shoe: Shoe;
@@ -10,6 +10,13 @@ export default function ProductCard({
   shoe,
 }: ProductCardProps): React.JSX.Element {
   console.log("----->>>>> shoe", shoe);
+
+  const sizeOptions =
+    shoe.sizes.map((size) => ({ size: size.size, stock: size.stock })) ||
+    [];
+
+  console.log("----->>>>> shoe.sizes", shoe.sizes);
+  console.log("----->>>>> sizeOptions", sizeOptions);
   return (
     <li
       key={shoe.id}
@@ -19,7 +26,7 @@ export default function ProductCard({
       <p>{shoe.description}</p>
       <p>Marke: {shoe.brand}</p>
       <p>Kategorie: {shoe.category}</p>
-      <p>Größen: {shoe.sizes.join(" | ")}</p>
+      <p>Größen: {sizeOptions.map((option) => option.size).join(" | ")}</p>
       <p>Nutzung: {shoe.usage}</p>
       <p>Gelände: {shoe.terrain}</p>
       <p>Saison: {shoe.season}</p>

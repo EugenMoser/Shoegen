@@ -4,6 +4,8 @@
 
 > A modern shoe catalog and admin platform built with Next.js 16, TypeScript, and MongoDB.
 
+**Live:** [shoegen.eugen-moser.com](https://shoegen.eugen-moser.com) &nbsp;|&nbsp; **Dev:** [dev.shoegen.eugen-moser.com](https://dev.shoegen.eugen-moser.com)
+
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss)
@@ -83,30 +85,31 @@ pnpm dev
 
 The app is now running at [http://localhost:3000](http://localhost:3000).
 
-Default admin credentials (set via `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env`):
+The seed creates three demo accounts:
 
-| Field    | Default             |
-| -------- | ------------------- |
-| Email    | `admin@shoes.local` |
-| Password | `admin123`          |
+| Role     | Email                 | Password      |
+| -------- | --------------------- | ------------- |
+| `ADMIN`  | admin@shoegen.dev     | `Admin1234!`  |
+| `EDITOR` | editor@shoegen.dev    | `Editor1234!` |
+| `VIEWER` | viewer@shoegen.dev    | `Viewer1234!` |
 
 ---
 
 ## Environment Variables
 
-Create a `.env` file in the project root:
+Copy `.env.example` to `.env` and fill in your values:
 
-```env
-# MongoDB connection string
-DATABASE_URL="mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<dbname>"
-
-# Auth.js secret — generate with: npx auth secret
-AUTH_SECRET="your-random-32-byte-secret"
-
-# Seed defaults (used only by pnpm seed)
-ADMIN_EMAIL="admin@shoes.local"
-ADMIN_PASSWORD="admin123"
+```bash
+cp .env.example .env
 ```
+
+| Variable        | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `DATABASE_URL`  | MongoDB connection string (Atlas or self-hosted)   |
+| `NODE_ENV`      | `development` or `production`                      |
+| `AUTH_SECRET`   | JWT signing secret — generate with `npx auth secret` |
+| `ADMIN_EMAIL`   | Default admin email (seed only)                    |
+| `ADMIN_PASSWORD`| Default admin password (seed only)                 |
 
 ---
 
@@ -175,20 +178,27 @@ The application ships with a **three-stage Dockerfile** that produces a minimal 
 | `builder` | `node:20-alpine` | Build the Next.js app                |
 | `runner`  | `node:20-alpine` | Lean runtime image (standalone mode) |
 
-### Build & run locally
+### Run with Docker Compose
+
+```bash
+# Create the shared network (once)
+docker network create app_network
+
+# Start the container (reads .env automatically)
+docker compose up -d
+```
+
+The app is available at [http://localhost:3000](http://localhost:3000).
+
+### Build & run manually
 
 ```bash
 # Build the image
 docker build -t shoegen .
 
 # Run the container
-docker run -p 3000:3000 \
-  -e DATABASE_URL="your_mongodb_url" \
-  -e AUTH_SECRET="your_auth_secret" \
-  shoegen
+docker run -p 3000:3000 --env-file .env shoegen
 ```
-
-The app is available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -196,10 +206,10 @@ The app is available at [http://localhost:3000](http://localhost:3000).
 
 Two GitHub Actions workflows handle deployments automatically:
 
-| Workflow          | Trigger        | Image Tag | VPS Target              |
-| ----------------- | -------------- | --------- | ----------------------- |
-| `deploy-dev.yml`  | Push to `dev`  | `:dev`    | `/opt/apps/nextjs-dev`  |
-| `deploy-prod.yml` | Push to `main` | `:main`   | `/opt/apps/nextjs-prod` |
+| Workflow          | Trigger        | Image Tag | URL                                |
+| ----------------- | -------------- | --------- | ---------------------------------- |
+| `deploy-dev.yml`  | Push to `dev`  | `:dev`    | dev.shoegen.eugen-moser.com        |
+| `deploy-prod.yml` | Push to `main` | `:main`   | shoegen.eugen-moser.com            |
 
 ### Deployment flow
 
@@ -210,11 +220,13 @@ Push to branch
 Build Docker image
       │
       ▼
-Push to ghcr.io/<owner>/shoegen:<tag>
+Push to ghcr.io/eugenmoser/shoegen:<tag>
       │
       ▼
 SSH into VPS → docker pull → docker compose up -d → prune old images
 ```
+
+The VPS runs **Caddy v2** as a reverse proxy with automatic HTTPS, forwarding traffic to the containers on `localhost:3000` (prod) and `localhost:3001` (dev).
 
 ### Required GitHub Secrets
 

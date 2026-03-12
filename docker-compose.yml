@@ -1,0 +1,14 @@
+services:
+  shoegen:
+    image: ghcr.io/eugenmoser/shoegen:main
+    container_name: shoegen
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - network_app
+
+networks:
+  network_app:
+    external: true

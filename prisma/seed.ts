@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { config } from "dotenv";
 
 import { prisma } from "@/lib/db/prisma";
@@ -6,38 +7,33 @@ import shoeMockup from "@/modules/shoes/shoeMockup.json";
 // Load environment variables
 config();
 
-async function main() {
-  // -----------Seed admin user
-  // const email = "user1@shoes.local";
-  // const password = "user111";
+const users = [
+  { email: "admin@shoegen.dev",  password: "Admin1234!",  role: "ADMIN"  as const },
+  { email: "editor@shoegen.dev", password: "Editor1234!", role: "EDITOR" as const },
+  { email: "viewer@shoegen.dev", password: "Viewer1234!", role: "VIEWER" as const },
+];
 
-  // const existing = await prisma.user.findUnique({
-  //   where: { email },
-  // });
+async function seedUsers() {
+  for (const user of users) {
+    const hashedPassword = await hash(user.password, 12);
+    await prisma.user.upsert({
+      where: { email: user.email },
+      update: {},
+      create: { email: user.email, password: hashedPassword, role: user.role },
+    });
+    console.log(`[users] ${user.role} — ${user.email}`);
+  }
+}
 
-  // if (existing) {
-  //   console.log("Admin already exists");
-  //   return;
-  // }
+async function seedShoes() {
+  const existingCount = await prisma.shoe.count();
+  if (existingCount > 0) {
+    console.log(`[shoes] already seeded (${existingCount} shoes), skipping`);
+    return;
+  }
 
-  // const hashedPassword = await hash(password, 12);
-
-  // await prisma.user.create({
-  //   data: {
-  //     email,
-  //     password: hashedPassword,
-  //     role: "EDITOR",
-  //   },
-  // });
-
-  // console.log("Admin user created");
-
-  // -----------Seed shoe data
-  const shoeMock = shoeMockup;
-
-  for (const shoeData of shoeMock) {
-    // 1. Schuh anlegen (ohne sizes)
-    await prisma.shoe.create({
+  for (const shoeData of shoeMockup) {
+    const createdShoe = await prisma.shoe.create({
       data: {
         name: shoeData.name,
         description: shoeData.description,
@@ -54,21 +50,21 @@ async function main() {
       },
     });
 
-    // 2. ShoeSize-Einträge für jede Größe anlegen
-    // if (Array.isArray(shoeData.sizes)) {
-    //   for (const size of shoeData.sizes) {
-    //     await prisma.shoeSize.create({
-    //       data: {
-    //         shoeId: createdShoe.id,
-    //         size: parseFloat(size),
-    //         stock: 10, // Default-Stock
-    //       },
-    //     });
-    //   }
-    // }
+    if (Array.isArray(shoeData.sizes)) {
+      for (const size of shoeData.sizes) {
+        await prisma.shoeSize.create({
+          data: { shoeId: createdShoe.id, size: parseFloat(size), stock: 10 },
+        });
+      }
+    }
   }
 
-  console.log("Shoe mock data seeded (mit ShoeSize)");
+  console.log(`[shoes] ${shoeMockup.length} shoes seeded`);
+}
+
+async function main() {
+  await seedUsers();
+  await seedShoes();
 }
 
 main()

@@ -41,20 +41,8 @@ export async function getShoes({
     });
 
     const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
-      id: shoeRaw.id,
-      name: shoeRaw.name,
-      description: shoeRaw.description,
-      price: shoeRaw.price,
-      brand: shoeRaw.brand,
-      currency: shoeRaw.currency,
-      images: shoeRaw.images,
-      category: shoeRaw.category,
+      ...shoeRaw,
       sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
-      isActive: shoeRaw.isActive,
-      usage: shoeRaw.usage,
-      terrain: shoeRaw.terrain,
-      season: shoeRaw.season,
-      waterproof: shoeRaw.waterproof,
     }));
 
     return success("Shoes fetched successfully", shoes as Shoe[]);
@@ -107,20 +95,8 @@ export async function getShoeById(
     }
     // Aggregate data into Shoe type
     const shoe: Shoe = {
-      id: shoeRaw.id,
-      name: shoeRaw.name,
-      description: shoeRaw.description,
-      price: shoeRaw.price,
-      brand: shoeRaw.brand,
-      currency: shoeRaw.currency,
-      images: shoeRaw.images,
-      category: shoeRaw.category,
+      ...shoeRaw,
       sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
-      isActive: shoeRaw.isActive,
-      usage: shoeRaw.usage,
-      terrain: shoeRaw.terrain,
-      season: shoeRaw.season,
-      waterproof: shoeRaw.waterproof,
     };
 
     return success("Shoe fetched successfully", shoe as Shoe);
@@ -129,6 +105,58 @@ export async function getShoeById(
     if (err instanceof Error) {
       return error(
         `Schuh konnte nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
+  }
+}
+
+export async function searchShoe(
+  query: string,
+): Promise<ActionResult<Shoe[]>> {
+  try {
+    const shoesRaw = await prisma.shoe.findMany({
+      where: {
+        OR: [
+          { name: { contains: query, mode: "insensitive" } }, //insensitive = case-insensitive search
+          { description: { contains: query, mode: "insensitive" } },
+          { brand: { contains: query, mode: "insensitive" } },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        brand: true,
+        currency: true,
+        images: true,
+        category: true,
+        sizes: {
+          select: {
+            size: true,
+            stock: true,
+          },
+        },
+        isActive: true,
+        usage: true,
+        terrain: true,
+        season: true,
+        waterproof: true,
+      },
+    });
+
+    const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
+      ...shoeRaw,
+      sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
+    }));
+    return success("Shoes searched successfully", shoes as Shoe[]);
+  } catch (err) {
+    console.error("Error searching shoes:", err);
+    if (err instanceof Error) {
+      return error(
+        `Schuhe konnten nicht durchsucht werden: ${err.message}`,
         500,
       );
     }

@@ -1,8 +1,21 @@
-import { getShoes } from "@/modules/shoes/actions/getShoe";
-import ProductCard from "@/modules/shoes/components/ProductCard";
+import { Suspense } from 'react';
 
-export default async function ShopPage(): Promise<React.JSX.Element> {
-  const shoesResult = await getShoes({ isActive: true });
+import Search from '@/components/Search';
+import { getShoes } from '@/modules/shoes/actions/getShoe';
+import ProductCard from '@/modules/shoes/components/ProductCard';
+
+interface ShopPageProps {
+  searchParams?: Promise<{ query?: string }>;
+}
+
+export default async function ShopPage({
+  searchParams,
+}: ShopPageProps): Promise<React.JSX.Element> {
+  // Extract query from search parameters
+  const params = await searchParams;
+  const query = params?.query || undefined;
+  // Fetch active shoes with optional search query, if query is undefined, it will fetch all active shoes
+  const shoesResult = await getShoes({ isActive: true, query });
 
   if (!shoesResult.success) {
     return <div>Error: {shoesResult.error}</div>;
@@ -12,6 +25,9 @@ export default async function ShopPage(): Promise<React.JSX.Element> {
   return (
     <>
       <h1>Shop Page</h1>
+      <Suspense fallback={<div>Loading search...</div>}>
+        <Search />
+      </Suspense>
       <p>Hier findest du eine Auswahl unserer besten Schuhe!</p>
 
       {activeShoes.length > 0 && (

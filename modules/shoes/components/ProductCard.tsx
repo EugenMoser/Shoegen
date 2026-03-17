@@ -9,14 +9,10 @@ interface ProductCardProps {
 export default function ProductCard({
   shoe,
 }: ProductCardProps): React.JSX.Element {
-  console.log("----->>>>> shoe", shoe);
-
   const sizeOptions =
     shoe.sizes.map((size) => ({ size: size.size, stock: size.stock })) ||
     [];
 
-  console.log("----->>>>> shoe.sizes", shoe.sizes);
-  console.log("----->>>>> sizeOptions", sizeOptions);
   return (
     <li
       key={shoe.id}

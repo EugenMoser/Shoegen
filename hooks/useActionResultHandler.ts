@@ -33,7 +33,6 @@ export function useActionResultHandler(
       if (state.message) {
         toast.success(state.message);
       }
-      console.log("----->>>>> test");
       window.location.href = "/dashboard";
     } else if (state.success === false && state.error) {
       toast.error(state.error);

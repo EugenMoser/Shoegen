@@ -1,21 +1,42 @@
-import { prisma } from "@/lib/db/prisma";
-import { ActionResult, error, success } from "@/types/action";
+import { prisma } from '@/lib/db/prisma';
+import { Prisma } from '@/prisma/generated/client';
+import {
+  ActionResult,
+  error,
+  success,
+} from '@/types/action';
 
-import { Shoe } from "../types";
-import { mapSizeRecord } from "../utils/mapShoeSize";
+import { Shoe } from '../types';
+import { mapSizeRecord } from '../utils/mapShoeSize';
 
 interface GetShoeParams {
   isActive?: boolean;
+  query?: string;
 }
 
-// Get all shoes, with optional filter for active shoes
+// Get all shoes, with optional filter for active shoes or search query
 export async function getShoes({
   isActive = false,
+  query,
 }: GetShoeParams = {}): Promise<ActionResult<Shoe[]>> {
+  const whereClause: Prisma.ShoeWhereInput = {};
+
+  // Filter for active shoes if isActive is true
+  if (isActive) {
+    whereClause.isActive = true;
+  }
+  // Add search functionality if query is provided
+  if (query)
+    whereClause.OR = [
+      { name: { contains: query, mode: "insensitive" } },
+      { description: { contains: query, mode: "insensitive" } },
+      { brand: { contains: query, mode: "insensitive" } },
+    ];
+
   try {
     // Fetch all shoe details (table "shoe")
     const shoesRaw = await prisma.shoe.findMany({
-      where: isActive === false ? undefined : { isActive: isActive },
+      where: whereClause,
       select: {
         id: true,
         name: true,
@@ -105,58 +126,6 @@ export async function getShoeById(
     if (err instanceof Error) {
       return error(
         `Schuh konnte nicht abgerufen werden: ${err.message}`,
-        500,
-      );
-    }
-    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
-  }
-}
-
-export async function searchShoe(
-  query: string,
-): Promise<ActionResult<Shoe[]>> {
-  try {
-    const shoesRaw = await prisma.shoe.findMany({
-      where: {
-        OR: [
-          { name: { contains: query, mode: "insensitive" } }, //insensitive = case-insensitive search
-          { description: { contains: query, mode: "insensitive" } },
-          { brand: { contains: query, mode: "insensitive" } },
-        ],
-      },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        price: true,
-        brand: true,
-        currency: true,
-        images: true,
-        category: true,
-        sizes: {
-          select: {
-            size: true,
-            stock: true,
-          },
-        },
-        isActive: true,
-        usage: true,
-        terrain: true,
-        season: true,
-        waterproof: true,
-      },
-    });
-
-    const shoes: Shoe[] = shoesRaw.map((shoeRaw) => ({
-      ...shoeRaw,
-      sizes: shoeRaw.sizes.map(mapSizeRecord), // Change size type from number to ShoeSize
-    }));
-    return success("Shoes searched successfully", shoes as Shoe[]);
-  } catch (err) {
-    console.error("Error searching shoes:", err);
-    if (err instanceof Error) {
-      return error(
-        `Schuhe konnten nicht durchsucht werden: ${err.message}`,
         500,
       );
     }

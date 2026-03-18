@@ -6,32 +6,69 @@ import {
   success,
 } from '@/types/action';
 
-import { Shoe } from '../types';
+import {
+  Season,
+  Shoe,
+  ShoeCategory,
+  Terrain,
+} from '../types';
 import { mapSizeRecord } from '../utils/mapShoeSize';
 
 interface GetShoeParams {
   isActive?: boolean;
-  query?: string;
+  searchQuery?: string;
+  brand?: string;
+  category?: ShoeCategory;
+  terrains?: Terrain;
+  seasons?: Season;
+  waterproof?: boolean;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 // Get all shoes, with optional filter for active shoes or search query
 export async function getShoes({
   isActive = false,
-  query,
+  searchQuery,
+  brand,
+  category,
+  terrains,
+  seasons,
+  waterproof,
+  minPrice,
+  maxPrice,
 }: GetShoeParams = {}): Promise<ActionResult<Shoe[]>> {
-  const whereClause: Prisma.ShoeWhereInput = {};
+  // Add search functionality if searchQuery is provided
+  // if (searchQuery)
+  //   whereClause.OR = [
+  //     { name: { contains: searchQuery, mode: "insensitive" } },
+  //     { description: { contains: searchQuery, mode: "insensitive" } },
+  //     { brand: { contains: searchQuery, mode: "insensitive" } },
+  //   ];
+  const conditions = [
+    // Add search functionality if searchQuery is provided
+    searchQuery && {
+      OR: [
+        { name: { contains: searchQuery, mode: "insensitive" } },
+        { description: { contains: searchQuery, mode: "insensitive" } },
+        { brand: { contains: searchQuery, mode: "insensitive" } },
+      ],
+    },
+    waterproof !== undefined && { waterproof },
+    category && { category: { hasSome: [category] } },
+    terrains && { terrain: { hasSome: terrains } },
+    seasons && { season: { hasSome: seasons } },
+    brand && { brand: { contains: brand, mode: "insensitive" } },
+    minPrice !== undefined &&
+      maxPrice !== undefined && {
+        price: { gte: minPrice, lte: maxPrice },
+      },
+  ].filter(Boolean) as Prisma.ShoeWhereInput[]; // Filter out undefined conditions
 
-  // Filter for active shoes if isActive is true
-  if (isActive) {
-    whereClause.isActive = true;
-  }
-  // Add search functionality if query is provided
-  if (query)
-    whereClause.OR = [
-      { name: { contains: query, mode: "insensitive" } },
-      { description: { contains: query, mode: "insensitive" } },
-      { brand: { contains: query, mode: "insensitive" } },
-    ];
+  const whereClause: Prisma.ShoeWhereInput = {
+    ...(isActive && { isActive: true }), // Filter for active shoes if isActive is true
+    ...(conditions.length > 0 && { AND: conditions }), // Add dynamic conditions if any exist
+  };
 
   try {
     // Fetch all shoe details (table "shoe")

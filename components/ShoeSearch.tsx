@@ -12,7 +12,7 @@ import {
 
 import { Input } from './ui/input';
 
-export default function Search(): React.JSX.Element {
+export default function ShoeSearch(): React.JSX.Element {
   const searchQueryParams = useSearchParams().get("query");
   const router = useRouter();
   const [inputValue, setInputValue] = useState(searchQueryParams ?? "");
@@ -37,15 +37,15 @@ export default function Search(): React.JSX.Element {
   };
 
   return (
-    <>
+    <div className="flex flex-col w-[50%]">
       <h3>Suche</h3>
       <Input
         type="text"
         placeholder="Suche nach Schuhen..."
-        className="w-1/2"
+        className=""
         onChange={onChangeHandler}
         value={inputValue}
       />
-    </>
+    </div>
   );
 }

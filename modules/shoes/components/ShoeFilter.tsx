@@ -82,7 +82,13 @@ export default function ShoeFilter({
         onClick={onClickHandler}
         className="cursor-pointer"
       />
-      <Badge variant="default">{filterCounter}</Badge>
+
+      <Badge
+        variant="default"
+        className="w-4 h-4 p-0"
+      >
+        {filterCounter}
+      </Badge>
       {open && (
         <>
           <div className="fixed inset-0 bg-gray-500 opacity-75 p-4 min-w-full min-h-full z-20"></div>

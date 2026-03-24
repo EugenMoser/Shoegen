@@ -26,7 +26,8 @@
       "@/components/*": ["./components/*"],
       "@/utils/*": ["./utils/*"],
       "@/prisma/*": ["./prisma/*"],
-      "@/auth/*": ["/auth.ts"]
+      "@/auth/*": ["/auth.ts"],
+      "@/types/*": ["./types/*"]
     }
   },
   "include": [

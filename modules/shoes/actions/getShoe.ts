@@ -1,26 +1,17 @@
-import { prisma } from '@/lib/db/prisma';
-import { Prisma } from '@/prisma/generated/client';
-import {
-  ActionResult,
-  error,
-  success,
-} from '@/types/action';
+import { prisma } from "@/lib/db/prisma";
+import { Prisma } from "@/prisma/generated/client";
+import { ActionResult, error, success } from "@/types/action";
 
-import {
-  Season,
-  Shoe,
-  ShoeCategory,
-  Terrain,
-} from '../types';
-import { mapSizeRecord } from '../utils/mapShoeSize';
+import { Season, Shoe, ShoeCategory, Terrain } from "../types";
+import { mapSizeRecord } from "../utils/mapShoeSize";
 
 interface GetShoeParams {
   isActive?: boolean;
   searchQuery?: string;
   brand?: string;
-  category?: ShoeCategory;
-  terrains?: Terrain;
-  seasons?: Season;
+  categories?: ShoeCategory[];
+  terrains?: Terrain[];
+  seasons?: Season[];
   waterproof?: boolean;
   minPrice?: number;
   maxPrice?: number;
@@ -31,20 +22,13 @@ export async function getShoes({
   isActive = false,
   searchQuery,
   brand,
-  category,
+  categories,
   terrains,
   seasons,
   waterproof,
   minPrice,
   maxPrice,
 }: GetShoeParams = {}): Promise<ActionResult<Shoe[]>> {
-  // Add search functionality if searchQuery is provided
-  // if (searchQuery)
-  //   whereClause.OR = [
-  //     { name: { contains: searchQuery, mode: "insensitive" } },
-  //     { description: { contains: searchQuery, mode: "insensitive" } },
-  //     { brand: { contains: searchQuery, mode: "insensitive" } },
-  //   ];
   const conditions = [
     // Add search functionality if searchQuery is provided
     searchQuery && {
@@ -55,7 +39,7 @@ export async function getShoes({
       ],
     },
     waterproof !== undefined && { waterproof },
-    category && { category: { hasSome: [category] } },
+    categories && { category: { hasSome: categories } },
     terrains && { terrain: { hasSome: terrains } },
     seasons && { season: { hasSome: seasons } },
     brand && { brand: { contains: brand, mode: "insensitive" } },

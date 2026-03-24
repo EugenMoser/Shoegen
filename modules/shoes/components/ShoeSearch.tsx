@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Input } from "./ui/input";
+import { Input } from "../../../components/ui/input";
 
 export default function ShoeSearch(): React.JSX.Element {
   const searchParams = useSearchParams();

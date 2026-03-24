@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { getShoes } from "@/modules/shoes/actions/getShoe";
+import FilterBar from "@/modules/shoes/components/FilterBar";
 import ProductCard from "@/modules/shoes/components/ProductCard";
 import ShoeFilter from "@/modules/shoes/components/ShoeFilter";
 import ShoeSearch from "@/modules/shoes/components/ShoeSearch";
@@ -62,8 +63,7 @@ export default async function ShopPage({
   if (!shoesResult.success) {
     return <div>Error: {shoesResult.error}</div>;
   }
-  console.log("----->>>>> params", params);
-  console.log("----->>>>> searchQuery", searchQuery);
+
   const activeShoes = shoesResult.data || [];
   return (
     <>
@@ -72,8 +72,11 @@ export default async function ShopPage({
         <Suspense fallback={<div>Loading search...</div>}>
           <ShoeSearch />
         </Suspense>
-        <Suspense fallback={<div>Loading filters...</div>}>
+        {/* <Suspense fallback={<div>Loading filters...</div>}>
           <ShoeFilter shoes={activeShoes} />
+        </Suspense> */}
+        <Suspense fallback={<div>Loading filters...</div>}>
+          <FilterBar shoes={activeShoes} />
         </Suspense>
       </div>
       <p>Hier findest du eine Auswahl unserer besten Schuhe!</p>

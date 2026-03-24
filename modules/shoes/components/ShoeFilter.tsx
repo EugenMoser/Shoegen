@@ -14,12 +14,15 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import {
+  SEASONS,
   Shoe,
   SHOE_CATEGORIES,
   ShoeCategory,
   Terrain,
   TERRAINS,
 } from "@/modules/shoes/types";
+
+import CheckboxFilterGroup from "./CheckboxFilterGroup";
 
 interface ShoeFilterProps {
   shoes?: Shoe[];
@@ -92,77 +95,45 @@ export default function ShoeFilter({
       {open && (
         <>
           <div className="fixed inset-0 bg-gray-500 opacity-75 p-4 min-w-full min-h-full z-20"></div>
-          <div className="fixed top-0 right-0 bottom-0 bg-white border rounded shadow p-4 w-72 h-full z-30">
+          <div className=" top-0 right-0 bottom-0 bg-white border rounded shadow p-4 w-72 h-full z-30">
             <X
               className="absolute top-4 right-4 cursor-pointer"
               onClick={onClickHandler}
             />
             <h3 className="text-lg font-semibold mb-4">Filter</h3>
             <FieldSet>
-              <FieldLegend variant="legend">
-                Kategorien{" "}
-                {getParamCount("categories") > 0 &&
-                  `(${getParamCount("categories")})`}
-              </FieldLegend>
-              <FieldGroup className="max-w-sm mb-4">
-                {shoes &&
-                  SHOE_CATEGORIES.map((category: ShoeCategory) => (
-                    <Field
-                      key={category}
-                      orientation="horizontal"
-                    >
-                      <Checkbox
-                        id={`category-${category}-checkbox`}
-                        name={`category-${category}-checkbox`}
-                        onCheckedChange={() => {
-                          onMultiFilterChange("categories", category);
-                        }}
-                        checked={
-                          searchParams
-                            .get("categories")
-                            ?.split(",")
-                            .includes(category) ?? false
-                        }
-                      />
-                      <FieldLabel
-                        htmlFor={`category-${category}-checkbox`}
-                      >
-                        {category}
-                      </FieldLabel>
-                    </Field>
-                  ))}
-              </FieldGroup>
-              <FieldLegend variant="legend">
-                Gelände
-                {getParamCount("terrains") > 0 &&
-                  `(${getParamCount("terrains")})`}
-              </FieldLegend>
-              <FieldGroup className="max-w-sm mb-4">
-                {shoes &&
-                  TERRAINS.map((terrain: Terrain) => (
-                    <Field
-                      key={terrain}
-                      orientation="horizontal"
-                    >
-                      <Checkbox
-                        id={`terrain-${terrain}-checkbox`}
-                        name={`terrain-${terrain}-checkbox`}
-                        onCheckedChange={() => {
-                          onMultiFilterChange("terrains", terrain);
-                        }}
-                        checked={
-                          searchParams
-                            .get("terrains")
-                            ?.split(",")
-                            .includes(terrain) ?? false
-                        }
-                      />
-                      <FieldLabel htmlFor={`terrain-${terrain}-checkbox`}>
-                        {terrain}{" "}
-                      </FieldLabel>
-                    </Field>
-                  ))}
-              </FieldGroup>
+              <CheckboxFilterGroup
+                label="Kategorien"
+                paramName="categories"
+                options={SHOE_CATEGORIES}
+                searchParams={searchParams}
+                onFilterChange={onMultiFilterChange}
+                getParamCount={getParamCount}
+              />
+              <CheckboxFilterGroup
+                label="Terrains"
+                paramName="terrains"
+                options={TERRAINS}
+                searchParams={searchParams}
+                onFilterChange={onMultiFilterChange}
+                getParamCount={getParamCount}
+              />
+              <CheckboxFilterGroup
+                label="Saisons"
+                paramName="seasons"
+                options={SEASONS}
+                searchParams={searchParams}
+                onFilterChange={onMultiFilterChange}
+                getParamCount={getParamCount}
+              />
+              {/*   <CheckboxFilterGroup
+                label="Wasserdicht"
+                paramName="waterproof"
+                options={["true", "false"]}
+                searchParams={searchParams}
+                onFilterChange={onMultiFilterChange}
+                getParamCount={getParamCount}
+              /> */}
             </FieldSet>
           </div>
         </>

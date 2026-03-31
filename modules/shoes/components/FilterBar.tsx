@@ -14,7 +14,7 @@ import {
 } from "@/modules/shoes/types";
 
 import FilterDropdown from "./FilterDropdown";
-import FilterToggle from "./FilterTogle";
+import FilterToggle from "./FilterToggle";
 
 interface FilterBarProps {
   shoes?: Shoe[];
@@ -64,7 +64,7 @@ export default function FilterBar({
     <div className="flex items-center space-x-4">
       <FilterDropdown
         label="Marken"
-        paramName="brands "
+        paramName="brands"
         options={extractUniqueBrands(shoes)}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
@@ -84,8 +84,8 @@ export default function FilterBar({
         onFilterChange={onMultiFilterChange}
       />
       <FilterDropdown
-        label="Sessions"
-        paramName="sessions"
+        label="Saisons"
+        paramName="seasons"
         options={SEASONS}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}

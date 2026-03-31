@@ -3,9 +3,13 @@ import { Suspense } from "react";
 import { getShoes } from "@/modules/shoes/actions/getShoe";
 import FilterBar from "@/modules/shoes/components/FilterBar";
 import ProductCard from "@/modules/shoes/components/ProductCard";
-import ShoeFilter from "@/modules/shoes/components/ShoeFilter";
 import ShoeSearch from "@/modules/shoes/components/ShoeSearch";
-import { Shoe, ShoeCategory, Terrain } from "@/modules/shoes/types";
+import {
+  Season,
+  Shoe,
+  ShoeCategory,
+  Terrain,
+} from "@/modules/shoes/types";
 import { ActionResult } from "@/types/action";
 
 interface ShopPageProps {
@@ -32,21 +36,16 @@ export default async function ShopPage({
   const terrains = params?.terrains?.split(",").filter(Boolean) as
     | Terrain[]
     | undefined;
-  // const seasons = params?.seasons?.split(",").filter(Boolean) as
-  //   | Season[]
-  //   | undefined;
-  // const waterproof =
-  //   params?.waterproof === "true"
-  //     ? true
-  //     : params?.waterproof === "false"
-  //       ? false
-  //       : undefined;
-  // const minPrice = params?.minPrice
-  //   ? parseFloat(params.minPrice)
-  //   : undefined;
-  // const maxPrice = params?.maxPrice
-  //   ? parseFloat(params.maxPrice)
-  //   : undefined;
+  const seasons = params?.seasons?.split(",").filter(Boolean) as
+    | Season[]
+    | undefined;
+  const waterproof = params?.waterproof ? true : false;
+  const minPrice = params?.minPrice
+    ? parseFloat(params.minPrice)
+    : undefined;
+  const maxPrice = params?.maxPrice
+    ? parseFloat(params.maxPrice)
+    : undefined;
 
   // Fetch active shoes with optional search query, if searchQuery is undefined, it will fetch all active shoes
   const shoesResult: ActionResult<Shoe[]> = await getShoes({
@@ -54,10 +53,10 @@ export default async function ShopPage({
     searchQuery,
     categories,
     terrains,
-    // seasons,
-    // waterproof,
-    // minPrice,
-    // maxPrice,
+    seasons,
+    waterproof,
+    minPrice,
+    maxPrice,
   });
 
   if (!shoesResult.success) {
@@ -72,14 +71,12 @@ export default async function ShopPage({
         <Suspense fallback={<div>Loading search...</div>}>
           <ShoeSearch />
         </Suspense>
-        {/* <Suspense fallback={<div>Loading filters...</div>}>
-          <ShoeFilter shoes={activeShoes} />
-        </Suspense> */}
+
         <Suspense fallback={<div>Loading filters...</div>}>
           <FilterBar shoes={activeShoes} />
         </Suspense>
       </div>
-      <p>Hier findest du eine Auswahl unserer besten Schuhe!</p>
+      <h3>Hier findest du eine Auswahl unserer besten Schuhe!</h3>
       {params &&
         Object.keys(params).length === 0 &&
         activeShoes.length > 0 && (

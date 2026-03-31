@@ -48,7 +48,7 @@ export async function getShoes({
         price: { gte: minPrice, lte: maxPrice },
       },
   ].filter(Boolean) as Prisma.ShoeWhereInput[]; // Filter out undefined conditions
-
+  console.log("----->>>>> conditions", waterproof);
   const whereClause: Prisma.ShoeWhereInput = {
     ...(isActive && { isActive: true }), // Filter for active shoes if isActive is true
     ...(conditions.length > 0 && { AND: conditions }), // Add dynamic conditions if any exist

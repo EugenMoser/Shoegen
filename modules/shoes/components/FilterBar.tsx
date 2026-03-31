@@ -14,6 +14,7 @@ import {
 } from "@/modules/shoes/types";
 
 import FilterDropdown from "./FilterDropdown";
+import FilterToggle from "./FilterTogle";
 
 interface FilterBarProps {
   shoes?: Shoe[];
@@ -23,25 +24,8 @@ export default function FilterBar({
   shoes,
 }: FilterBarProps): React.JSX.Element {
   const searchParams = useSearchParams();
-  const [filterCounter, setFilterCounter] = useState(0);
 
   const router = useRouter();
-
-  useEffect(() => {
-    const count = Array.from(searchParams.entries()).reduce(
-      (acc, [key, value]) => {
-        if (key === "searchQuery") {
-          return acc;
-        }
-        return acc + value.split(",").filter(Boolean).length; // Count each selected option in multi-select filters
-      },
-      0,
-    );
-    setFilterCounter(count);
-  }, [searchParams]);
-
-  const getParamCount = (paramName: string) =>
-    searchParams.get(paramName)?.split(",").filter(Boolean).length ?? 0;
 
   const onMultiFilterChange = (paramName: string, value: string[]) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -51,6 +35,18 @@ export default function FilterBar({
     const newParams = currentValue.length > 0 ? currentValue : [];
     if (newParams.length > 0) {
       params.set(paramName, newParams.join(","));
+    } else {
+      params.delete(paramName);
+    }
+    router.push(`?${params.toString()}`);
+  };
+
+  const onToggleFilterChange = (paramName: string, value: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    const currentValue = value ? "true" : "false";
+    if (currentValue === "true") {
+      params.set(paramName, "true");
     } else {
       params.delete(paramName);
     }
@@ -72,7 +68,6 @@ export default function FilterBar({
         options={extractUniqueBrands(shoes)}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
-        getParamCount={getParamCount}
       />
       <FilterDropdown
         label="Kategorien"
@@ -80,7 +75,6 @@ export default function FilterBar({
         options={SHOE_CATEGORIES}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
-        getParamCount={getParamCount}
       />
       <FilterDropdown
         label="Terrains"
@@ -88,7 +82,6 @@ export default function FilterBar({
         options={TERRAINS}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
-        getParamCount={getParamCount}
       />
       <FilterDropdown
         label="Sessions"
@@ -96,7 +89,12 @@ export default function FilterBar({
         options={SEASONS}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
-        getParamCount={getParamCount}
+      />
+      <FilterToggle
+        label="Wasserdicht"
+        paramName="waterproof"
+        searchParams={searchParams}
+        onFilterChange={onToggleFilterChange}
       />
     </div>
   );

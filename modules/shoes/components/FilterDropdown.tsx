@@ -17,7 +17,6 @@ interface FilterDropdownProps {
   options: readonly string[]; // e.g. SHOE_CATEGORIES / TERRAINS
   searchParams: URLSearchParams;
   onFilterChange: (paramName: string, value: string[]) => void;
-  getParamCount: (paramName: string) => number;
 }
 
 export default function FilterDropdown({
@@ -26,13 +25,18 @@ export default function FilterDropdown({
   options,
   searchParams,
   onFilterChange,
-  getParamCount,
 }: FilterDropdownProps): React.JSX.Element {
-  console.log("----->>>>> searchParams", searchParams.get(paramName));
-  const itemValue = searchParams.get(paramName)?.split(",") ?? [];
+  const itemParamValue = searchParams.get(paramName)?.split(",") ?? [];
 
   const numberOfSelectedOptions =
-    itemValue.length > 0 ? itemValue.length : "";
+    itemParamValue.length > 0 ? itemParamValue.length : "";
+
+  const handleCheckboxChange = (option: string) => {
+    const newValue = itemParamValue.includes(option)
+      ? itemParamValue.filter((value) => value !== option)
+      : [...itemParamValue, option];
+    onFilterChange(paramName, newValue);
+  };
 
   return (
     <Popover>
@@ -60,12 +64,9 @@ export default function FilterDropdown({
                 id={`${paramName}-${option}-checkbox`}
                 name={`${paramName}-${option}-checkbox`}
                 onCheckedChange={() => {
-                  const newValue = itemValue.includes(option)
-                    ? itemValue.filter((value) => value !== option)
-                    : [...itemValue, option];
-                  onFilterChange(paramName, newValue);
+                  handleCheckboxChange(option);
                 }}
-                checked={itemValue.includes(option)}
+                checked={itemParamValue.includes(option)}
               />
               <Label htmlFor={`${paramName}-${option}-checkbox`}>
                 {option}

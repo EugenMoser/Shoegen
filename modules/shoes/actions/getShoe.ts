@@ -153,3 +153,32 @@ export async function getShoeById(
     return error("Ein unerwarteter Fehler ist aufgetreten", 500);
   }
 }
+export async function getShoePrices(): Promise<ActionResult<number[]>> {
+  try {
+    const prices = await prisma.shoe.aggregate({
+      _min: {
+        price: true,
+      },
+      _max: {
+        price: true,
+      },
+    });
+    const priceValues = [prices._min.price, prices._max.price];
+    const validPrices = priceValues.every(
+      (price) => typeof price === "number",
+    );
+    if (!validPrices) {
+      throw new Error("Ungültige Preisdaten erhalten");
+    }
+    return success("Shoe prices fetched successfully", priceValues);
+  } catch (err) {
+    console.error("Error fetching shoe prices:", err);
+    if (err instanceof Error) {
+      return error(
+        `Schuhpreise konnten nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
+  }
+}

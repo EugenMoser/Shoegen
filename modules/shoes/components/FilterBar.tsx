@@ -1,27 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   SEASONS,
   Shoe,
   SHOE_CATEGORIES,
-  ShoeCategory,
-  Terrain,
   TERRAINS,
 } from "@/modules/shoes/types";
 
 import FilterDropdown from "./FilterDropdown";
+import FilterSlider from "./FilterPriceSlider";
 import FilterToggle from "./FilterToggle";
 
 interface FilterBarProps {
   shoes?: Shoe[];
+  priceRange: [number, number]; // [minPrice, maxPrice]
 }
 
 export default function FilterBar({
   shoes,
+  priceRange,
 }: FilterBarProps): React.JSX.Element {
   const searchParams = useSearchParams();
 
@@ -53,6 +52,23 @@ export default function FilterBar({
     router.push(`?${params.toString()}`);
   };
 
+  const onPriceFilterChange = (minPrice: string, maxPrice: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (minPrice) {
+      params.set("minPrice", minPrice);
+    } else {
+      params.delete("minPrice");
+    }
+
+    if (maxPrice) {
+      params.set("maxPrice", maxPrice);
+    } else {
+      params.delete("maxPrice");
+    }
+
+    router.push(`?${params.toString()}`);
+  };
   // Extract unique brands from shoes
   const extractUniqueBrands = (shoes: Shoe[] | undefined): string[] => {
     if (!shoes) return [];
@@ -95,6 +111,14 @@ export default function FilterBar({
         paramName="waterproof"
         searchParams={searchParams}
         onFilterChange={onToggleFilterChange}
+      />
+      <FilterSlider
+        label="Preis"
+        minParamName="minPrice"
+        maxParamName="maxPrice"
+        options={priceRange} // Type assertion to ensure it's treated as a tuple
+        searchParams={searchParams}
+        onFilterChange={onPriceFilterChange}
       />
     </div>
   );

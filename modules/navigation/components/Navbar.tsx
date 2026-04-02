@@ -1,8 +1,9 @@
-import { auth } from '@/auth';
-import { logout } from '@/modules/auth/actions/logout';
+import { useSession } from "next-auth/react";
+
+import { logout } from "@/modules/auth/actions/logout";
 
 export async function Navbar() {
-  const session = await auth();
+  const { data: session } = useSession();
 
   return (
     <nav>

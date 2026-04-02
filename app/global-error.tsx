@@ -10,7 +10,7 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <h2>Etwas ist schiefgelaufen!</h2>
+        <h2>Etwas ist schiefgelaufen!!</h2>
         <button onClick={() => reset()}>Erneut versuchen</button>
       </body>
     </html>

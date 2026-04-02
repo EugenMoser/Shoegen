@@ -15,6 +15,7 @@ import { ActionResult } from "@/types/action";
 interface ShopPageProps {
   searchParams?: Promise<{
     query?: string;
+    brands?: string; // e.g. "Nike,Adidas"
     categories?: string; // e.g. "SNEAKER,BOOT"
     terrains?: string;
     seasons?: string;
@@ -32,6 +33,7 @@ export default async function ShopPage({
   // Extract query from search parameters
   const params = await searchParams;
   const searchQuery = params?.query || undefined;
+  const brands = params?.brands?.split(",").filter(Boolean) || undefined; // Convert comma-separated string to array
   const categories = params?.categories?.split(",").filter(Boolean) as
     | ShoeCategory[]
     | undefined;
@@ -54,6 +56,7 @@ export default async function ShopPage({
     getShoes({
       isActive: true,
       searchQuery,
+      brands,
       categories,
       terrains,
       seasons,

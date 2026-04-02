@@ -8,7 +8,7 @@ import { mapSizeRecord } from "../utils/mapShoeSize";
 interface GetShoeParams {
   isActive?: boolean;
   searchQuery?: string;
-  brand?: string;
+  brands?: string;
   categories?: ShoeCategory[];
   terrains?: Terrain[];
   seasons?: Season[];
@@ -21,7 +21,7 @@ interface GetShoeParams {
 export async function getShoes({
   isActive = false,
   searchQuery,
-  brand,
+  brands,
   categories,
   terrains,
   seasons,
@@ -42,13 +42,12 @@ export async function getShoes({
     categories && { category: { hasSome: categories } },
     terrains && { terrain: { hasSome: terrains } },
     seasons && { season: { hasSome: seasons } },
-    brand && { brand: { contains: brand, mode: "insensitive" } },
+    brands && { brand: { hasSome: brands } },
     minPrice !== undefined &&
       maxPrice !== undefined && {
         price: { gte: minPrice, lte: maxPrice },
       },
   ].filter(Boolean) as Prisma.ShoeWhereInput[]; // Filter out undefined conditions
-  console.log("----->>>>> conditions", waterproof);
   const whereClause: Prisma.ShoeWhereInput = {
     ...(isActive && { isActive: true }), // Filter for active shoes if isActive is true
     ...(conditions.length > 0 && { AND: conditions }), // Add dynamic conditions if any exist

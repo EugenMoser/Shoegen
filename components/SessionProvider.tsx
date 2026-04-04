@@ -3,15 +3,21 @@
 import type { Session } from "next-auth";
 import dynamic from "next/dynamic";
 
-const Provider = dynamic(() => import("@/components/SessionProvider"), {
-  ssr: false,
-});
-export default function SessionProvider({
+const NextAuthSessionProvider = dynamic(
+  () => import("next-auth/react").then((mod) => mod.SessionProvider),
+  { ssr: false },
+);
+
+export default function Providers({
   children,
   session,
 }: {
   children: React.ReactNode;
   session: Session | null;
 }) {
-  return <Provider session={session}>{children}</Provider>;
+  return (
+    <NextAuthSessionProvider session={session}>
+      {children}
+    </NextAuthSessionProvider>
+  );
 }

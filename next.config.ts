@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    // @ts-ignore
-    turbopack: false,
-  },
 };
 
 export default nextConfig;

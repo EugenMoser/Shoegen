@@ -1,16 +1,11 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
-const SessionProvider = dynamic(
-  () => import("@/components/SessionProvider"),
-  {
-    ssr: false,
-  },
-);
+import SessionProvider from "@/components/SessionProvider";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

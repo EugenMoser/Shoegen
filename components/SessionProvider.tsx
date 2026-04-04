@@ -1,12 +1,7 @@
 "use client";
 
+import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
-import dynamic from "next/dynamic";
-
-const NextAuthSessionProvider = dynamic(
-  () => import("next-auth/react").then((mod) => mod.SessionProvider),
-  { ssr: false },
-);
 
 export default function Providers({
   children,
@@ -16,8 +11,8 @@ export default function Providers({
   session: Session | null;
 }) {
   return (
-    <NextAuthSessionProvider session={session}>
+    <SessionProvider session={session}>
       {children}
-    </NextAuthSessionProvider>
+    </SessionProvider>
   );
 }

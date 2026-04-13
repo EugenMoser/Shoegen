@@ -1,16 +1,18 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import { getShoePrices, getShoes } from "@/modules/shoes/actions/getShoe";
-import FilterBar from "@/modules/shoes/components/FilterBar";
-import ProductCard from "@/modules/shoes/components/ProductCard";
-import ShoeSearch from "@/modules/shoes/components/ShoeSearch";
+import {
+  getShoePrices,
+  getShoes,
+} from '@/modules/shoes/actions/getShoe';
+import FilterBar from '@/modules/shoes/components/FilterBar';
+import ProductCard from '@/modules/shoes/components/ProductCard';
+import ShoeSearch from '@/modules/shoes/components/ShoeSearch';
 import {
   Season,
   Shoe,
   ShoeCategory,
   Terrain,
-} from "@/modules/shoes/types";
-import { ActionResult } from "@/types/action";
+} from '@/modules/shoes/types';
 
 interface ShopPageProps {
   searchParams?: Promise<{
@@ -19,7 +21,7 @@ interface ShopPageProps {
     categories?: string; // e.g. "SNEAKER,BOOT"
     terrains?: string;
     seasons?: string;
-    waterproof?: string; // "true" or "false"
+    waterproof?: string; // "true"
     minPrice?: string;
     maxPrice?: string;
   }>;
@@ -43,7 +45,7 @@ export default async function ShopPage({
   const seasons = params?.seasons?.split(",").filter(Boolean) as
     | Season[]
     | undefined;
-  const waterproof = params?.waterproof ? true : false;
+  const waterproof = params?.waterproof ? true : undefined; // don't filter by waterproof if not provided
   const minPrice = params?.minPrice
     ? parseFloat(params.minPrice)
     : undefined;

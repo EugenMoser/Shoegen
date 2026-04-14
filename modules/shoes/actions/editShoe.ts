@@ -1,11 +1,15 @@
 "use server";
 
-import { prisma } from "@/lib/db/prisma";
-import { permissions } from "@/modules/auth/permissions";
-import { serverAuthGuard } from "@/modules/auth/serverAuthGuard";
-import { ActionResult, error, success } from "@/types/action";
+import { prisma } from '@/lib/db/prisma';
+import { permissions } from '@/modules/auth/permissions';
+import { serverAuthGuard } from '@/modules/auth/serverAuthGuard';
+import {
+  ActionResult,
+  error,
+  success,
+} from '@/types/action';
 
-import { editShoeSchema } from "../validationSchema";
+import { editShoeSchema } from '../validationSchema';
 
 export async function editShoe(
   shoeId: string,
@@ -49,6 +53,7 @@ export async function editShoe(
       where: { id: shoeId },
       data: {
         ...parsed.data,
+        waterproof: parsed.data.waterproof ?? false,
         sizes: {
           deleteMany: {},
           create: parsed.data.sizes.map((size) => ({

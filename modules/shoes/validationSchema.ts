@@ -25,7 +25,7 @@ export const createShoeSchema = z.object({
   usage: z.array(z.enum(SHOE_USAGES)),
   terrain: z.array(z.enum(TERRAINS)),
   season: z.array(z.enum(SEASONS)),
-  waterproof: z.literal(true).optional(),
+  waterproof: z.boolean(),
 });
 
 export const editShoeSchema = createShoeSchema.extend({

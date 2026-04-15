@@ -1,17 +1,9 @@
-import {
-  stepCountIs,
-  streamText,
-  tool,
-} from 'ai';
-import { z } from 'zod';
+import { convertToModelMessages, stepCountIs, streamText, tool } from "ai";
+import { z } from "zod";
 
-import { buildSystemPrompt } from '@/modules/advisor/utils/systemPrompt';
-import {
-  SEASONS,
-  SHOE_CATEGORIES,
-  TERRAINS,
-} from '@/modules/shoes/types';
-import { openai } from '@ai-sdk/openai';
+import { buildSystemPrompt } from "@/modules/advisor/utils/systemPrompt";
+import { SEASONS, SHOE_CATEGORIES, TERRAINS } from "@/modules/shoes/types";
+import { openai } from "@ai-sdk/openai";
 
 export async function POST(req: Request): Promise<Response> {
   const { messages } = await req.json();
@@ -19,7 +11,7 @@ export async function POST(req: Request): Promise<Response> {
   const result = await streamText({
     model: openai("gpt-4o-mini"),
     system: buildSystemPrompt(),
-    messages,
+    messages: await convertToModelMessages(messages),
     tools: {
       filterShoes: tool({
         description:
@@ -38,5 +30,5 @@ export async function POST(req: Request): Promise<Response> {
 
     stopWhen: stepCountIs(2),
   });
-  return result.toTextStreamResponse();
+  return result.toUIMessageStreamResponse();
 }

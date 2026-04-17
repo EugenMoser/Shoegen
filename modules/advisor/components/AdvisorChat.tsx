@@ -1,22 +1,27 @@
 "use client";
+import {
+  useEffect,
+  useState,
+} from 'react';
 
-import { useEffect, useState } from "react";
+import {
+  DefaultChatTransport,
+  DynamicToolUIPart,
+} from 'ai';
+import { useRouter } from 'next/navigation';
 
-import { DefaultChatTransport, DynamicToolUIPart } from "ai";
-import { useRouter } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { useChat } from "@ai-sdk/react";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useChat } from '@ai-sdk/react';
 
-import { FilterShoesParams } from "../types";
-import AdvisorMessage from "./AdvisorMessage";
+import { FilterShoesParams } from '../types';
+import AdvisorMessage from './AdvisorMessage';
 
 export default function AdvisorChat(): React.JSX.Element {
   const { messages, sendMessage, status } = useChat({
@@ -60,9 +65,8 @@ export default function AdvisorChat(): React.JSX.Element {
     router.replace(`/shop?${params.toString()}`);
   }, [messages, router]);
 
-  console.log("----->>>>> Messages", messages);
   return (
-    <Card className="w-full h-full p-4 flex flex-col gap-4">
+    <Card className="max-w-full w-full h-full p-4 flex flex-col gap-4 ">
       <CardHeader>
         <CardTitle>
           Frag mich nach Empfehlungen oder Tipps rund um Schuhe!

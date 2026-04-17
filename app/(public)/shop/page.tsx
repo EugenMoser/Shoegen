@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import AdvisorChat from '@/modules/advisor/components/AdvisorChat';
+import AdvisorSidebar from '@/modules/advisor/components/AdvisorSidebar';
 import {
   getShoePrices,
   getShoes,
@@ -95,7 +95,7 @@ export default async function ShopPage({
             priceRange={priceRange as [number, number]}
           />
         </Suspense>
-        <AdvisorChat />
+        <AdvisorSidebar />
       </div>
       <h3>Hier findest du eine Auswahl unserer besten Schuhe!</h3>
       {params &&

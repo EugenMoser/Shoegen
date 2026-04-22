@@ -29,7 +29,7 @@ export default async function DashboardLayout({
         <Breadcrumbs role={role} />
         <div className="flex flex-row gap-4">
           <DashboardSidebar items={navItems} />
-          <div className="flex-1">{children}</div>
+          <main className="flex-1">{children}</main>
         </div>
         <Toaster position="top-right" />
       </div>

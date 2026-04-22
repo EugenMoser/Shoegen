@@ -1,0 +1,6 @@
+{"type":"server-started","port":60394,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:60394","screen_dir":"/Users/eugen/Project/Shoegen/shoegen/.superpowers/brainstorm/60790-1776799325/content","state_dir":"/Users/eugen/Project/Shoegen/shoegen/.superpowers/brainstorm/60790-1776799325/state"}
+{"type":"screen-added","file":"/Users/eugen/Project/Shoegen/shoegen/.superpowers/brainstorm/60790-1776799325/content/layout.html"}
+{"type":"screen-added","file":"/Users/eugen/Project/Shoegen/shoegen/.superpowers/brainstorm/60790-1776799325/content/productcard.html"}
+{"source":"user-event","type":"click","text":"👟\n        \n          Nike\n          Air Max 90\n          149,99 €\n          \n            SNEAKER\n            Sommer\n          \n          Details →\n        \n      \n    \n    \n      A — Hochformat mit Bild\n      Bild oben, Info unten. Klassisches Produkt-Grid wie bei Zalando/Nike. Zeigt wenig Text, dafür gutes Bild.","choice":"tall","id":null,"timestamp":1776799515099}
+{"type":"screen-added","file":"/Users/eugen/Project/Shoegen/shoegen/.superpowers/brainstorm/60790-1776799325/content/waiting.html"}
+{"type":"server-stopped","reason":"owner process exited"}

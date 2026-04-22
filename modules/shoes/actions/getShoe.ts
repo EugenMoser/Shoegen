@@ -8,7 +8,7 @@ import { mapSizeRecord } from "../utils/mapShoeSize";
 interface GetShoeParams {
   isActive?: boolean;
   searchQuery?: string;
-  brands?: string;
+  brands?: string[];
   categories?: ShoeCategory[];
   terrains?: Terrain[];
   seasons?: Season[];
@@ -35,14 +35,13 @@ export async function getShoes({
       OR: [
         { name: { contains: searchQuery, mode: "insensitive" } },
         { description: { contains: searchQuery, mode: "insensitive" } },
-        { brand: { contains: searchQuery, mode: "insensitive" } },
       ],
     },
     waterproof !== undefined && { waterproof },
     categories && { category: { hasSome: categories } },
     terrains && { terrain: { hasSome: terrains } },
     seasons && { season: { hasSome: seasons } },
-    brands && { brand: { hasSome: brands } },
+    brands && { brand: { in: brands } },
     minPrice !== undefined &&
       maxPrice !== undefined && {
         price: { gte: minPrice, lte: maxPrice },
@@ -175,6 +174,32 @@ export async function getShoePrices(): Promise<ActionResult<number[]>> {
     if (err instanceof Error) {
       return error(
         `Schuhpreise konnten nicht abgerufen werden: ${err.message}`,
+        500,
+      );
+    }
+    return error("Ein unerwarteter Fehler ist aufgetreten", 500);
+  }
+}
+export async function getShoeBrands(): Promise<ActionResult<string[]>> {
+  try {
+    const brandsRaw = await prisma.shoe.findMany({
+      where: { isActive: true },
+      distinct: ["brand"],
+      select: {
+        brand: true,
+      },
+    });
+    // Extract brand names and filter out any null or undefined values
+    const brands = brandsRaw
+      .map((record) => record.brand) // Extract the brand field from each record
+      .filter((brand): brand is string => typeof brand === "string"); // Type guard to ensure we only return strings
+
+    return success("Shoe brands fetched successfully", brands);
+  } catch (err) {
+    console.error("Error fetching shoe brands:", err);
+    if (err instanceof Error) {
+      return error(
+        `Schuhmarken konnten nicht abgerufen werden: ${err.message}`,
         500,
       );
     }

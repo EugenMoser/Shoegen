@@ -2,25 +2,20 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import {
-  SEASONS,
-  Shoe,
-  SHOE_CATEGORIES,
-  TERRAINS,
-} from "@/modules/shoes/types";
+import { SEASONS, SHOE_CATEGORIES, TERRAINS } from "@/modules/shoes/types";
 
 import FilterDropdown from "./FilterDropdown";
 import FilterSlider from "./FilterPriceSlider";
 import FilterToggle from "./FilterToggle";
 
 interface FilterBarProps {
-  shoes?: Shoe[];
   priceRange: [number, number]; // [minPrice, maxPrice]
+  shoeBrands: string[];
 }
 
 export default function FilterBar({
-  shoes,
   priceRange,
+  shoeBrands,
 }: FilterBarProps): React.JSX.Element {
   const searchParams = useSearchParams();
 
@@ -69,19 +64,12 @@ export default function FilterBar({
 
     router.push(`?${params.toString()}`);
   };
-  // Extract unique brands from shoes
-  const extractUniqueBrands = (shoes: Shoe[] | undefined): string[] => {
-    if (!shoes) return [];
-    const brandsSet = new Set(shoes.map((shoe) => shoe.brand));
-    return Array.from(brandsSet);
-  };
-
   return (
     <div className="flex items-center space-x-4">
       <FilterDropdown
         label="Marken"
         paramName="brands"
-        options={extractUniqueBrands(shoes)}
+        options={shoeBrands}
         searchParams={searchParams}
         onFilterChange={onMultiFilterChange}
       />

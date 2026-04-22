@@ -1,0 +1,68 @@
+<h2>Wie soll eine Produkt-Karte aussehen?</h2>
+<p class="subtitle">Jede Karte zeigt einen Schuh im Grid</p>
+
+<div class="cards">
+  <div class="card" data-choice="tall" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 16px; background: var(--bg-secondary); display: flex; justify-content: center;">
+      <div style="width: 160px; background: var(--bg-primary); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+        <div style="background: var(--bg-tertiary); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 28px;">👟</div>
+        <div style="padding: 10px;">
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-bottom: 2px;">Nike</div>
+          <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Air Max 90</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary-color, #6366f1);">149,99 €</div>
+          <div style="display: flex; gap: 3px; margin-top: 6px; flex-wrap: wrap;">
+            <span style="font-size: 9px; background: var(--accent); padding: 2px 5px; border-radius: 3px;">SNEAKER</span>
+            <span style="font-size: 9px; background: var(--accent); padding: 2px 5px; border-radius: 3px;">Sommer</span>
+          </div>
+          <div style="margin-top: 8px; font-size: 10px; background: var(--bg-tertiary); text-align: center; padding: 4px; border-radius: 4px;">Details →</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Hochformat mit Bild</h3>
+      <p>Bild oben, Info unten. Klassisches Produkt-Grid wie bei Zalando/Nike. Zeigt wenig Text, dafür gutes Bild.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="horizontal" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 16px; background: var(--bg-secondary); display: flex; justify-content: center;">
+      <div style="width: 260px; background: var(--bg-primary); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex;">
+        <div style="background: var(--bg-tertiary); width: 90px; min-height: 100px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0;">👟</div>
+        <div style="padding: 10px; flex: 1;">
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-bottom: 1px;">Nike</div>
+          <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px;">Air Max 90</div>
+          <div style="font-size: 10px; color: var(--text-secondary); margin-bottom: 2px;">SNEAKER · Sommer</div>
+          <div style="font-size: 10px; color: var(--text-secondary); margin-bottom: 6px;">💧 Wasserdicht</div>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-size: 13px; font-weight: 700; color: var(--primary-color, #6366f1);">149,99 €</div>
+            <div style="font-size: 10px; background: var(--bg-tertiary); padding: 3px 7px; border-radius: 4px;">→</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Querformat mit Details</h3>
+      <p>Bild links, mehr Info rechts. Zeigt mehr Attribute auf einmal. Gut für Listenansicht, weniger "Shop-typisch".</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="minimal" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 16px; background: var(--bg-secondary); display: flex; justify-content: center;">
+      <div style="width: 160px; background: var(--bg-primary); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+        <div style="background: var(--bg-tertiary); height: 110px; display: flex; align-items: center; justify-content: center; font-size: 28px; position: relative;">
+          👟
+          <span style="position: absolute; top: 6px; right: 6px; font-size: 9px; background: rgba(0,0,0,0.5); color: white; padding: 2px 5px; border-radius: 3px;">NEU</span>
+        </div>
+        <div style="padding: 10px;">
+          <div style="font-size: 11px; font-weight: 600;">Air Max 90</div>
+          <div style="font-size: 10px; color: var(--text-secondary); margin-bottom: 6px;">Nike</div>
+          <div style="font-size: 14px; font-weight: 700;">149,99 €</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Minimalistisch</h3>
+      <p>Nur Bild, Name, Marke, Preis. Kein Attribut-Noise. Klick führt zur Detailseite wo alles steht. Sauberster Look.</p>
+    </div>
+  </div>
+</div>

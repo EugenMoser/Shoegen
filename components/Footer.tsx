@@ -1,6 +1,6 @@
 export default function Footer(): React.JSX.Element {
   return (
-    <footer className=" bg-background w-full justify-between items-center sticky bottom-0 z-10 p-4 border-t">
+    <footer className=" bg-background w-full justify-between items-center  bottom-0 z-10 p-4 border-t">
       <ul className="grid grid-cols-4 height-[100px] gap-8 items-center">
         <li>Über uns </li>
         <li>Kontakt</li>

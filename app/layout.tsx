@@ -1,12 +1,16 @@
-import "./globals.css";
+import './globals.css';
+
+import type { Metadata } from 'next';
+import {
+  Geist,
+  Geist_Mono,
+} from 'next/font/google';
+import { Toaster } from 'sonner';
+
+import { auth } from '@/auth';
+import Providers from '@/components/Providers';
 
 export const dynamic = "force-dynamic";
-
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
-
-import Providers from "@/components/SessionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +32,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html
       lang="en"
@@ -36,7 +41,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased mx-8 lg:mx-16 h-screen `}
       >
-        <Providers session={null}>{children}</Providers>
+        <Providers session={session}>{children}</Providers>
         <Toaster />
       </body>
     </html>

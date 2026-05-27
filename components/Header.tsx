@@ -1,9 +1,7 @@
 import { ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 
-interface HeaderProps {}
-
-export default function Header({}: HeaderProps): React.JSX.Element {
+export default function Header(): React.JSX.Element {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Shop", href: "/shop" },

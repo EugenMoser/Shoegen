@@ -27,8 +27,8 @@ export async function POST(req: Request): Promise<Response> {
           "Filtert Schuhe im Shop anhand der erkannten Kriterien des Kunden.",
         inputSchema: z.object({
           categories: z.array(z.enum(SHOE_CATEGORIES)).optional(),
-          terrain: z.array(z.enum(TERRAINS)).optional(),
-          season: z.array(z.enum(SEASONS)).optional(),
+          terrains: z.array(z.enum(TERRAINS)).optional(),
+          seasons: z.array(z.enum(SEASONS)).optional(),
           waterproof: z.literal(true).optional(),
           minPrice: z.number().optional(),
           maxPrice: z.number().optional(),
@@ -40,7 +40,7 @@ export async function POST(req: Request): Promise<Response> {
       }),
     },
 
-    stopWhen: stepCountIs(5),
+    stopWhen: stepCountIs(10),
   });
   return result.toUIMessageStreamResponse();
 }

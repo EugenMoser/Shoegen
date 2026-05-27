@@ -1,3 +1,4 @@
+// This component represents a single message in the shoe advisor chat interface.
 "use client";
 
 interface AdvisorMessageProps {

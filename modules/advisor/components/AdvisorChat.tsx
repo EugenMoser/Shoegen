@@ -1,3 +1,4 @@
+// This component implements a chat interface for the shoe advisor feature.
 "use client";
 import {
   useEffect,
@@ -35,12 +36,23 @@ export default function AdvisorChat(): React.JSX.Element {
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
     if (!lastMessage?.parts) return;
+    console.log(
+      "------> Parts",
+      JSON.stringify(lastMessage.parts, null, 2),
+    );
+    console.log(
+      "Alle Parts:",
+      messages.map((m) => ({
+        role: m.role,
+        parts: m.parts.map((p) => p.type),
+      })),
+    );
     const toolPart = lastMessage.parts.find(
       (part): part is DynamicToolUIPart =>
-        part.type === "dynamic-tool" &&
-        (part as DynamicToolUIPart).toolName === "filterShoes" &&
-        (part as DynamicToolUIPart).state === "output-available",
+        part.type === "tool-filterShoes" &&
+        part.state === "output-available",
     );
+
     if (!toolPart) return;
 
     const args = (

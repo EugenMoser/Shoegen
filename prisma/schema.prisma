@@ -38,6 +38,7 @@ model Shoe {
   terrain    Terrain[]
   season     Season[]
   waterproof Boolean
+  colors     ShoeColor[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -52,6 +53,22 @@ model ShoeSize {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   shoe      Shoe     @relation(fields: [shoeId], references: [id])
+}
+
+enum ShoeColor {
+  BLACK
+  WHITE
+  GREY
+  BROWN
+  BEIGE
+  RED
+  BLUE
+  GREEN
+  YELLOW
+  ORANGE
+  PINK
+  PURPLE
+  MULTICOLOR
 }
 
 enum Role {

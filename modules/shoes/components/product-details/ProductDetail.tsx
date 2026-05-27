@@ -22,9 +22,6 @@ export default function ProductDetail({
     shoe.sizes.map((size) => ({ size: size.size, stock: size.stock })) ||
     [];
 
-  log("----->>>>> shoe.sizes", shoe.sizes);
-  log("----->>>>> sizeOptions", sizeOptions);
-
   return (
     <>
       <ProductImageGallery

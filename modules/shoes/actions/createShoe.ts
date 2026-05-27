@@ -33,6 +33,7 @@ export async function createShoe(
       terrain: formData.getAll("terrain"),
 
       waterproof: formData.get("waterproof") === "on",
+      colors: formData.getAll("colors"),
 
       sizes:
         typeof rawSizes === "string" && rawSizes.trim() !== ""

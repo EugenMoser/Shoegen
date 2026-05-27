@@ -9,6 +9,25 @@
 * 🟢 You can import this file directly.
 */
 
+export const ShoeColor = {
+  BLACK: 'BLACK',
+  WHITE: 'WHITE',
+  GREY: 'GREY',
+  BROWN: 'BROWN',
+  BEIGE: 'BEIGE',
+  RED: 'RED',
+  BLUE: 'BLUE',
+  GREEN: 'GREEN',
+  YELLOW: 'YELLOW',
+  ORANGE: 'ORANGE',
+  PINK: 'PINK',
+  PURPLE: 'PURPLE',
+  MULTICOLOR: 'MULTICOLOR'
+} as const
+
+export type ShoeColor = (typeof ShoeColor)[keyof typeof ShoeColor]
+
+
 export const Role = {
   ADMIN: 'ADMIN',
   EDITOR: 'EDITOR',

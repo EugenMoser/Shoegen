@@ -36,21 +36,11 @@ export default function AdvisorChat(): React.JSX.Element {
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
     if (!lastMessage?.parts) return;
-    console.log(
-      "------> Parts",
-      JSON.stringify(lastMessage.parts, null, 2),
-    );
-    console.log(
-      "Alle Parts:",
-      messages.map((m) => ({
-        role: m.role,
-        parts: m.parts.map((p) => p.type),
-      })),
-    );
+
     const toolPart = lastMessage.parts.find(
       (part): part is DynamicToolUIPart =>
         part.type === "tool-filterShoes" &&
-        part.state === "output-available",
+        part.state === "output-available", // Only consider tool calls that have completed and have output available
     );
 
     if (!toolPart) return;
@@ -73,6 +63,7 @@ export default function AdvisorChat(): React.JSX.Element {
     if (args.maxPrice !== undefined)
       params.set("maxPrice", String(args.maxPrice));
     if (args.brands) params.set("brands", args.brands);
+    if (args.colors?.length) params.set("colors", args.colors.join(","));
 
     router.replace(`/shop?${params.toString()}`);
   }, [messages, router]);

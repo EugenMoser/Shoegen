@@ -74,6 +74,7 @@ export type ShoeCountAggregateOutputType = {
   terrain: number
   season: number
   waterproof: number
+  colors: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -128,6 +129,7 @@ export type ShoeCountAggregateInputType = {
   terrain?: true
   season?: true
   waterproof?: true
+  colors?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -233,6 +235,7 @@ export type ShoeGroupByOutputType = {
   terrain: $Enums.Terrain[]
   season: $Enums.Season[]
   waterproof: boolean
+  colors: $Enums.ShoeColor[]
   createdAt: Date
   updatedAt: Date
   _count: ShoeCountAggregateOutputType | null
@@ -274,6 +277,7 @@ export type ShoeWhereInput = {
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
   waterproof?: Prisma.BoolFilter<"Shoe"> | boolean
+  colors?: Prisma.EnumShoeColorNullableListFilter<"Shoe">
   createdAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   sizes?: Prisma.ShoeSizeListRelationFilter
@@ -293,6 +297,7 @@ export type ShoeOrderByWithRelationInput = {
   terrain?: Prisma.SortOrder
   season?: Prisma.SortOrder
   waterproof?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   sizes?: Prisma.ShoeSizeOrderByRelationAggregateInput
@@ -315,6 +320,7 @@ export type ShoeWhereUniqueInput = Prisma.AtLeast<{
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
   waterproof?: Prisma.BoolFilter<"Shoe"> | boolean
+  colors?: Prisma.EnumShoeColorNullableListFilter<"Shoe">
   createdAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shoe"> | Date | string
   sizes?: Prisma.ShoeSizeListRelationFilter
@@ -334,6 +340,7 @@ export type ShoeOrderByWithAggregationInput = {
   terrain?: Prisma.SortOrder
   season?: Prisma.SortOrder
   waterproof?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ShoeCountOrderByAggregateInput
@@ -360,6 +367,7 @@ export type ShoeScalarWhereWithAggregatesInput = {
   terrain?: Prisma.EnumTerrainNullableListFilter<"Shoe">
   season?: Prisma.EnumSeasonNullableListFilter<"Shoe">
   waterproof?: Prisma.BoolWithAggregatesFilter<"Shoe"> | boolean
+  colors?: Prisma.EnumShoeColorNullableListFilter<"Shoe">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shoe"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shoe"> | Date | string
 }
@@ -378,6 +386,7 @@ export type ShoeCreateInput = {
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
   waterproof: boolean
+  colors?: Prisma.ShoeCreatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Date | string
   updatedAt?: Date | string
   sizes?: Prisma.ShoeSizeCreateNestedManyWithoutShoeInput
@@ -397,6 +406,7 @@ export type ShoeUncheckedCreateInput = {
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
   waterproof: boolean
+  colors?: Prisma.ShoeCreatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Date | string
   updatedAt?: Date | string
   sizes?: Prisma.ShoeSizeUncheckedCreateNestedManyWithoutShoeInput
@@ -415,6 +425,7 @@ export type ShoeUpdateInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sizes?: Prisma.ShoeSizeUpdateManyWithoutShoeNestedInput
@@ -433,6 +444,7 @@ export type ShoeUncheckedUpdateInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sizes?: Prisma.ShoeSizeUncheckedUpdateManyWithoutShoeNestedInput
@@ -452,6 +464,7 @@ export type ShoeCreateManyInput = {
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
   waterproof: boolean
+  colors?: Prisma.ShoeCreatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -469,6 +482,7 @@ export type ShoeUpdateManyMutationInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -486,6 +500,7 @@ export type ShoeUncheckedUpdateManyInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -530,6 +545,14 @@ export type EnumSeasonNullableListFilter<$PrismaModel = never> = {
   isEmpty?: boolean
 }
 
+export type EnumShoeColorNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShoeColor[] | Prisma.ListEnumShoeColorFieldRefInput<$PrismaModel> | null
+  has?: $Enums.ShoeColor | Prisma.EnumShoeColorFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.ShoeColor[] | Prisma.ListEnumShoeColorFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.ShoeColor[] | Prisma.ListEnumShoeColorFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type ShoeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -544,6 +567,7 @@ export type ShoeCountOrderByAggregateInput = {
   terrain?: Prisma.SortOrder
   season?: Prisma.SortOrder
   waterproof?: Prisma.SortOrder
+  colors?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -607,6 +631,10 @@ export type ShoeCreateseasonInput = {
   set: $Enums.Season[]
 }
 
+export type ShoeCreatecolorsInput = {
+  set: $Enums.ShoeColor[]
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -648,6 +676,11 @@ export type ShoeUpdateseasonInput = {
   push?: $Enums.Season | $Enums.Season[]
 }
 
+export type ShoeUpdatecolorsInput = {
+  set?: $Enums.ShoeColor[]
+  push?: $Enums.ShoeColor | $Enums.ShoeColor[]
+}
+
 export type ShoeCreateNestedOneWithoutSizesInput = {
   create?: Prisma.XOR<Prisma.ShoeCreateWithoutSizesInput, Prisma.ShoeUncheckedCreateWithoutSizesInput>
   connectOrCreate?: Prisma.ShoeCreateOrConnectWithoutSizesInput
@@ -676,6 +709,7 @@ export type ShoeCreateWithoutSizesInput = {
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
   waterproof: boolean
+  colors?: Prisma.ShoeCreatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -694,6 +728,7 @@ export type ShoeUncheckedCreateWithoutSizesInput = {
   terrain?: Prisma.ShoeCreateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeCreateseasonInput | $Enums.Season[]
   waterproof: boolean
+  colors?: Prisma.ShoeCreatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -727,6 +762,7 @@ export type ShoeUpdateWithoutSizesInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -744,6 +780,7 @@ export type ShoeUncheckedUpdateWithoutSizesInput = {
   terrain?: Prisma.ShoeUpdateterrainInput | $Enums.Terrain[]
   season?: Prisma.ShoeUpdateseasonInput | $Enums.Season[]
   waterproof?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colors?: Prisma.ShoeUpdatecolorsInput | $Enums.ShoeColor[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -793,6 +830,7 @@ export type ShoeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   terrain?: boolean
   season?: boolean
   waterproof?: boolean
+  colors?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   sizes?: boolean | Prisma.Shoe$sizesArgs<ExtArgs>
@@ -815,11 +853,12 @@ export type ShoeSelectScalar = {
   terrain?: boolean
   season?: boolean
   waterproof?: boolean
+  colors?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShoeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "brand" | "currency" | "images" | "isActive" | "category" | "usage" | "terrain" | "season" | "waterproof" | "createdAt" | "updatedAt", ExtArgs["result"]["shoe"]>
+export type ShoeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "brand" | "currency" | "images" | "isActive" | "category" | "usage" | "terrain" | "season" | "waterproof" | "colors" | "createdAt" | "updatedAt", ExtArgs["result"]["shoe"]>
 export type ShoeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sizes?: boolean | Prisma.Shoe$sizesArgs<ExtArgs>
   _count?: boolean | Prisma.ShoeCountOutputTypeDefaultArgs<ExtArgs>
@@ -844,6 +883,7 @@ export type $ShoePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     terrain: $Enums.Terrain[]
     season: $Enums.Season[]
     waterproof: boolean
+    colors: $Enums.ShoeColor[]
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["shoe"]>
@@ -1252,6 +1292,7 @@ export interface ShoeFieldRefs {
   readonly terrain: Prisma.FieldRef<"Shoe", 'Terrain[]'>
   readonly season: Prisma.FieldRef<"Shoe", 'Season[]'>
   readonly waterproof: Prisma.FieldRef<"Shoe", 'Boolean'>
+  readonly colors: Prisma.FieldRef<"Shoe", 'ShoeColor[]'>
   readonly createdAt: Prisma.FieldRef<"Shoe", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shoe", 'DateTime'>
 }

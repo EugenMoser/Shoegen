@@ -1,6 +1,7 @@
 import {
   SEASONS,
   SHOE_CATEGORIES,
+  SHOE_COLORS,
   TERRAINS,
 } from '@/modules/shoes/types';
 
@@ -19,6 +20,7 @@ Verfügbare Filterwerte:
 - Waterproof: true (nur setzen wenn der Kunde explizit wasserfeste Schuhe möchte)
 - Preis: minPrice und maxPrice als Zahl in EUR
 - Marke: komma-separierter String, z.B. "Nike,Adidas"
+- Farben: ${SHOE_COLORS.join(", ")}
 
 Antworte immer auf Deutsch. Sei freundlich und kurz.
 

@@ -27,6 +27,7 @@ export default function ProductCard({
       <p>Gelände: {shoe.terrain}</p>
       <p>Saison: {shoe.season}</p>
       <p>Wasserdicht: {shoe.waterproof ? "Ja" : "Nein"}</p>
+      <p>Farben: {shoe.colors.join(", ")}</p>
       <p>
         {shoe.price} {shoe.currency}
       </p>

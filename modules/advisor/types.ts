@@ -1,6 +1,7 @@
 import type {
   Season,
   ShoeCategory,
+  ShoeColor,
   Terrain,
 } from '@/modules/shoes/types';
 
@@ -10,6 +11,7 @@ export interface FilterShoesParams {
   terrains?: Terrain[];
   seasons?: Season[];
   waterproof?: true; // Only filter for waterproof shoes
+  colors?: ShoeColor[]; // e.g. ["Rot", "Blau"]
   minPrice?: number;
   maxPrice?: number;
 }

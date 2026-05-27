@@ -86,6 +86,7 @@ export const ShoeScalarFieldEnum = {
   terrain: 'terrain',
   season: 'season',
   waterproof: 'waterproof',
+  colors: 'colors',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

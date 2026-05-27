@@ -49,6 +49,22 @@ export const SHOE_SIZES = [
   "47",
 ] as const;
 
+export const SHOE_COLORS = [
+  "BLACK",
+  "WHITE",
+  "GREY",
+  "BROWN",
+  "BEIGE",
+  "RED",
+  "BLUE",
+  "GREEN",
+  "YELLOW",
+  "ORANGE",
+  "PINK",
+  "PURPLE",
+  "MULTICOLOR",
+] as const;
+
 export type Shoe = {
   id: string;
   name: string;
@@ -66,6 +82,7 @@ export type Shoe = {
   terrain: Terrain[];
   season: Season[];
   waterproof: boolean;
+  colors: ShoeColor[];
 };
 
 export type ShoeCategory = (typeof SHOE_CATEGORIES)[number];
@@ -74,3 +91,4 @@ export type Season = (typeof SEASONS)[number];
 export type Terrain = (typeof TERRAINS)[number];
 export type Currency = (typeof CURRENCIES)[number];
 export type ShoeSize = (typeof SHOE_SIZES)[number];
+export type ShoeColor = (typeof SHOE_COLORS)[number];

@@ -43,6 +43,7 @@ export async function editShoe(
       terrain: formData.getAll("terrain"),
       season: formData.getAll("season"),
       waterproof: formData.get("waterproof") === "on",
+      colors: formData.getAll("colors"),
     });
 
     if (!parsed.success) {

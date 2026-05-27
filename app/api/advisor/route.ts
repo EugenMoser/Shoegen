@@ -10,6 +10,7 @@ import { buildSystemPrompt } from '@/modules/advisor/utils/systemPrompt';
 import {
   SEASONS,
   SHOE_CATEGORIES,
+  SHOE_COLORS,
   TERRAINS,
 } from '@/modules/shoes/types';
 import { openai } from '@ai-sdk/openai';
@@ -17,7 +18,7 @@ import { openai } from '@ai-sdk/openai';
 export async function POST(req: Request): Promise<Response> {
   const { messages } = await req.json();
 
-  const result = await streamText({
+  const result = streamText({
     model: openai("gpt-4o-mini"),
     system: buildSystemPrompt(),
     messages: await convertToModelMessages(messages),
@@ -33,6 +34,7 @@ export async function POST(req: Request): Promise<Response> {
           minPrice: z.number().optional(),
           maxPrice: z.number().optional(),
           brands: z.string().optional(),
+          colors: z.array(z.enum(SHOE_COLORS)).optional(),
         }),
         execute: async (args) => {
           return { applied: true };

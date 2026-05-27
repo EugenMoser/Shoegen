@@ -677,6 +677,7 @@ export const ShoeScalarFieldEnum = {
   terrain: 'terrain',
   season: 'season',
   waterproof: 'waterproof',
+  colors: 'colors',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -848,6 +849,20 @@ export type ListEnumSeasonFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'Season'
  */
 export type EnumSeasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Season'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeColor[]'
+ */
+export type ListEnumShoeColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeColor[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ShoeColor'
+ */
+export type EnumShoeColorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShoeColor'>
     
 
 

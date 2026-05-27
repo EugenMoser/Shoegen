@@ -6,6 +6,7 @@ import {
   CURRENCIES,
   SEASONS,
   SHOE_CATEGORIES,
+  SHOE_COLORS,
   SHOE_SIZES,
   SHOE_USAGES,
   TERRAINS,
@@ -26,6 +27,7 @@ export const createShoeSchema = z.object({
   terrain: z.array(z.enum(TERRAINS)),
   season: z.array(z.enum(SEASONS)),
   waterproof: z.boolean(),
+  colors: z.array(z.enum(SHOE_COLORS)),
 });
 
 export const editShoeSchema = createShoeSchema.extend({

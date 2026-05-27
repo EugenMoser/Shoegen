@@ -1,4 +1,10 @@
-import { Season, ShoeCategory, ShoeUsage, Terrain } from "../../types";
+import {
+  Season,
+  ShoeCategory,
+  ShoeColor,
+  ShoeUsage,
+  Terrain,
+} from '../../types';
 
 interface ProductAttributesProps {
   shoe: {
@@ -7,6 +13,7 @@ interface ProductAttributesProps {
     terrain: Terrain[];
     season: Season[];
     waterproof: boolean;
+    colors: ShoeColor[];
   };
 }
 
@@ -21,6 +28,7 @@ export default function ProductAttributes({
       <p>Gelände: {shoe.terrain.join(", ")}</p>
       <p>Saison: {shoe.season.join(", ")}</p>
       <p>Wasserdicht: {shoe.waterproof ? "Ja" : "Nein"}</p>
+      <p>Farben: {shoe.colors.join(", ")}</p>
     </>
   );
 }

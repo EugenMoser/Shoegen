@@ -1,30 +1,32 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import AdvisorSidebar from "@/modules/advisor/components/AdvisorSidebar";
+import AdvisorSidebar from '@/modules/advisor/components/AdvisorSidebar';
 import {
   getShoeBrands,
   getShoePrices,
   getShoes,
-} from "@/modules/shoes/actions/getShoe";
-import FilterBar from "@/modules/shoes/components/FilterBar";
-import ProductCard from "@/modules/shoes/components/ProductCard";
-import ShoeHero from "@/modules/shoes/components/ShoeHero";
-import ShoeSearch from "@/modules/shoes/components/ShoeSearch";
+} from '@/modules/shoes/actions/getShoe';
+import FilterBar from '@/modules/shoes/components/FilterBar';
+import ProductCard from '@/modules/shoes/components/ProductCard';
+import ShoeHero from '@/modules/shoes/components/ShoeHero';
+import ShoeSearch from '@/modules/shoes/components/ShoeSearch';
 import {
   Season,
   Shoe,
   ShoeCategory,
+  ShoeColor,
   Terrain,
-} from "@/modules/shoes/types";
+} from '@/modules/shoes/types';
 
 interface ShopPageProps {
   searchParams?: Promise<{
     query?: string;
     brands?: string; // e.g. "Nike", "Adidas"
-    categories?: string; // e.g. "SNEAKER,BOOT"
-    terrains?: string;
-    seasons?: string;
+    categories?: ShoeCategory; // e.g. "SNEAKER,BOOT"
+    terrains?: Terrain; // e.g. "TRAIL,MOUNTAIN"
+    seasons?: Season; // e.g. "SUMMER,WINTER"
     waterproof?: string; // "true"
+    colors?: ShoeColor; // e.g. "Rot,Blau"
     minPrice?: string;
     maxPrice?: string;
   }>;
@@ -51,6 +53,9 @@ export default async function ShopPage({
     | Season[]
     | undefined;
   const waterproof = params?.waterproof ? true : undefined; // don't filter by waterproof if not provided
+  const colors = params?.colors?.split(",").filter(Boolean) as
+    | ShoeColor[]
+    | undefined;
   const minPrice = params?.minPrice
     ? parseFloat(params.minPrice)
     : undefined;
@@ -68,6 +73,7 @@ export default async function ShopPage({
       terrains,
       seasons,
       waterproof,
+      colors,
       minPrice,
       maxPrice,
     }),

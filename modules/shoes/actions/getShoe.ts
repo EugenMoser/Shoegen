@@ -1,9 +1,19 @@
-import { prisma } from "@/lib/db/prisma";
-import { Prisma } from "@/prisma/generated/client";
-import { ActionResult, error, success } from "@/types/action";
+import { prisma } from '@/lib/db/prisma';
+import { Prisma } from '@/prisma/generated/client';
+import {
+  ActionResult,
+  error,
+  success,
+} from '@/types/action';
 
-import { Season, Shoe, ShoeCategory, Terrain } from "../types";
-import { mapSizeRecord } from "../utils/mapShoeSize";
+import {
+  Season,
+  Shoe,
+  ShoeCategory,
+  ShoeColor,
+  Terrain,
+} from '../types';
+import { mapSizeRecord } from '../utils/mapShoeSize';
 
 interface GetShoeParams {
   isActive?: boolean;
@@ -13,6 +23,7 @@ interface GetShoeParams {
   terrains?: Terrain[];
   seasons?: Season[];
   waterproof?: boolean;
+  colors?: ShoeColor[];
   minPrice?: number;
   maxPrice?: number;
 }
@@ -26,6 +37,7 @@ export async function getShoes({
   terrains,
   seasons,
   waterproof,
+  colors,
   minPrice,
   maxPrice,
 }: GetShoeParams = {}): Promise<ActionResult<Shoe[]>> {
@@ -42,11 +54,13 @@ export async function getShoes({
     terrains && { terrain: { hasSome: terrains } },
     seasons && { season: { hasSome: seasons } },
     brands && { brand: { in: brands } },
+    colors && { colors: { hasSome: colors } },
     minPrice !== undefined &&
       maxPrice !== undefined && {
         price: { gte: minPrice, lte: maxPrice },
       },
   ].filter(Boolean) as Prisma.ShoeWhereInput[]; // Filter out undefined conditions
+
   const whereClause: Prisma.ShoeWhereInput = {
     ...(isActive && { isActive: true }), // Filter for active shoes if isActive is true
     ...(conditions.length > 0 && { AND: conditions }), // Add dynamic conditions if any exist
@@ -77,6 +91,7 @@ export async function getShoes({
         terrain: true,
         season: true,
         waterproof: true,
+        colors: true,
       },
     });
 
@@ -127,6 +142,7 @@ export async function getShoeById(
         terrain: true,
         season: true,
         waterproof: true,
+        colors: true,
       },
     });
 

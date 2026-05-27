@@ -11,6 +11,7 @@ import {
   SEASONS,
   Shoe,
   SHOE_CATEGORIES,
+  SHOE_COLORS,
   SHOE_USAGES,
   TERRAINS,
 } from '@/modules/shoes/types';
@@ -233,6 +234,26 @@ export default function ShoeForm({ shoe }: ShoeFormProps) {
                   className="rounded"
                 />
                 <span className="text-sm">{terrain}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <fieldset className="border p-4 rounded bg-gray-50">
+          <legend className="font-semibold px-2">Farben</legend>
+          <div className="flex flex-wrap gap-4 mt-2">
+            {SHOE_COLORS.map((color) => (
+              <label
+                key={color}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  name="colors"
+                  value={color}
+                  defaultChecked={shoe?.colors?.includes(color)}
+                  className="rounded"
+                />
+                <span className="text-sm">{color}</span>
               </label>
             ))}
           </div>

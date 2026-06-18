@@ -54,7 +54,7 @@ describe("AdvisorChat", () => {
           role: "assistant",
           parts: [
             {
-              type: "dynamic-tool",
+              type: "tool-filterShoes",
               toolName: "filterShoes",
               state: "output-available",
               input: { categories: ["HIKING"], waterproof: true },
@@ -84,8 +84,7 @@ describe("AdvisorChat", () => {
           role: "assistant",
           parts: [
             {
-              type: "dynamic-tool",
-              toolName: "filterShoes",
+              type: "tool-filterShoes",
               state: "input-available",
               input: { categories: ["SNEAKER"] },
             },

@@ -23,7 +23,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/eugen/Project/Shoegen/shoegen/prisma/generated",
+      "value": "/Users/eugen/Projects/Shoegen/site/prisma/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -41,7 +41,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/eugen/Project/Shoegen/shoegen/prisma/schema.prisma",
+    "sourceFilePath": "/Users/eugen/Projects/Shoegen/site/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "..",
@@ -51,7 +51,6 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
